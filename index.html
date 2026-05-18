@@ -1,0 +1,4181 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#3e5675" />
+<title>Europa 遊記 · 14 Days</title>
+<style>
+/* ============================================================
+   Europa 14 Days · Mobile-First Travel Notebook
+   配色：移動日 / 維也納 / 布達佩斯 / 尼斯 / 蔚藍海岸 / 威東河峽谷
+   風格：手帳 + 明信片 + 車票存根 + 手繪地圖（首頁）
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { font-size: 16px; }
+body {
+  font-family: "Noto Serif TC", "Source Han Serif TC", "PingFang TC", "Songti TC", serif;
+  color: var(--text);
+  background: #ecd9a4;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ---------------- Phase color variables ---------------- */
+:root {
+  --text: #2b1f12;
+  --text-soft: #6e5b48;
+  --text-faint: #9a8669;
+  /* 統一底色（米白偏暖，淡到不會壓字色） */
+  --paper: #fdfaed;
+  --paper-warm: #fefcf4;
+  --paper-deep: #f1e2b7;
+  --line: #d6bd80;
+  --line-soft: #ead8ad;
+  --accent: #c89b2e;
+  --soft: #2f6f9e;
+  --phase-label: "歐洲";
+  --font-sans: "Helvetica Neue", "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
+}
+
+/* 統一底色（採用尼斯淺米色），各 phase 只變字體 / 線條的顏色 */
+[data-phase="travel"]   { --accent: #b8744c; --soft: #d8835f; --phase-label: "移動日"; }
+[data-phase="vienna"]   { --accent: #6f9050; --soft: #b8923a; --phase-label: "維也納"; }
+[data-phase="budapest"] { --accent: #c89b2e; --soft: #2f6f9e; --phase-label: "布達佩斯"; }
+[data-phase="nice"]     { --accent: #2a8fb5; --soft: #d8714f; --phase-label: "尼斯"; }
+[data-phase="riviera"]  { --accent: #b86f6a; --soft: #7a934f; --phase-label: "蔚藍海岸"; }
+[data-phase="verdon"]   { --accent: #2fa089; --soft: #b89b6a; --phase-label: "威東河峽谷"; }
+
+/* ---------------- App container & paper ---------------- */
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--paper);
+  min-height: 100vh;
+  box-shadow: 0 0 28px rgba(80,55,30,0.18);
+  overflow: clip;  /* allow sticky descendants */
+}
+.paper {
+  position: relative;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255,250,235,0.6) 0%, transparent 40%),
+    radial-gradient(circle at 80% 88%, rgba(170,130,75,0.07) 0%, transparent 45%),
+    var(--paper);
+}
+.paper::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(120,85,40,0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+}
+.paper > * { position: relative; z-index: 1; }
+
+/* ---------------- View toggling ---------------- */
+[data-view="home"] .day-view,
+[data-view="home"] .city-view { display: none; }
+[data-view="day"] .home-view,
+[data-view="day"] .city-view { display: none; }
+[data-view="city"] .home-view,
+[data-view="city"] .day-view { display: none; }
+
+/* ============================================================
+   HOME VIEW
+   ============================================================ */
+.hero {
+  padding: 60px 28px 32px;
+  text-align: center;
+  position: relative;
+  min-height: 280px;
+}
+.hero__season {
+  font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+  font-style: italic;
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #1a82bf;
+  -webkit-text-stroke: 2.5px #ffffff;
+  paint-order: stroke fill;
+  text-shadow:
+    -2px -2px 0 #fff, 2px -2px 0 #fff,
+    -2px  2px 0 #fff, 2px  2px 0 #fff,
+    -2px  0   0 #fff, 2px  0   0 #fff,
+     0  -2px  0 #fff, 0   2px  0 #fff;
+  line-height: 1;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+}
+.hero__cities {
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+  line-height: 1.75;
+}
+.hero__city[data-phase="budapest"] { color: #c89b2e; }
+.hero__city[data-phase="nice"]     { color: #2a8fb5; }
+.hero__city[data-phase="riviera"]  { color: #b86f6a; }
+.hero__city[data-phase="verdon"]   { color: #2fa089; }
+.hero__city[data-phase="vienna"]   { color: #6f9050; }
+.hero__dot {
+  color: var(--text-faint);
+  font-weight: 400;
+  margin: 0 4px;
+}
+.hero__dates {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+/* Decorative ornaments around hero (absolute positioned) */
+.hero__deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero__deco svg { width: 100%; height: 100%; display: block; }
+.hero__deco--plane {
+  width: 56px; height: 56px;
+  top: 22px; right: 18px;
+  transform: rotate(-12deg);
+}
+.hero__deco--champagne {
+  width: 30px; height: 58px;
+  top: 18px; left: 22px;
+}
+.hero__deco--seagull {
+  width: 90px; height: 24px;
+  top: 40px; left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.75;
+}
+
+.hero__deco--shell {
+  width: 40px; height: 32px;
+  top: 78px; left: 10px;
+  transform: rotate(-12deg);
+  opacity: 0.9;
+}
+.hero__deco--palm {
+  width: 52px; height: 36px;
+  top: 68px; right: 6px;
+  transform: rotate(22deg);
+  opacity: 0.85;
+}
+
+/* Bottom decoration row — flows inline below the dates */
+.hero__bottom-deco {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 36px;
+  margin-top: 24px;
+  position: relative;
+  z-index: 2;
+}
+.hero__bottom-icon {
+  display: inline-block;
+  pointer-events: none;
+}
+.hero__bottom-icon svg { width: 100%; height: 100%; display: block; }
+.hero__bottom-icon--coconut  { width: 36px; height: 56px; opacity: 0.92; }
+.hero__bottom-icon--umbrella { width: 40px; height: 54px; opacity: 0.92; }
+.hero__bottom-icon--chair    { width: 50px; height: 50px; opacity: 0.92; }
+
+.hero__divider {
+  margin: 22px auto 0;
+  width: 60px;
+  height: 18px;
+  position: relative;
+}
+.hero__divider::before,
+.hero__divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 1px;
+  background: var(--text-soft);
+}
+.hero__divider::before { left: 0; }
+.hero__divider::after { right: 0; }
+.hero__divider span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+/* ---------- Overview map ---------- */
+.overview-map {
+  padding: 12px 20px 8px;
+}
+.overview-map__frame {
+  position: relative;
+  background: #fbf0d0;
+  border: 1px solid rgba(180,140,55,0.35);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 40px rgba(180,140,55,0.15),
+    0 2px 10px rgba(80,55,25,0.1);
+}
+.overview-map__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.overview-map__caption {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-faint);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ---------- Quick nav (pre-trip + cities) ---------- */
+.quick-nav {
+  padding: 22px 20px 6px;
+}
+.quick-nav__pretrip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  border-left: 3px solid #c89b2e;
+  border-radius: 2px;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, transform 0.15s;
+}
+.quick-nav__pretrip:hover { background: var(--paper-deep); }
+.quick-nav__pretrip:active { transform: translateY(1px); }
+.quick-nav__icon {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 22px;
+  color: #c89b2e;
+  font-weight: 500;
+  line-height: 1;
+}
+.quick-nav__label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.quick-nav__label-en {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 500;
+  color: #8a6620;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+.quick-nav__label-zh {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--text-soft);
+}
+.quick-nav__arrow {
+  font-size: 20px;
+  color: #c89b2e;
+  font-family: "Cormorant Garamond", serif;
+  line-height: 1;
+}
+
+.quick-nav__cities {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+.quick-nav__city {
+  padding: 14px 6px 12px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  position: relative;
+}
+.quick-nav__city::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -1px;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 2px;
+  background: var(--phase-accent);
+}
+.quick-nav__city:hover { background: var(--paper-deep); }
+.quick-nav__city:active { transform: translateY(1px); }
+.quick-nav__city-en {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--phase-accent);
+  line-height: 1.1;
+}
+.quick-nav__city-zh {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+.quick-nav__city[data-phase="budapest"] { --phase-accent: #c89b2e; }
+.quick-nav__city[data-phase="nice"]     { --phase-accent: #2a8fb5; }
+.quick-nav__city[data-phase="vienna"]   { --phase-accent: #6f9050; }
+
+/* ---------- Cities header (chapter opener) ---------- */
+.cities-header {
+  text-align: center;
+  margin: 32px 0 16px;
+  padding: 0 24px;
+}
+.cities-header__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.cities-header__title {
+  font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.cities-header__title::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: #c89b2e;
+  margin: 9px auto 8px;
+  opacity: 0.6;
+}
+.cities-header__sub {
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--text-soft);
+}
+
+/* ---------- Cities list (home TOC) ---------- */
+.cities-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.city-item {
+  display: grid;
+  grid-template-columns: 64px 1fr 16px;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 14px 10px 10px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-left: 4px solid var(--phase-accent, var(--line));
+  border-radius: 2px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.city-item:active { transform: translateY(1px); }
+.city-item[data-phase="budapest"] {
+  background: linear-gradient(to right, rgba(200,155,46,0.13), var(--paper-warm) 38%);
+}
+.city-item[data-phase="budapest"]:hover {
+  background: linear-gradient(to right, rgba(200,155,46,0.22), var(--paper-warm) 38%);
+}
+.city-item[data-phase="nice"] {
+  background: linear-gradient(to right, rgba(42,143,181,0.12), var(--paper-warm) 38%);
+}
+.city-item[data-phase="nice"]:hover {
+  background: linear-gradient(to right, rgba(42,143,181,0.22), var(--paper-warm) 38%);
+}
+.city-item[data-phase="verdon"] {
+  background: linear-gradient(to right, rgba(47,160,137,0.12), var(--paper-warm) 38%);
+}
+.city-item[data-phase="verdon"]:hover {
+  background: linear-gradient(to right, rgba(47,160,137,0.22), var(--paper-warm) 38%);
+}
+.city-item[data-phase="vienna"] {
+  background: linear-gradient(to right, rgba(111,144,80,0.12), var(--paper-warm) 38%);
+}
+.city-item[data-phase="vienna"]:hover {
+  background: linear-gradient(to right, rgba(111,144,80,0.22), var(--paper-warm) 38%);
+}
+
+.city-item__thumb {
+  width: 64px;
+  height: 48px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(80,55,25,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.city-item__thumb img,
+.city-item__thumb svg { width: 100%; height: 100%; display: block; }
+.city-item__thumb img { object-fit: cover; }
+.city-item__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+
+/* ---------- Home decorative ornaments (hand-drawn motifs) ---------- */
+.home-ornament {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0 4px;
+  opacity: 0.85;
+}
+.home-ornament svg {
+  width: 92px;
+  height: auto;
+  display: block;
+}
+
+.city-item__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.city-item__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.city-item__en {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--phase-accent);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+.city-item__zh {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--text);
+}
+.city-item__days {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+.city-item__sub {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  color: var(--text-soft);
+  letter-spacing: 0.03em;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.city-item__arrow {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  color: var(--phase-accent);
+  font-weight: 400;
+  line-height: 1;
+}
+.city-item[data-phase="budapest"] { --phase-accent: #c89b2e; }
+.city-item[data-phase="nice"]     { --phase-accent: #2a8fb5; }
+.city-item[data-phase="verdon"]   { --phase-accent: #2fa089; }
+.city-item[data-phase="vienna"]   { --phase-accent: #6f9050; }
+
+/* ---------- Section label ---------- */
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  color: var(--text-soft);
+  text-align: center;
+  margin: 28px 0 14px;
+  position: relative;
+}
+.section-label::before,
+.section-label::after {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--text-soft);
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+/* ---------- Day tickets strip (home) ---------- */
+.day-tickets {
+  padding: 0 20px 40px;
+}
+.day-tickets__strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ticket-stub {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-left: 2px solid var(--phase-accent, var(--line));
+  border-radius: 2px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  position: relative;
+  transition: background 0.15s, transform 0.15s;
+}
+.ticket-stub:hover { background: var(--paper-deep); }
+.ticket-stub:active { transform: translateY(1px); }
+
+.ticket-stub__d {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--phase-accent, var(--accent));
+  text-align: center;
+  line-height: 1;
+}
+.ticket-stub__d span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 8.5px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--text-faint);
+  margin-top: 6px;
+}
+.ticket-stub__title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+.ticket-stub__sub {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  color: var(--text-soft);
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+.ticket-stub__date {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+}
+.ticket-stub__date strong {
+  font-weight: 500;
+}
+.ticket-stub[data-phase="travel"]   { --phase-accent: #b8744c; }
+.ticket-stub[data-phase="vienna"]   { --phase-accent: #6f9050; }
+.ticket-stub[data-phase="budapest"] { --phase-accent: #c89b2e; }
+.ticket-stub[data-phase="nice"]     { --phase-accent: #2a8fb5; }
+.ticket-stub[data-phase="riviera"]  { --phase-accent: #b86f6a; }
+.ticket-stub[data-phase="verdon"]   { --phase-accent: #2fa089; }
+
+/* watercolor wash by phase (matching cities) */
+.ticket-stub[data-phase="travel"]   { background: linear-gradient(to right, rgba(184,116,76,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="travel"]:hover   { background: linear-gradient(to right, rgba(184,116,76,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="vienna"]   { background: linear-gradient(to right, rgba(111,144,80,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="vienna"]:hover   { background: linear-gradient(to right, rgba(111,144,80,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="budapest"] { background: linear-gradient(to right, rgba(200,155,46,0.13), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="budapest"]:hover { background: linear-gradient(to right, rgba(200,155,46,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="nice"]     { background: linear-gradient(to right, rgba(42,143,181,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="nice"]:hover     { background: linear-gradient(to right, rgba(42,143,181,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="riviera"]  { background: linear-gradient(to right, rgba(184,111,106,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="riviera"]:hover  { background: linear-gradient(to right, rgba(184,111,106,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="verdon"]   { background: linear-gradient(to right, rgba(47,160,137,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="verdon"]:hover   { background: linear-gradient(to right, rgba(47,160,137,0.22), var(--paper-warm) 38%); }
+
+.ticket-stub__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.ticket-stub__phase {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--phase-accent);
+  display: inline-block;
+  width: fit-content;
+  border-bottom: 1px solid var(--phase-accent);
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+}
+
+/* ---------- Home footer ---------- */
+.home-foot {
+  padding: 18px 28px 36px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--text-faint);
+}
+
+/* ============================================================
+   DAY VIEW
+   ============================================================ */
+.day-view {
+  min-height: 100vh;
+}
+
+/* ---------- Day nav (top) ---------- */
+.day-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--paper);
+  padding: 10px 16px 10px;
+  border-bottom: 1px solid var(--line-soft);
+  box-shadow: 0 4px 12px rgba(80,55,30,0.06);
+}
+.day-nav__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.day-nav__home {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  padding: 6px 10px 6px 0;
+  cursor: pointer;
+}
+.day-nav__home:hover { color: var(--accent); }
+.day-nav__progress {
+  margin-left: auto;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.day-nav__strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.day-nav__strip::-webkit-scrollbar { display: none; }
+.date-card {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: 72px;
+  padding: 0;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  text-align: center;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.15s;
+}
+.date-card__top {
+  height: 2px;
+  background: var(--phase-accent, var(--line));
+  opacity: 0.7;
+}
+.date-card__inner {
+  padding: 5px 4px 6px;
+}
+.date-card__dow {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: var(--text-soft);
+}
+.date-card__day {
+  font-family: var(--font-sans);
+  font-size: 8.5px;
+  color: var(--text-faint);
+  letter-spacing: 0.14em;
+  margin-top: 1px;
+}
+.date-card__date {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--text);
+  font-size: 18px;
+  margin: 4px 0;
+  line-height: 1.1;
+}
+.date-card__mon,
+.date-card__num {
+  font-size: inherit;
+  vertical-align: baseline;
+}
+.date-card__sep {
+  font-size: inherit;
+  margin: 0 1px;
+  color: var(--text-soft);
+}
+.date-card__city {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--phase-accent, var(--text-soft));
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+  opacity: 0.85;
+}
+
+/* Watercolor wash by phase (top → fade) */
+.date-card[data-phase="travel"]   { background: linear-gradient(180deg, rgba(184,116,76,0.07), var(--paper-warm) 60%); --phase-accent: #b8744c; }
+.date-card[data-phase="budapest"] { background: linear-gradient(180deg, rgba(200,155,46,0.08), var(--paper-warm) 60%); --phase-accent: #c89b2e; }
+.date-card[data-phase="nice"]     { background: linear-gradient(180deg, rgba(42,143,181,0.07), var(--paper-warm) 60%); --phase-accent: #2a8fb5; }
+.date-card[data-phase="riviera"]  { background: linear-gradient(180deg, rgba(184,111,106,0.07), var(--paper-warm) 60%); --phase-accent: #b86f6a; }
+.date-card[data-phase="verdon"]   { background: linear-gradient(180deg, rgba(47,160,137,0.07), var(--paper-warm) 60%); --phase-accent: #2fa089; }
+.date-card[data-phase="vienna"]   { background: linear-gradient(180deg, rgba(111,144,80,0.07), var(--paper-warm) 60%); --phase-accent: #6f9050; }
+
+.date-card.is-active {
+  background: var(--phase-accent, var(--accent));
+  border-color: var(--phase-accent, var(--accent));
+}
+.date-card.is-active .date-card__top { background: rgba(255,255,255,0.55); }
+.date-card.is-active .date-card__dow,
+.date-card.is-active .date-card__day,
+.date-card.is-active .date-card__date,
+.date-card.is-active .date-card__mon,
+.date-card.is-active .date-card__num,
+.date-card.is-active .date-card__sep,
+.date-card.is-active .date-card__city { color: #fff; }
+
+/* ---------- Day content ---------- */
+.day-content {
+  padding: 4px 20px 60px;
+}
+
+/* ---------- Postcard cover ---------- */
+.postcard {
+  position: relative;
+  background: var(--paper-warm);
+  padding: 10px 10px 14px;
+  margin: 6px 0 22px;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(80,55,25,0.12);
+  transform: rotate(-0.4deg);
+}
+.postcard__img,
+.postcard__placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background:
+    linear-gradient(135deg, var(--paper-deep) 0%, var(--paper-warm) 100%);
+  border-radius: 2px;
+  position: relative;
+}
+.postcard__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--text-faint);
+}
+.postcard__placeholder::before {
+  content: "POSTCARD · " var(--phase-label);
+  white-space: pre;
+}
+.postcard__caption {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: var(--text-soft);
+  text-align: center;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+.postcard__stamp {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 54px;
+  height: 64px;
+  border: 1.5px solid var(--accent);
+  background: rgba(245,236,221,0.85);
+  padding: 4px;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-align: center;
+  line-height: 1.4;
+  transform: rotate(6deg);
+}
+.postcard__stamp strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ---------- Day meta ---------- */
+.day-meta {
+  text-align: center;
+  margin: 18px 0 12px;
+}
+.day-meta__phase {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: #fff;
+  background: var(--accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.day-meta__title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  line-height: 1.3;
+}
+.day-meta__subtitle {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  margin-top: 6px;
+}
+
+/* ---------- Day tabs ---------- */
+.day-tabs {
+  display: flex;
+  gap: 0;
+  margin: 22px 0 18px;
+  border-bottom: 1px solid var(--line);
+}
+.day-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--text-faint);
+  padding: 12px 0;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+.day-tab.is-active { color: var(--accent); }
+.day-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 20%; right: 20%;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* ---------- Trip card (schedule) ---------- */
+.trip-card {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+  position: relative;
+}
+.trip-card:last-child { border-bottom: none; }
+
+.trip-card__time {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--accent);
+  line-height: 1.3;
+  padding-top: 3px;
+  letter-spacing: 0.02em;
+}
+.trip-card__time--empty {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+.trip-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.trip-card__name a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px dotted currentColor;
+  padding-bottom: 1px;
+}
+.trip-card__name a:hover { color: var(--soft); }
+
+.trip-card__desc,
+.trip-card__note {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-soft);
+  margin-top: 6px;
+  white-space: pre-line;
+}
+.trip-card__note {
+  position: relative;
+  background: var(--paper-warm);
+  border-left: 2px solid var(--soft);
+  padding: 8px 10px 8px 12px;
+  border-radius: 0 4px 4px 0;
+  font-size: 13px;
+  color: var(--text);
+}
+.trip-card__note::before {
+  content: "註";
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--soft);
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+.trip-card__actions {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.btn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 5px 11px;
+  background: transparent;
+  border: 1px solid var(--soft);
+  color: var(--soft);
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-chip:hover { background: var(--soft); color: #fff; }
+
+/* ---------- Ticket-stub style trip card (transit) ---------- */
+.trip-card--transit .trip-card__content { padding: 0; }
+.ticket-row {
+  display: flex;
+  align-items: stretch;
+  background: var(--paper-warm);
+  border: 1px dashed var(--soft);
+  border-radius: 8px;
+  padding: 12px 14px;
+  position: relative;
+  margin-top: 4px;
+}
+.ticket-row::before,
+.ticket-row::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px; height: 8px;
+  background: var(--paper);
+  border-radius: 50%;
+  box-shadow: inset 0 0 1px rgba(0,0,0,0.1);
+}
+.ticket-row::before { left: -4px; }
+.ticket-row::after { right: -4px; }
+.ticket-row__route {
+  flex: 1;
+}
+.ticket-row__from,
+.ticket-row__to {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.ticket-row__arrow {
+  font-family: var(--font-sans);
+  margin: 0 8px;
+  color: var(--text-soft);
+}
+.ticket-row__num {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+.ticket-row__time {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.ticket-row__time strong {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 17px;
+  display: block;
+}
+
+/* ---------- Intro card ---------- */
+.intro-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.intro-card__img,
+.intro-card__img-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, var(--paper-deep), var(--paper-warm));
+  position: relative;
+}
+.intro-card__img-placeholder::after {
+  content: "INTRO · " var(--phase-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--text-faint);
+}
+.intro-card__body { padding: 14px 14px 16px; }
+.intro-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.intro-card__title a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1.5px dotted currentColor;
+}
+.intro-card__text {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: var(--text);
+  white-space: pre-line;
+}
+.intro-card__text a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+
+/* ---------- Notes list ---------- */
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.notes-list li {
+  position: relative;
+  padding: 12px 0 12px 22px;
+  border-bottom: 1px dashed var(--line);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.notes-list li:last-child { border-bottom: none; }
+.notes-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: var(--soft);
+  font-size: 12px;
+}
+
+/* ---------- Hotel block ---------- */
+.day-hotel {
+  margin-top: 22px;
+  padding: 12px 14px;
+  background: var(--paper-warm);
+  border: 1px dashed var(--soft);
+  border-radius: 8px;
+}
+.day-hotel__label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--soft);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.day-hotel__name {
+  font-size: 15px;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+}
+
+/* ---------- Empty state ---------- */
+.empty {
+  padding: 36px 0;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--text-faint);
+}
+
+/* ============================================================
+   CITY VIEW (chapter page)
+   ============================================================ */
+.city-view { min-height: 100vh; }
+
+.city-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 80%, rgba(245,236,221,0));
+  padding: 14px 16px 12px;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.city-nav__breadcrumb {
+  margin-left: auto;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.city-content { padding: 4px 20px 60px; }
+
+.city-banner {
+  margin: 6px 0 24px;
+  padding: 10px 10px 14px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(80,55,25,0.12);
+  position: relative;
+  transform: rotate(-0.3deg);
+}
+.city-banner__img,
+.city-banner__placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--paper-deep), var(--paper-warm));
+  border-radius: 2px;
+  position: relative;
+}
+.city-banner__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--text-faint);
+}
+.city-banner__placeholder::before {
+  content: "POSTCARD · " var(--phase-label);
+  white-space: pre;
+}
+.city-banner__caption {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: 0.32em;
+  color: var(--soft);
+  text-align: center;
+  margin-top: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.city-banner__caption-sep {
+  color: var(--text-faint);
+  font-weight: 400;
+  margin: 0 8px;
+}
+
+.city-meta {
+  text-align: center;
+  margin: 18px 0 12px;
+}
+.city-meta__name {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 42px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  line-height: 1;
+}
+.city-meta__zh {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: var(--text);
+  margin-top: 6px;
+}
+.city-meta__days {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--soft);
+  margin-top: 12px;
+  padding: 3px 12px;
+  border: 1px solid var(--soft);
+  border-radius: 14px;
+}
+.city-meta__sub {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+/* City tabs (介紹/美食/交通/須知) — segmented pill control */
+.city-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 26px 0 22px;
+  padding: 5px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-radius: 30px;
+  box-shadow: inset 0 1px 3px rgba(80,55,25,0.06);
+}
+.city-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-soft);
+  padding: 9px 4px;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.city-tab:hover { color: var(--text); }
+.city-tab.is-active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(80,55,30,0.18);
+}
+
+.city-panel { padding-top: 4px; }
+
+/* Panel section header (decorative italic label at top of each tab) */
+.panel-header {
+  text-align: center;
+  margin: 4px 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+  position: relative;
+}
+.panel-header::before,
+.panel-header::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  height: 1px;
+  background: var(--soft);
+  opacity: 0.5;
+}
+.panel-header::before { left: calc(50% - 110px); }
+.panel-header::after  { right: calc(50% - 110px); }
+.panel-header__zh {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--text-faint);
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+/* Intro panel */
+.city-intro {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text);
+}
+.city-intro p { margin-bottom: 16px; }
+.city-intro p:last-child { margin-bottom: 0; }
+
+/* Food items */
+.food-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.food-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  padding: 12px 12px 14px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.food-card + .food-card {
+  margin-top: 18px;
+}
+.food-card + .food-card::before {
+  content: "·  ·  ·";
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--soft);
+  letter-spacing: 0.6em;
+  font-size: 14px;
+  opacity: 0.6;
+}
+/* Sub-grouping for foods (e.g. Nice chapter has 7 towns) */
+.food-group {
+  margin-bottom: 32px;
+}
+.food-group:last-child { margin-bottom: 0; }
+.food-group__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--soft);
+}
+.food-group__name {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.food-group__zh {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--soft);
+}
+
+/* Sub-grouping for notes (same pattern as food-group) */
+.note-group {
+  margin-bottom: 26px;
+}
+.note-group:last-child { margin-bottom: 0; }
+.note-group__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--soft);
+}
+.note-group__name {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.1;
+}
+.note-group__zh {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--soft);
+}
+.food-card__img,
+.food-card__img-ph {
+  width: 96px;
+  height: 96px;
+  background: linear-gradient(135deg, var(--paper-deep), var(--paper-warm));
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  object-fit: cover;
+  display: block;
+}
+.food-card__img-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--text-faint);
+}
+.food-card__body { min-width: 0; }
+.food-card__local {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.food-card__local-romaji {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--text-soft);
+  display: block;
+  margin-top: 2px;
+}
+.food-card__zh {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.food-card__desc {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-soft);
+  margin-top: 6px;
+}
+
+/* Transit blocks */
+.transit-block,
+.notes-block {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--line);
+}
+.transit-block:last-child,
+.notes-block:last-child { border-bottom: none; padding-bottom: 0; }
+.transit-block h4,
+.notes-block h4 {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--accent);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.transit-block h4::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--soft);
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.transit-block p,
+.notes-block ul { margin: 0; }
+.transit-block p {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text);
+  white-space: pre-line;
+  padding-left: 18px;
+  border-left: 1px solid var(--line-soft);
+}
+.notes-block ul { list-style: none; padding: 0; }
+.notes-block li {
+  position: relative;
+  padding: 5px 0 5px 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.notes-block li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  color: var(--soft);
+  font-size: 9px;
+}
+.notes-block li:nth-child(odd)::before {
+  color: var(--accent);
+}
+
+/* City days links */
+.city-days {
+  margin-top: 32px;
+  padding-top: 22px;
+  border-top: 1px dashed var(--line);
+}
+.city-days__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--text-soft);
+  text-align: center;
+  margin-bottom: 14px;
+}
+.city-days__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 8px;
+}
+.city-day-chip {
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-left: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 10px 4px 11px;
+  text-align: center;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+.city-day-chip:hover { background: var(--paper-deep); }
+.city-day-chip:active { transform: translateY(1px); }
+.city-day-chip__d {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1;
+}
+.city-day-chip__date {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  margin-top: 4px;
+}
+.city-day-chip__loc {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: 4px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 2px;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   FOOD MODAL
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+.modal.is-open { visibility: visible; pointer-events: auto; }
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(40,28,18,0);
+  transition: background 0.2s;
+}
+.modal.is-open .modal__backdrop { background: rgba(40,28,18,0.5); }
+.modal__sheet {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 80vh;
+  background: var(--paper);
+  border-radius: 18px 18px 0 0;
+  padding: 14px 18px 36px;
+  transform: translateY(100%);
+  transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow: 0 -8px 40px rgba(40,28,18,0.3);
+  overflow-y: auto;
+}
+.modal.is-open .modal__sheet { transform: translateY(0); }
+.modal__handle {
+  width: 36px; height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  margin: 0 auto 12px;
+}
+.modal__close {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-soft);
+  cursor: pointer;
+  width: 32px; height: 32px;
+}
+.modal__title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.modal__subtitle {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-soft);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.modal__food-item {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.modal__food-item:last-child { border-bottom: none; }
+.modal__food-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.modal__food-info {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-top: 4px;
+  line-height: 1.7;
+}
+/* Pre-trip tabbed structure */
+.pretrip-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+  padding: 4px;
+  background: var(--paper-deep);
+  border-radius: 24px;
+}
+.pretrip-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  padding: 7px 4px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.pretrip-tab.is-active {
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(80,55,25,0.12);
+}
+.pretrip-tab[data-phase-tab="budapest"].is-active { color: #c89b2e; }
+.pretrip-tab[data-phase-tab="nice"].is-active     { color: #2a8fb5; }
+.pretrip-tab[data-phase-tab="vienna"].is-active   { color: #6f9050; }
+
+.pretrip-panel { padding-bottom: 8px; }
+.pretrip-section {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--line);
+}
+.pretrip-section:last-child { border-bottom: none; padding-bottom: 0; }
+.pretrip-section:nth-child(1) { --section-color: #b8744c; }
+.pretrip-section:nth-child(2) { --section-color: #c89b2e; }
+.pretrip-section:nth-child(3) { --section-color: #2a8fb5; }
+.pretrip-section:nth-child(4) { --section-color: #b86f6a; }
+.pretrip-section:nth-child(5) { --section-color: #6f9050; }
+
+.pretrip-section__h4 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.pretrip-section__title {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--section-color, #c89b2e);
+  line-height: 1.1;
+}
+.pretrip-section__sub {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--text-soft);
+}
+.pretrip-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pretrip-section li {
+  position: relative;
+  padding: 4px 0 4px 16px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.pretrip-section li::before {
+  content: "·";
+  position: absolute;
+  left: 4px;
+  color: var(--section-color, #c89b2e);
+  font-weight: 700;
+}
+
+/* ============================================================
+   Wider screens (still keep mobile look, just larger)
+   ============================================================ */
+@media (min-width: 600px) {
+  body { background: #e5c98a; }
+  .app {
+    margin: 24px auto;
+    border-radius: 16px;
+    min-height: calc(100vh - 48px);
+  }
+  .hero__title { font-size: 64px; }
+}
+
+/* SVG map text styles */
+.map-label {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 11px;
+  fill: var(--text);
+}
+.map-label-sm {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 10px;
+  fill: var(--text-soft);
+}
+.map-tiny {
+  font-family: sans-serif;
+  font-size: 7px;
+  fill: var(--text-soft);
+  letter-spacing: 0.1em;
+}
+</style>
+</head>
+
+<body data-view="home" data-phase="budapest">
+
+<main class="app">
+
+  <!-- ============================================================
+       HOME VIEW
+       ============================================================ -->
+  <section class="home-view paper">
+
+    <header class="hero">
+      <span class="hero__deco hero__deco--plane"     id="heroPlane"></span>
+      <span class="hero__deco hero__deco--champagne" id="heroChampagne"></span>
+      <span class="hero__deco hero__deco--seagull"   id="heroSeagull"></span>
+      <span class="hero__deco hero__deco--shell"     id="heroShell"></span>
+      <span class="hero__deco hero__deco--palm"      id="heroPalm"></span>
+
+      <h1 class="hero__season">2026 Summer</h1>
+      <p class="hero__cities">
+        <span class="hero__city" data-phase="budapest">BUDAPEST</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__city" data-phase="nice">NICE</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__city" data-phase="riviera">RIVIERA</span>
+        <br>
+        <span class="hero__city" data-phase="verdon">VERDON</span>
+        <span class="hero__dot">·</span>
+        <span class="hero__city" data-phase="vienna">VIENNA</span>
+      </p>
+      <p class="hero__dates">05/28 — 06/10</p>
+
+      <div class="hero__bottom-deco">
+        <span class="hero__bottom-icon hero__bottom-icon--umbrella" id="heroUmbrella"></span>
+        <span class="hero__bottom-icon hero__bottom-icon--chair"    id="heroChair"></span>
+        <span class="hero__bottom-icon hero__bottom-icon--coconut"  id="heroCoconut"></span>
+      </div>
+    </header>
+
+    <!-- Hand-drawn style overview map (placeholder for watercolor) -->
+    <section class="overview-map">
+      <div class="overview-map__frame">
+        <svg class="overview-map__svg" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <title>歐洲路線總覽</title>
+
+          <!-- Sky / paper wash -->
+          <rect width="360" height="320" fill="#fbf0d0"/>
+
+          <!-- Sea (Mediterranean) — fresh azure watercolor wash -->
+          <path d="M 0,232 Q 70,250 150,242 Q 230,252 320,238 L 360,260 L 360,320 L 0,320 Z"
+                fill="#a9d4e8" opacity="0.65"/>
+          <path d="M 0,250 Q 80,265 160,258 Q 240,268 360,254 L 360,320 L 0,320 Z"
+                fill="#79b8d4" opacity="0.5"/>
+
+          <!-- Simplified Europe land mass -->
+          <path d="M 25,80 Q 90,55 175,70 Q 250,60 320,90 Q 340,140 325,200 Q 290,225 245,222 Q 220,240 195,230 Q 165,238 140,225 Q 105,235 70,220 Q 35,200 28,150 Q 25,115 25,80 Z"
+                fill="#f0dba8" stroke="#b59558" stroke-width="0.8" stroke-linejoin="round" opacity="0.9"/>
+
+          <!-- Italy boot hint -->
+          <path d="M 175,220 Q 168,250 158,275 Q 155,285 162,290"
+                stroke="#b59558" stroke-width="0.7" fill="none" opacity="0.6"/>
+
+          <!-- Corsica / Sardinia hint -->
+          <ellipse cx="150" cy="260" rx="6" ry="9" fill="#f0dba8" stroke="#b59558" stroke-width="0.6" opacity="0.75"/>
+
+          <!-- ROUTE LINES (dashed) -->
+          <!-- Vienna → Budapest (train, short) -->
+          <path d="M 240,135 L 270,150" stroke="#7d9d5e" stroke-width="2.2" fill="none" stroke-dasharray="3,3" stroke-linecap="round"/>
+          <!-- Budapest → Nice (flight) -->
+          <path d="M 270,150 Q 220,180 195,222" stroke="#c89b2e" stroke-width="2.2" fill="none" stroke-dasharray="6,4" stroke-linecap="round"/>
+          <!-- Nice → Riviera small loop -->
+          <path d="M 195,222 Q 180,228 168,222 Q 160,217 155,213" stroke="#c98682" stroke-width="2" fill="none" stroke-dasharray="3,3" stroke-linecap="round"/>
+          <!-- Nice → Verdon (driving, up) -->
+          <path d="M 195,222 Q 170,212 155,205" stroke="#3eb09b" stroke-width="2" fill="none" stroke-dasharray="3,3" stroke-linecap="round"/>
+          <!-- Verdon → Vienna (return flight) -->
+          <path d="M 155,205 Q 195,170 240,135" stroke="#b8744c" stroke-width="1.6" fill="none" stroke-dasharray="6,4" stroke-linecap="round" opacity="0.6"/>
+
+          <!-- City markers -->
+          <g>
+            <!-- Vienna -->
+            <circle cx="240" cy="135" r="5" fill="#7d9d5e" stroke="white" stroke-width="1.8"/>
+            <text x="247" y="132" class="map-label">Vienna</text>
+            <text x="247" y="144" class="map-label-sm">維也納</text>
+
+            <!-- Budapest -->
+            <circle cx="270" cy="150" r="5.5" fill="#c89b2e" stroke="white" stroke-width="1.8"/>
+            <text x="277" y="147" class="map-label">Budapest</text>
+            <text x="277" y="159" class="map-label-sm">布達佩斯</text>
+
+            <!-- Nice -->
+            <circle cx="195" cy="222" r="5.5" fill="#2a8fb5" stroke="white" stroke-width="1.8"/>
+            <text x="202" y="219" class="map-label">Nice</text>
+            <text x="202" y="231" class="map-label-sm">尼斯</text>
+
+            <!-- Riviera dots -->
+            <circle cx="180" cy="225" r="2.5" fill="#c98682"/>
+            <circle cx="172" cy="221" r="2.5" fill="#c98682"/>
+            <circle cx="166" cy="218" r="2.5" fill="#c98682"/>
+            <text x="120" y="244" class="map-label-sm">蔚藍海岸</text>
+
+            <!-- Verdon -->
+            <circle cx="155" cy="205" r="5" fill="#3eb09b" stroke="white" stroke-width="1.8"/>
+            <text x="93" y="202" class="map-label">Verdon</text>
+            <text x="93" y="214" class="map-label-sm">威東河峽谷</text>
+          </g>
+
+          <!-- TPE indicator (out of map, bottom right) -->
+          <g opacity="0.65">
+            <text x="340" y="305" class="map-label-sm" text-anchor="end">↘ TPE</text>
+            <path d="M 270,150 Q 320,200 340,290" stroke="#b8744c" stroke-width="1.1" fill="none" stroke-dasharray="2,3" opacity="0.5"/>
+          </g>
+
+          <!-- Compass rose -->
+          <g transform="translate(312,52)">
+            <circle cx="0" cy="0" r="14" fill="rgba(255,250,225,0.7)" stroke="#b59558" stroke-width="0.8"/>
+            <path d="M 0,-12 L 2.5,0 L 0,12 L -2.5,0 Z" fill="#c89b2e" opacity="0.8"/>
+            <text x="0" y="-16" text-anchor="middle" class="map-tiny">N</text>
+          </g>
+
+          <!-- Cartouche -->
+          <g transform="translate(30,290)">
+            <rect x="0" y="0" width="120" height="22" fill="rgba(255,250,225,0.8)" stroke="#b59558" stroke-width="0.6"/>
+            <text x="60" y="14" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-size="12" fill="#8a6620">EUROPA · 2026</text>
+          </g>
+        </svg>
+      </div>
+      <p class="overview-map__caption">— OVERVIEW · 待替換實際手繪總覽 —</p>
+    </section>
+
+    <div class="home-ornament" id="ornamentBouquet"></div>
+
+    <!-- Quick nav: 行前須知 + 城市跳轉 -->
+    <section class="quick-nav">
+      <button class="quick-nav__pretrip" type="button" id="btnPretrip">
+        <span class="quick-nav__icon">✦</span>
+        <span class="quick-nav__label">
+          <span class="quick-nav__label-en">Pre-Trip Notes</span>
+          <span class="quick-nav__label-zh">行前須知</span>
+        </span>
+        <span class="quick-nav__arrow">›</span>
+      </button>
+    </section>
+
+    <!-- City list (TOC style, replaces former 3-button quick nav) -->
+    <header class="cities-header">
+      <p class="cities-header__eyebrow">— Chapters —</p>
+      <h2 class="cities-header__title">City Guides</h2>
+      <p class="cities-header__sub">CULTURE · EATS · TRANSIT · NOTES</p>
+    </header>
+    <section class="cities-list" id="citiesList"></section>
+
+    <div class="home-ornament" id="ornamentLemon"></div>
+
+    <h2 class="section-label">DAYS</h2>
+
+    <section class="day-tickets">
+      <div class="day-tickets__strip" id="ticketStrip"></div>
+    </section>
+
+    <footer class="home-foot">
+      EUROPA · 2026/05 — 06 · 14 DAYS · ❦
+    </footer>
+
+  </section>
+
+  <!-- ============================================================
+       DAY VIEW
+       ============================================================ -->
+  <section class="day-view paper">
+    <header class="day-nav">
+      <div class="day-nav__top">
+        <button class="day-nav__home" type="button" id="btnHome">← 首頁</button>
+        <span class="day-nav__progress" id="dayProgress">Day 1 / 14</span>
+      </div>
+      <div class="day-nav__strip" id="dateStrip"></div>
+    </header>
+
+    <article class="day-content" id="dayContent"></article>
+  </section>
+
+  <!-- ============================================================
+       CITY VIEW (city chapter page)
+       ============================================================ -->
+  <section class="city-view paper">
+    <header class="city-nav">
+      <button class="day-nav__home" type="button" id="btnCityHome">← 首頁</button>
+      <span class="city-nav__breadcrumb" id="cityBreadcrumb"></span>
+    </header>
+    <article class="city-content" id="cityContent"></article>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     PRE-TRIP MODAL
+     ============================================================ -->
+<div class="modal" id="pretripModal" role="dialog" aria-modal="true" aria-labelledby="pretripModalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="pretripModalTitle">行前須知</h3>
+    <p class="modal__subtitle">PRE-TRIP NOTES · 2026</p>
+
+    <div class="pretrip-panel">
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Documents</span><span class="pretrip-section__sub">護照 / 文件</span></h4>
+        <ul>
+          <li>護照效期至少 6 個月（2026/12/09 後皆需換發）</li>
+          <li>申根區免簽，180 天內最多停留 90 天</li>
+          <li>國際駕照 IDP — 南法 D9–D12 租車要用</li>
+          <li>申根旅遊保險（建議含醫療轉送）</li>
+          <li>機票、訂房、租車紙本備份各印一份</li>
+        </ul>
+      </section>
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Currency</span><span class="pretrip-section__sub">貨幣 / 支付</span></h4>
+        <ul>
+          <li>匈牙利使用 HUF Forint，不在歐元區</li>
+          <li>法國 / 奧地利使用 EUR</li>
+          <li>建議帶兩張不同網絡信用卡（Visa + Mastercard）</li>
+          <li>少量現金備用，市區匯率比機場好</li>
+        </ul>
+      </section>
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Connectivity</span><span class="pretrip-section__sub">通訊</span></h4>
+        <ul>
+          <li>eSIM 預先購買（Holafly / Airalo 支援歐洲多國）</li>
+          <li>Google Maps 離線地圖：布達佩斯 / 尼斯 / 蔚藍海岸 / Verdon</li>
+          <li>必裝 app：ÖBB、SNCF Connect、DeepL、Google Translate</li>
+        </ul>
+      </section>
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Packing</span><span class="pretrip-section__sub">行李 / 衣著</span></h4>
+        <ul>
+          <li>5–6 月歐洲早晚溫差大，準備薄外套</li>
+          <li>尼斯是圓石灘 — 涼鞋 / 海灘鞋必備</li>
+          <li>Verdon 峽谷區較涼且海拔高，外套必備</li>
+          <li>南法陽光強，太陽眼鏡 + 防曬 + 帽子</li>
+        </ul>
+      </section>
+      <section class="pretrip-section">
+        <h4 class="pretrip-section__h4"><span class="pretrip-section__title">Itinerary</span><span class="pretrip-section__sub">班機與火車總表</span></h4>
+        <ul>
+          <li>D1 BR61 22:40 TPE→BKK</li>
+          <li>D2 BR61 02:40–08:40 BKK→VIE</li>
+          <li>D2 RJ 1031 13:19 VIE→BUD</li>
+          <li>D5 13:45–15:50 BUD→NCE</li>
+          <li>D12 NCE→VIE（請補班號）</li>
+          <li>D13 BR62 16:00→07:10 VIE→BKK（夜航）</li>
+          <li>D14 BR62 12:25–17:15 BKK→TPE</li>
+        </ul>
+      </section>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOD MODAL
+     ============================================================ -->
+<div class="modal" id="foodModal" role="dialog" aria-modal="true" aria-labelledby="foodModalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="foodModalTitle">附近吃食</h3>
+    <p class="modal__subtitle" id="foodModalSubtitle">NEARBY EATS</p>
+    <div class="modal__list" id="foodModalList"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   PHASE CONFIG
+   ============================================================ */
+const PHASE_LABEL = {
+  travel:   "移動日",
+  vienna:   "維也納",
+  budapest: "布達佩斯",
+  nice:     "尼斯",
+  riviera:  "蔚藍海岸",
+  verdon:   "威東河峽谷"
+};
+
+/* ============================================================
+   ITINERARY DATA (13 days, filled from your Excel)
+   ============================================================ */
+const itineraryData = [
+  {
+    day: "Day 1",
+    date: "2026/05/28",
+    dow: "THU",
+    dowZh: "四",
+    phase: "travel",
+    title: "台北 → 曼谷",
+    subtitle: "夜班機出發 · 開啟 13 天旅程",
+    routeCode: "TPE → BKK",
+    coverImage: "",
+    coverAlt: "出發日",
+    hotel: { name: "機上過夜", mapLink: "" },
+    schedule: [
+      {
+        type: "transit",
+        time: "22:40",
+        from: "TPE",
+        to: "BKK",
+        flightNo: "BR61",
+        timeRange: "22:40 – 01:20 (+1)",
+        note: "建議提早 2 小時抵達桃機；長榮可線上 check-in 省排隊。"
+      }
+    ],
+    introCards: [
+      {
+        title: "出發日提醒",
+        image: "",
+        text: "出發前最後檢查：護照、申根區國家相關文件、信用卡與少量歐元現金、租車駕照（IDP）、行程紙本備份、SIM/eSIM 啟動方式。\n\n13 天行程橫跨布達佩斯、尼斯、蔚藍海岸、威東河峽谷，氣候差異大，記得帶薄外套與一雙耐走的鞋。"
+      }
+    ],
+    extraNotes: [
+      "護照效期記得 6 個月以上。",
+      "兩段長榮班機行李規定可一起 check 到底，到 VIE 才提領。",
+      "BKK 轉機時間夠，可在曼谷機場休息。",
+      "下載並下載離線版 Google Map 巴黎/布達/尼斯區。"
+    ]
+  },
+  {
+    day: "Day 2",
+    date: "2026/05/29",
+    dow: "FRI",
+    dowZh: "五",
+    phase: "budapest",
+    title: "曼谷 → 維也納 → 布達佩斯",
+    subtitle: "抵達歐洲、轉火車進布達",
+    routeCode: "BKK → VIE → BUD",
+    coverImage: "",
+    coverAlt: "抵達布達佩斯",
+    hotel: { name: "布達佩斯 airbnb", mapLink: "https://maps.google.com/?q=Budapest" },
+    schedule: [
+      {
+        type: "transit",
+        time: "02:40",
+        from: "BKK",
+        to: "VIE",
+        flightNo: "BR61",
+        timeRange: "02:40 – 08:40",
+        note: "預計 08:40 抵達維也納國際機場 (VIE)。"
+      },
+      {
+        type: "fixed",
+        time: "09:30",
+        place: "維也納機場 → 維也納中央火車站",
+        mapLink: "https://maps.google.com/?q=Wien+Hauptbahnhof",
+        description: "搭 ÖBB Railjet 或 CAT 機場快線進市區，約 15–25 分鐘。",
+        note: "若搭 CAT 直達 Wien Mitte 站；要去 Hauptbahnhof 換 RJ 直接搭 ÖBB S-Bahn 比較順。",
+        foods: []
+      },
+      {
+        type: "transit",
+        time: "13:19",
+        train: "Train RJ 1031",
+        from: "VIE",
+        to: "BUD",
+        timeRange: "13:19 出發 · 約 2h40m",
+        note: "RJ 1031 從維也納中央火車站出發，抵達 Budapest-Keleti。建議提早預訂指定席。"
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "Budapest airbnb 入住",
+        mapLink: "https://maps.google.com/?q=Budapest+airbnb",
+        description: "拿到行李、整理一下後就近吃晚餐。",
+        note: "第一晚先別排太滿，調時差為主。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Railjet · 維也納 → 布達佩斯",
+        image: "",
+        text: "RJ（Railjet）是奧地利國鐵與匈牙利國鐵共營的高速列車，維也納 Hauptbahnhof 直達 Budapest-Keleti 約 2 小時 40 分。建議出發前 1–2 個月在 ÖBB 官網訂 Sparschiene 早鳥票，價格遠比現場買划算。"
+      }
+    ],
+    extraNotes: [
+      "VIE 機場入境後，先在機場買 Bratislava/Wien/Budapest 段網路或開漫遊。",
+      "ÖBB 票可選指定席（Sitzplatz），對於拿大行李來說很有幫助。",
+      "下車 Budapest-Keleti 站要小心扒手，行李拉好。",
+      "第一晚先補眠、別排晚行程。"
+    ]
+  },
+  {
+    day: "Day 3",
+    date: "2026/05/30",
+    dow: "SAT",
+    dowZh: "六",
+    phase: "budapest",
+    title: "布達佩斯 · 散策第一天",
+    subtitle: "城堡山、漁人堡、鏈橋",
+    routeCode: "BUDAPEST",
+    coverImage: "",
+    coverAlt: "布達佩斯",
+    hotel: { name: "布達佩斯 airbnb", mapLink: "https://maps.google.com/?q=Budapest" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "布達區散策（城堡山 / 漁人堡 / 馬提亞斯教堂）",
+        mapLink: "https://maps.google.com/?q=Fisherman%27s+Bastion+Budapest",
+        description: "（placeholder）抵達後彈性安排，挑布達區主要景點先逛一輪。",
+        note: "預計遊船提前一個月訂；今天若有空也可順便看現場有沒有票。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "布達佩斯｜雙城合璧的多瑙河之珠",
+        image: "",
+        text: "布達佩斯（Budapest）是「布達」與「佩斯」兩個原本獨立的城市，於 1873 年合併而成，由多瑙河貫穿城市中央。布達側多丘陵與城堡，佩斯側則是平地與大道商業區，兩岸由多座橋樑連結，形成雙城合璧的特殊都市風景。\n\n這裡曾是奧匈帝國的雙首都之一，至今仍保留大量帝國時代建築：國會大廈、聖伊什特萬大教堂、安德拉什大道、英雄廣場皆為代表。同時，布達佩斯是世界知名的「溫泉之都」，Széchenyi、Gellért 等溫泉浴場是當地人的日常文化。"
+      }
+    ],
+    extraNotes: [
+      "遊船請提早一個月訂（Legenda / Mahart），日落時段最熱門。",
+      "今天可順便確認明天日出的位置（漁人堡免費平台）。",
+      "可優先安排換匯（Forint HUF）；機場匯率較差，市區 Correct Change 或 Exclusive Change 比較好。"
+    ]
+  },
+  {
+    day: "Day 4",
+    date: "2026/05/31",
+    dow: "SUN",
+    dowZh: "日",
+    phase: "budapest",
+    title: "布達日出 · 多瑙河遊船",
+    subtitle: "從漁人堡看日出 → 國會大廈 → 19:30 遊船",
+    routeCode: "BUDAPEST",
+    coverImage: "",
+    coverAlt: "布達佩斯日出",
+    hotel: { name: "布達佩斯 希爾頓", mapLink: "https://maps.google.com/?q=Hilton+Budapest" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "日出前",
+        place: "漁人堡 看日出",
+        mapLink: "https://maps.google.com/?q=Fisherman%27s+Bastion+Budapest",
+        description: "漁人堡新哥德式白色塔群，可從布達區俯瞰多瑙河與國會大廈，是布達佩斯最經典的日出機位。",
+        note: "5 月底布達佩斯日出約 05:10 前後，請預留 30 分鐘提前抵達卡位。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "上午",
+        place: "Check out → 移到布達佩斯希爾頓",
+        mapLink: "https://maps.google.com/?q=Hilton+Budapest",
+        description: "希爾頓就位在城堡區、漁人堡旁邊，地點極好；可直接寄行李等下午 check in。",
+        note: "希爾頓建築外殼整合了 13 世紀道明會修道院遺跡，是布達區的特色飯店。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "城堡區 / 佩斯區自由活動",
+        mapLink: "https://maps.google.com/?q=Budapest+Castle+District",
+        description: "（placeholder）依精神狀況彈性安排，可選國會大廈、聖伊什特萬、Szimpla Kert 廢墟酒吧等。",
+        note: "晚上有遊船，建議下午保留體力。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:30",
+        place: "多瑙河遊船（已訂）",
+        mapLink: "https://maps.google.com/?q=Danube+River+Cruise+Budapest",
+        description: "夜遊路線會經過國會大廈、鏈橋、城堡山，是布達佩斯最有名的夜景行程。",
+        note: "船票記得列印或下載電子票券；現場通常 19:00 前開始登船。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "漁人堡｜布達佩斯最美的日出機位",
+        image: "",
+        text: "漁人堡（Halászbástya / Fisherman's Bastion）位於布達區城堡山頂，建於 19 世紀末，是新哥德與新羅曼式結合的白色平台與塔群。其名稱源於中世紀此處由漁夫公會守護的傳說，今日七座白塔象徵建國七部族。\n\n漁人堡免費的下層平台 24 小時開放，是俯瞰多瑙河、國會大廈與佩斯區全景的最佳位置之一，也因此成為布達佩斯最熱門的日出機位。"
+      },
+      {
+        title: "多瑙河夜遊｜布達佩斯最經典的夜景",
+        image: "",
+        text: "多瑙河夜遊是布達佩斯最具代表性的觀光行程。日落後，國會大廈、鏈橋、布達王宮、漁人堡會陸續打燈，從船上看夜景的視角與陸地完全不同。常見業者包括 Legenda、Mahart PassNave、Silverline，多數提供約 1 小時的觀光航線。\n\n旺季與週末須提前線上訂票，避免現場買不到日落時段。"
+      }
+    ],
+    extraNotes: [
+      "5 月底日出約 05:10，建議 04:30 前出門；漁人堡上下層都可。",
+      "希爾頓 check in 約下午 3 點，行李可先寄放。",
+      "遊船 19:30 出發，建議 19:00 抵達登船點。",
+      "船上風大，準備一件薄外套。"
+    ]
+  },
+  {
+    day: "Day 5",
+    date: "2026/06/01",
+    dow: "MON",
+    dowZh: "一",
+    phase: "nice",
+    title: "布達佩斯 → 尼斯",
+    subtitle: "中央市場 → 飛南法蔚藍海岸",
+    routeCode: "BUD → NCE",
+    coverImage: "",
+    coverAlt: "尼斯英國人步行道",
+    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "Nagy Vásárcsarnok 中央市場",
+        mapLink: "https://maps.google.com/?q=Nagy+V%C3%A1s%C3%A1rcsarnok",
+        description: "布達佩斯最大的室內市場，新哥德風建築。一樓賣蔬果、紅椒粉、肉品；二樓有 Lángos 等小吃。",
+        note: "建議搭機前最後採買乾貨類紀念品（紅椒粉、tokaji 等）。注意提防扒手與假商品。",
+        foods: []
+      },
+      {
+        type: "transit",
+        time: "13:45",
+        from: "BUD",
+        to: "NCE",
+        flightNo: "直飛",
+        timeRange: "13:45 – 15:50",
+        note: "從布達佩斯飛尼斯約 2h05m。建議提早 2.5 小時到機場辦理 check-in。"
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "Hôtel Vendôme Nice 入住",
+        mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice",
+        description: "尼斯市區飯店，位置不錯，步行可達英國人步行道。",
+        note: "從 NCE 機場可搭 Tram T2 直達市區（約 30 分鐘），相對便宜。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "英國人步行道 Promenade des Anglais",
+        mapLink: "https://maps.google.com/?q=Promenade+des+Anglais",
+        description: "尼斯最具代表性的海岸步道，全長約 7 公里，沿著天使灣（Baie des Anges）綿延。",
+        note: "傍晚海風舒服、夕陽美；天使灣的圓石灘是這裡的特色。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "盤格魯街 / Old Town 散步",
+        mapLink: "https://maps.google.com/?q=Vieux+Nice",
+        description: "尼斯舊城窄巷、義式建築、彩色房屋，是當地夜生活與餐飲集中區。",
+        note: "Cours Saleya 廣場附近用餐選擇多。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "尼斯｜法國蔚藍海岸的首席城市",
+        image: "",
+        text: "尼斯（Nice）是法國蔚藍海岸（Côte d'Azur）的最大城市，自 19 世紀起就是歐洲貴族與名流冬季避寒的勝地。英國人步行道（Promenade des Anglais）的名稱即源自當年英國僑民的捐資。\n\n尼斯既有義大利風的舊城建築與美食（Niçoise 沙拉、Socca 鷹嘴豆煎餅），又有法式優雅。地中海氣候、藍綠海水與圓石灘構成這裡最具辨識度的風景。"
+      }
+    ],
+    extraNotes: [
+      "登機行李液體限制請整理；紅椒粉等乾貨可託運。",
+      "NCE 機場到市區可搭 Tram T2 約 30 分鐘。",
+      "尼斯海灘是圓石灘不是沙灘，建議帶涼鞋。"
+    ]
+  },
+  {
+    day: "Day 6",
+    date: "2026/06/02",
+    dow: "TUE",
+    dowZh: "二",
+    phase: "nice",
+    title: "尼斯 · 解放市場 + 舊城散策",
+    subtitle: "Libération market + Vieux Nice",
+    routeCode: "NICE",
+    coverImage: "",
+    coverAlt: "尼斯解放市場",
+    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "尼斯市區散策",
+        mapLink: "https://maps.google.com/?q=Nice+France",
+        description: "（placeholder）依精神狀況挑舊城、Castle Hill 等景點。",
+        note: "Castle Hill 上有免費電梯，俯瞰天使灣與舊城全景。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "尼斯解放市場 Marché de la Libération",
+        mapLink: "https://maps.google.com/?q=March%C3%A9+de+la+Lib%C3%A9ration+Nice",
+        description: "尼斯本地人最常去的市場，比 Cours Saleya 更生活化。週二、四、六上午最熱鬧，有蔬果、起司、橄欖、海鮮、熟食。",
+        note: "建議週二早上去（剛好對到 Day 6）。市場攤位多以現金或法國 IC 卡為主。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Libération market｜尼斯本地人的菜市場",
+        image: "",
+        text: "Marché de la Libération 位於尼斯北邊 Libération 區，相較於觀光氣息濃厚的 Cours Saleya，這裡是當地居民的日常市集。每週二、週四、週六早上是主要市集日，新鮮蔬果、起司、橄欖、熟食、海鮮應有盡有。\n\n推薦在市場逛完後到鄰近的小餐館坐下吃 Pissaladière（尼斯洋蔥小披薩）、Pan Bagnat（尼斯三明治）或新鮮海鮮。"
+      }
+    ],
+    extraNotes: [
+      "週二是 Libération 市場主場日，建議早上 9:00 前抵達最新鮮。",
+      "尼斯舊城下午會比較熱，安排室內或陰影區段。",
+      "Castle Hill 黃昏看夕陽很好。"
+    ]
+  },
+  {
+    day: "Day 7",
+    date: "2026/06/03",
+    dow: "WED",
+    dowZh: "三",
+    phase: "nice",
+    title: "尼斯 · 自由日",
+    subtitle: "尼斯市區自由安排",
+    routeCode: "NICE",
+    coverImage: "",
+    coverAlt: "尼斯",
+    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "",
+        place: "尼斯市區自由活動",
+        mapLink: "https://maps.google.com/?q=Nice+France",
+        description: "（placeholder）依精神與天氣彈性安排。可考慮：馬蒂斯美術館、Castle Hill、舊城甜點、海灘日。",
+        note: "這天可當作休息與補拍尚未去到的點。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "尼斯自由日建議",
+        image: "",
+        text: "建議把第 7 天當作緩衝與補拍日。可選的方向：\n\n・馬蒂斯美術館（Musée Matisse）— 大師長居尼斯的代表收藏\n・Castle Hill 城堡山 — 免費電梯上山，俯瞰全景\n・Mont Boron 健行 — 視野更高、看摩納哥方向\n・海灘日 — 圓石灘休息或租椅子\n・舊城甜點巡禮 — Fenocchio 冰淇淋、Maison Auer 糖漬水果"
+      }
+    ],
+    extraNotes: [
+      "尼斯市區基本上步行可達，不太需要搭交通工具。",
+      "若選 Mont Boron，建議早上去比較涼。",
+      "Day 8 之後行程逐漸往外擴，這天好好休息。"
+    ]
+  },
+  {
+    day: "Day 8",
+    date: "2026/06/04",
+    dow: "THU",
+    dowZh: "四",
+    phase: "nice",
+    title: "濱海自由城 Villefranche-sur-Mer",
+    subtitle: "Lou Bantry · 騎腳踏車？",
+    routeCode: "NICE",
+    coverImage: "",
+    coverAlt: "濱海自由城",
+    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "尼斯市區",
+        mapLink: "https://maps.google.com/?q=Nice+France",
+        description: "出發前在尼斯吃早餐、補咖啡。",
+        note: "Villefranche 沒有大型超市，咖啡早餐建議尼斯解決。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "濱海自由城 Villefranche-sur-Mer",
+        mapLink: "https://maps.google.com/?q=Villefranche-sur-Mer",
+        description: "尼斯東邊一個經典的港灣小鎮，建在懸崖上，從 Nice 搭火車約 10 分鐘即達。是 Côte d'Azur 最上相的小鎮之一。",
+        note: "海灣形狀完整、水深、夏季可游泳；舊城窄巷與 Rue Obscure 隧道是特色。",
+        foods: [
+          { name: "Lou Bantry", mapLink: "https://maps.google.com/?q=Lou+Bantry+Villefranche-sur-Mer", info: "Villefranche 在地餐廳。" }
+        ]
+      },
+      {
+        type: "optional",
+        time: "下午",
+        place: "騎腳踏車（待確認）",
+        mapLink: "",
+        description: "（placeholder）若想沿海邊騎車，可在 Nice 或 Villefranche 租車。Nice 有 Vélobleu 公共自行車系統。",
+        note: "蔚藍海岸沿線部分路段車多、坡陡，請評估體力。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Villefranche-sur-Mer｜蔚藍海岸最上相的小港",
+        image: "",
+        text: "濱海自由城（Villefranche-sur-Mer）位於尼斯東邊約 6 公里，是地中海最深、最完整的天然海灣之一，因此也是大型郵輪常停靠的港口。彩色的義大利風房屋從海灣斜坡層層往上排列，配上深藍海水與停泊的小船，構成蔚藍海岸最具辨識度的明信片畫面。\n\n舊城窄巷與 13 世紀的 Rue Obscure 拱形地下通道是特色，也是電影《Never Say Never Again》取景地之一。"
+      }
+    ],
+    extraNotes: [
+      "從尼斯搭 TER 火車 6 分鐘就到，每 30 分鐘一班。",
+      "Villefranche 有沙灘可游泳（與尼斯不同）。",
+      "舊城餐廳午餐建議提前訂位或 12:00 前到。"
+    ]
+  },
+  {
+    day: "Day 9",
+    date: "2026/06/05",
+    dow: "FRI",
+    dowZh: "五",
+    phase: "riviera",
+    title: "Menton → Èze → Monaco → Cannes",
+    subtitle: "蔚藍海岸東線一日",
+    routeCode: "EAST RIVIERA",
+    coverImage: "",
+    coverAlt: "Èze 鷲巢村",
+    hotel: { name: "坎城（住宿待定）", mapLink: "https://maps.google.com/?q=Cannes" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "Menton",
+        mapLink: "https://maps.google.com/?q=Menton",
+        description: "蔚藍海岸最東邊的城市，緊鄰義大利邊界。以檸檬聞名，每年 2 月有檸檬節。整座城以暖色調房屋與棕櫚樹著稱。",
+        note: "Menton 老城區與 Saint-Michel 教堂的廣場視野很棒。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "Èze · Jardin Exotique d'Èze 植物園",
+        mapLink: "https://maps.google.com/?q=Jardin+Exotique+d%27%C3%88ze",
+        description: "Èze 是蔚藍海岸最知名的「鷲巢村」之一，建在 429 公尺高的懸崖上。山頂的多肉植物園 Jardin Exotique d'Èze 可俯瞰整個地中海。",
+        note: "查植物園進場時間（一般 09:00–18:00，淡旺季不同）。山路有點陡，建議穿好走的鞋。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "Monaco · Monte Carlo",
+        mapLink: "https://maps.google.com/?q=Monaco",
+        description: "世界第二小的國家，地中海公國。賭場、王宮、舊城區、Larvotto 海灘等都是亮點。",
+        note: "進入摩納哥不需另外簽證；可從 Èze 搭 100 號公車或開車。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "移動到 Cannes 坎城",
+        mapLink: "https://maps.google.com/?q=Cannes",
+        description: "從 Monaco 開車約 1 小時，坎城是影展之城。",
+        note: "確認當晚住宿，停車與飯店位置先查清楚。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Èze｜懸崖上的鷲巢村",
+        image: "",
+        text: "Èze 是法國蔚藍海岸最具代表性的「鷲巢村」（village perché）之一，整座中世紀小村建於海拔約 429 公尺的懸崖頂端。窄巷石階、爬藤老牆與工藝品小店構成這裡的氛圍。\n\n山頂的 Jardin Exotique d'Èze 多肉植物園佔據古堡遺跡，可 360 度俯瞰地中海與蔚藍海岸沿線，天氣好時甚至看得到科西嘉島。"
+      }
+    ],
+    extraNotes: [
+      "查 Jardin Exotique d'Èze 進場時間，避免白跑。",
+      "蔚藍海岸東線開車比火車彈性大，但停車位是挑戰。",
+      "Monaco 進出免簽，但開車進去要注意路標。",
+      "今晚住坎城，行李集中前一晚整理好。"
+    ]
+  },
+  {
+    day: "Day 10",
+    date: "2026/06/06",
+    dow: "SAT",
+    dowZh: "六",
+    phase: "riviera",
+    title: "Saint-Paul-de-Vence · Antibes",
+    subtitle: "藝術村 + 海邊古城",
+    routeCode: "WEST RIVIERA",
+    coverImage: "",
+    coverAlt: "Saint-Paul-de-Vence",
+    hotel: { name: "坎城（住宿待定）", mapLink: "https://maps.google.com/?q=Cannes" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "Saint-Paul-de-Vence 聖保羅",
+        mapLink: "https://maps.google.com/?q=Saint-Paul-de-Vence",
+        description: "蔚藍海岸內陸的中世紀城牆小鎮，自 20 世紀起吸引大批藝術家入住，至今仍是畫廊、工作室與精品店聚集地。Chagall（夏卡爾）長眠於此。",
+        note: "石板路斜坡多，建議穿平底鞋。村中有名的餐廳 La Colombe d'Or 收藏多位藝術家作品。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "Antibes",
+        mapLink: "https://maps.google.com/?q=Antibes",
+        description: "蔚藍海岸保存最好的古城之一，有畢卡索美術館（位於 Château Grimaldi）。海邊步道與 Vauban 城牆是經典。",
+        note: "Antibes 舊港停滿遊艇，午餐選擇豐富；Marché Provençal 普羅旺斯市集（週二–週日上午）也是亮點。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "回坎城",
+        mapLink: "https://maps.google.com/?q=Cannes",
+        description: "從 Antibes 開車回坎城約 20 分鐘。",
+        note: "坎城晚上可走影展紅毯區域、Croisette 海濱大道。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Saint-Paul-de-Vence｜藝術家的山城",
+        image: "",
+        text: "Saint-Paul-de-Vence 是蔚藍海岸內陸最具知名度的中世紀城牆小鎮之一，建於 11 世紀的山丘上。20 世紀起，Matisse（馬諦斯）、Chagall（夏卡爾）、Picasso（畢卡索）等藝術家陸續被這裡的光線與氛圍吸引，紛紛入住或創作。\n\n村中央的 La Colombe d'Or 餐廳收藏這些藝術家親手贈與的作品，是這個小鎮最具傳奇色彩的地方。Chagall 也選擇長眠於此，墓地就在村外山坡。"
+      },
+      {
+        title: "Antibes｜畢卡索的海邊古城",
+        image: "",
+        text: "Antibes 是蔚藍海岸最古老的城市之一，原為古希臘殖民地 Antipolis（意為「對面的城市」，相對於對岸的尼斯）。城牆下方就是地中海，畢卡索曾在 Château Grimaldi 城堡內短暫工作居住，現該城堡為畢卡索美術館，展出他在 Antibes 時期的作品。\n\n舊港 Port Vauban 是地中海最大的私人遊艇港之一，可順道感受蔚藍海岸的奢華氣息。"
+      }
+    ],
+    extraNotes: [
+      "Saint-Paul-de-Vence 停車要停在山下停車場，再步行進村。",
+      "Antibes 的 Marché Provençal 上午為主，週一公休。",
+      "下午回坎城路上人多，預留時間。"
+    ]
+  },
+  {
+    day: "Day 11",
+    date: "2026/06/07",
+    dow: "SUN",
+    dowZh: "日",
+    phase: "verdon",
+    title: "Cannes → Verdon Gorges",
+    subtitle: "往內陸開車約 2 小時",
+    routeCode: "CANNES → VERDON",
+    coverImage: "",
+    coverAlt: "威東河峽谷",
+    hotel: { name: "Moustiers-Sainte-Marie 住宿", mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "Cannes / Antibes 收尾",
+        mapLink: "https://maps.google.com/?q=Cannes",
+        description: "（placeholder）收行李、補咖啡，依昨天還沒走完的地方做收尾。",
+        note: "中午前出發比較順，避免下午峽谷山路車多。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "Cannes → Moustiers-Sainte-Marie（車程約 2 小時）",
+        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
+        description: "從坎城開車約 2 小時抵達威東河峽谷入口小鎮 Moustiers-Sainte-Marie。沿途會經過普羅旺斯山區，景色漂亮但山路彎多。",
+        note: "建議在出發前加滿油；峽谷區內加油站少。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "Moustiers-Sainte-Marie 入住與散策",
+        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
+        description: "Moustiers-Sainte-Marie 被列為「法國最美村莊」之一，懸掛於兩座山崖之間，村內以陶瓷（faïence）工藝聞名。",
+        note: "聖母堂步道（Notre-Dame-de-Beauvoir）可登山看夕陽，來回約 1 小時。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Moustiers-Sainte-Marie｜峽谷入口的星之村",
+        image: "",
+        text: "Moustiers-Sainte-Marie 是普羅旺斯內陸知名的山中小村，村莊嵌在兩座懸崖之間，被選為「法國最美村莊」之一。村莊上方有一條跨越兩崖的鏈條，據說由 13 世紀十字軍騎士為履行誓言所掛，鏈條中央懸著一顆金色星星。\n\n村內以 17 世紀發展起來的陶瓷工藝（faïence）聞名，至今仍有許多陶瓷工作室。也是進入威東河峽谷（Gorges du Verdon）最方便的住宿據點之一。"
+      }
+    ],
+    extraNotes: [
+      "出發前加滿油，山區加油站稀少。",
+      "山路彎多，會暈車的人準備藥物。",
+      "Moustiers 餐廳營業時間短，晚上 21:00 後幾乎都打烊。",
+      "聖母堂步道可看夕陽，但下山要趁天還亮。"
+    ]
+  },
+  {
+    day: "Day 12",
+    date: "2026/06/08",
+    dow: "MON",
+    dowZh: "一",
+    phase: "verdon",
+    title: "Verdon 峽谷 → 尼斯 → 維也納",
+    subtitle: "從威東開到尼斯，再飛維也納過夜",
+    routeCode: "VERDON → NCE → VIE",
+    coverImage: "",
+    coverAlt: "威東河峽谷",
+    hotel: { name: "維也納機場 NH 會議中心酒店", mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "上午",
+        place: "Gorges du Verdon 威東河峽谷",
+        mapLink: "https://maps.google.com/?q=Gorges+du+Verdon",
+        description: "歐洲最大的峽谷之一，被稱為「歐洲的大峽谷」。翡翠綠的湖水與白色石灰岩懸崖是經典畫面。可開車走 Route des Crêtes 山頂路線或從 Lac de Sainte-Croix 看湖。",
+        note: "天氣好的話風景無敵；山路須留時間。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "14:00",
+        place: "最晚 14:00 離開 · 出發尼斯",
+        mapLink: "https://maps.google.com/?q=Nice+Airport",
+        description: "從 Moustiers 開車到尼斯機場約 2.5 小時。",
+        note: "建議至少 15:00 前抵達 NCE 機場辦理 check-in。",
+        foods: []
+      },
+      {
+        type: "transit",
+        time: "16:00",
+        from: "NCE",
+        to: "VIE",
+        flightNo: "（請補班號）",
+        timeRange: "傍晚出發",
+        note: "下班機後直接住維也納機場附近 NH。"
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "抵達 NH Vienna Airport Conference Center",
+        mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center",
+        description: "與 VIE 航廈空橋連通的飯店，不必出海關，從 Arrivals 走天橋直達。",
+        note: "晚餐可在飯店餐廳或航廈內解決；明天還要飛長班，建議早點休息。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "Gorges du Verdon｜歐洲的大峽谷",
+        image: "",
+        text: "威東河峽谷（Gorges du Verdon）是歐洲規模最大的峽谷之一，長約 25 公里、深度可達 700 公尺，因威東河（Verdon River）的翡翠綠色河水切割石灰岩高原而成。\n\n峽谷景觀路線有兩條：北側 Route des Crêtes（懸崖頂），南側 Corniche Sublime（南岸觀景）。下方 Lac de Sainte-Croix 是大型湖泊，夏天可划獨木舟、踩天鵝船入峽谷。"
+      }
+    ],
+    extraNotes: [
+      "最晚 16:00 前抵達維也納，方便晚餐與休息。",
+      "從 Moustiers 到 NCE 開車約 2.5 小時，路況視天氣。",
+      "D13 才是 BR62 起飛日，今天先到維也納過夜。",
+      "NCE→VIE 段班次與時間請補上（Excel 中未明確）。"
+    ]
+  },
+  {
+    day: "Day 13",
+    date: "2026/06/09",
+    dow: "TUE",
+    dowZh: "二",
+    phase: "travel",
+    title: "Vienna 機場 · 候機日",
+    subtitle: "整日 NH 周邊，傍晚 BR62 起飛",
+    routeCode: "VIENNA → BKK",
+    coverImage: "",
+    coverAlt: "Vienna 機場候機",
+    hotel: { name: "機上過夜（BR62）", mapLink: "" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "早上",
+        place: "起床 · NH Vienna Airport Conference Center",
+        mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center",
+        description: "與 VIE 航廈空橋連通的飯店；早餐後慢慢整理行李、最後一次清點護照與證件。",
+        note: "可在飯店或航廈內任一處用早餐，不必出海關。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午前後",
+        place: "VIE 機場 check-in / 過海關",
+        mapLink: "https://maps.google.com/?q=Vienna+International+Airport",
+        description: "建議 14:00 前完成 check-in，給海關與安檢留足夠時間。",
+        note: "VIE 是申根區出境，過了海關才到登機口。可順道在機場買 Sachertorte 帶回家。",
+        foods: []
+      },
+      {
+        type: "transit",
+        time: "16:00",
+        from: "VIE",
+        to: "BKK",
+        flightNo: "BR62",
+        timeRange: "16:00 – 07:10 (+1)",
+        note: "BR62 維也納直飛曼谷，約 10 小時夜航，機上過夜。"
+      }
+    ],
+    introCards: [
+      {
+        title: "VIE 候機日小提示",
+        image: "",
+        text: "今天主要任務是「等飛機 + 起飛」。\n\n好好利用 NH 機場飯店的早餐與空橋通道，不需出海關。如果想再嚐一口維也納，可以在機場買 Sachertorte 或在 Cafe Mozart 點一杯 Melange 帶上機。\n\n機上 10 小時夜航，建議帶頸枕、眼罩、保濕用品，以及紙本書或下載好的影片（VIE→BKK 機艙 Wi-Fi 不保證可用）。"
+      }
+    ],
+    extraNotes: [
+      "NH 與 VIE 航廈有空橋連通，不必出海關",
+      "VIE check-in 建議 14:00 前完成",
+      "夜航攜帶頸枕、眼罩、保濕霜",
+      "VIE 機場有 Sachertorte 專櫃，可順手帶伴手禮"
+    ]
+  },
+
+  {
+    day: "Day 14",
+    date: "2026/06/10",
+    dow: "WED",
+    dowZh: "三",
+    phase: "travel",
+    title: "曼谷 → 台北",
+    subtitle: "返程日 · 行程結束",
+    routeCode: "BKK → TPE",
+    coverImage: "",
+    coverAlt: "返程",
+    hotel: { name: "", mapLink: "" },
+    schedule: [
+      {
+        type: "fixed",
+        time: "07:10",
+        place: "抵達 BKK",
+        mapLink: "https://maps.google.com/?q=Bangkok+Suvarnabhumi+Airport",
+        description: "BR62 抵達曼谷 BKK，等待轉機回台北。",
+        note: "中間有約 5 小時轉機時間，可在機場 Lounge 休息。",
+        foods: []
+      },
+      {
+        type: "transit",
+        time: "12:25",
+        from: "BKK",
+        to: "TPE",
+        flightNo: "BR62",
+        timeRange: "12:25 – 17:15",
+        note: "BR62 曼谷直飛桃機，預計 17:15 抵達 TPE。"
+      },
+      {
+        type: "fixed",
+        time: "17:15",
+        place: "抵達桃園機場 · 行程結束",
+        mapLink: "https://maps.google.com/?q=Taoyuan+International+Airport",
+        description: "",
+        note: "歡迎回家。",
+        foods: []
+      }
+    ],
+    introCards: [
+      {
+        title: "回家了",
+        image: "",
+        text: "14 天，從多瑙河日出到威東河峽谷的翡翠湖水，跨越中歐與南法兩個截然不同的歐洲面貌。\n\n回家後別忘了整理照片、寫下旅行筆記、把伴手禮分裝。"
+      }
+    ],
+    extraNotes: [
+      "BKK 轉機可在第 4 航廈大廳的長榮 Royal Orchid Spa Lounge 休息。",
+      "回國前確認台灣海關退稅 / 申報事項。",
+      "預訂機場接駁或計程車。"
+    ]
+  }
+];
+
+/* ============================================================
+   CITY DATA (city chapters)
+   ============================================================ */
+const cityData = {
+  budapest: {
+    en: "Budapest", zh: "布達佩斯",
+    phase: "budapest",
+    dayIndices: [1, 2, 3, 4],   /* D2, D3, D4, D5 */
+    daysLabel: "Day 2 – Day 5",
+    subtitle: "多瑙河之珠 · 雙城合璧",
+    coverImage: "",
+    coverAlt: "布達佩斯",
+    hasTransit: true,
+    intro: "布達佩斯由「布達」與「佩斯」兩座城合併而成，1873 年正式統一。多瑙河貫穿城市中央，布達側多丘陵與城堡，佩斯側則是平地大道、商業與夜生活。\n\n這座城市曾是奧匈帝國的雙首都之一，至今保留大量帝國時期的新文藝復興與新哥德建築：國會大廈、漁人堡、聖伊什特萬大教堂、安德拉什大道、英雄廣場、瓦薩雷利博物館。\n\n布達佩斯也是世界知名的「溫泉之都」，地下溫泉脈密集，Széchenyi（黃色巴洛克）與 Gellért（新藝術風）是兩個最具代表的溫泉浴場，至今是當地人的日常文化。\n\n夜間的多瑙河，國會大廈與布達王宮被燈光勾勒，是這座城市最具辨識度的畫面，也是 D4 夜遊船的主場。",
+    foods: [
+      { local: "Lángos", image: "images/europe/Budapest/food-langos.jpg", romaji: "LÁN·gosh", zh: "匈牙利炸大餅", desc: "酥脆油炸的圓餅，配上酸奶油、起司絲、大蒜。中央市場二樓最有名。" },
+      { local: "Gulyás", image: "images/europe/Budapest/food-gulyas.jpg", romaji: "GOO·yahsh", zh: "古拉什燉湯", desc: "匈牙利國民燉肉湯，紅椒粉、牛肉、洋蔥燉煮，常配麵包。" },
+      { local: "Kürtőskalács", image: "images/europe/Budapest/food-kurtoskalacs.jpg", romaji: "KÜR·tös·ka·latch", zh: "煙囪卷", desc: "甜麵團繞著木棒烤製，外裹糖、肉桂或核桃，街頭常見。" },
+      { local: "Pörkölt", image: "images/europe/Budapest/food-porkolt.jpg", romaji: "PÖR·költ", zh: "匈式紅椒燉肉", desc: "比 Gulyás 更濃厚的肉燉煮，常配 Nokedli 麵疙瘩。" },
+      { local: "Tokaji Aszú", image: "images/europe/Budapest/food-tokaji.jpg", romaji: "TO·ko·yi A·soo", zh: "托卡伊貴腐酒", desc: "匈牙利最有名的甜白酒，被路易十四稱為「葡萄酒之王」。" }
+    ],
+    transit: [
+      { title: "Budapest Card",  body: "包含 24/48/72/96/120 小時的大眾交通免費搭乘 + 部分博物館折扣或免費。若不打算頻繁進博物館，買單獨交通票可能更划算。" },
+      { title: "Metro M1 / M2 / M3 / M4", body: "M1 是歐洲大陸最古老的地下鐵，黃色復古車廂，是觀光景點之一。M2 紅線連接東西側主要景點。M3 藍線縱貫南北。M4 綠線最新。" },
+      { title: "電車 Tram 2",     body: "沿多瑙河佩斯側行駛，被列為世界最美電車路線之一，沿線可看國會、鏈橋、布達王宮全景。" },
+      { title: "兩岸接駁",       body: "鏈橋（Széchenyi Lánchíd）是最具代表的步行橋，伊麗莎白橋與自由橋各有風味。布達山可坐 funicular 纜車或巴士 16 號到城堡山。" }
+    ],
+    notes: [
+      "HUF Forint，非歐元區，刷卡接受度高但小店備現金",
+      "機場匯率較差，市區 Correct Change / Exclusive Change 比較好",
+      "避開街上「私人換匯」騙局",
+      "D2 ÖBB Railjet RJ 1031 建議 1–2 個月前訂 Sparschiene 早鳥票",
+      "多瑙河遊船 — 至少一個月前訂（Legenda / Mahart / Silverline）",
+      "D4 漁人堡日出約 05:10，建議 04:30 前出門卡位",
+      "D4 19:30 遊船已訂，記得列印或下載電子票券",
+      "D2–D4 住 airbnb（佩斯側）；D4–D5 換到布達區希爾頓（城堡山內）"
+    ],
+    souvenirs: [
+      { local: "Paprika", romaji: "PA·pri·ka", zh: "匈牙利紅椒粉", desc: "匈牙利國菜古拉什的靈魂；甜味（édes）與辣味（csípős）兩種。中央市場二樓有大量品牌可選，建議買鐵罐裝避光。", image: "images/europe/Budapest/souv-paprika.jpg" },
+      { local: "Tokaji Aszú", romaji: "TO·ko·yi A·soo", zh: "托卡伊貴腐酒", desc: "匈牙利甜白酒，路易十四稱「酒王」。3 / 4 / 5 / 6 puttonyos 數字越高甜度越高。市區酒鋪或機場免稅店都能買。", image: "images/europe/Budapest/souv-tokaji.jpg" },
+      { local: "Pálinka", romaji: "PA·lin·ka", zh: "匈牙利水果烈酒", desc: "李子、杏桃、櫻桃蒸餾的傳統果酒，酒精約 40%。匈牙利國民酒，可挑小瓶裝伴手。", image: "images/europe/Budapest/souv-palinka.jpg" },
+      { local: "Herend Porcelain", romaji: "HEH·rend", zh: "赫倫德瓷器", desc: "1826 年起匈牙利皇室御用瓷器，以維多利亞花卉與彩繪聞名。市區有專賣店；單品高價但有收藏價值。", image: "images/europe/Budapest/souv-herend.jpg" },
+      { local: "Rubik's Cube", romaji: "—", zh: "匈牙利原版魔術方塊", desc: "1974 年由匈牙利建築教授 Ernő Rubik 發明，紀念性十足。中央市場與紀念品店都有原版盒裝。", image: "images/europe/Budapest/souv-rubiks.jpg" }
+    ]
+  },
+
+  nice: {
+    en: "Nice", zh: "尼斯",
+    phase: "nice",
+    dayIndices: [4, 5, 6, 7, 8, 9, 10],  /* D5–D11，含蔚藍海岸延伸 */
+    daysLabel: "Day 5 – Day 11",
+    subtitle: "蔚藍海岸 · 圓石灘 · 舊城 · 周邊小鎮",
+    coverImage: "",
+    coverAlt: "尼斯英國人步行道",
+    hasTransit: true,
+    intro: "尼斯（Nice）位於法國蔚藍海岸（Côte d'Azur）核心，自 19 世紀起即是歐洲貴族與名流的冬季避寒勝地。Promenade des Anglais（英國人步行道）的名稱即源自當年資助修建的英國僑民。\n\n這座城市的氣質結合義式南法 — 義大利風味的舊城窄巷、彩色外牆、米麵與普羅旺斯香料；同時又是法國優雅的代表，海岸圓石灘、棕櫚樹、藍綠地中海構成最辨識的風景。\n\n尼斯也是探索整段蔚藍海岸的最佳基地：往東 TER 火車可達 Villefranche、Èze、Monaco、Menton；往西到 Antibes、Cannes；內陸往 Saint-Paul-de-Vence 與 Grasse。本趟 D8–D10 沿著這條路線展開。\n\nD11 從這裡出發進入威東河峽谷，這段也是 Nice 章節的延伸範圍。",
+    foodGroups: [
+      {
+        name: "Nice", zh: "尼斯",
+        items: [
+          { local: "Salade Niçoise", image: "images/europe/Nice/food-salade-nicoise.jpg", romaji: "sa·LAD nee·SWAHZ", zh: "尼斯沙拉", desc: "鮪魚、水煮蛋、橄欖、四季豆、番茄、馬鈴薯。傳統做法不加生菜。" },
+          { local: "Socca", image: "images/europe/Nice/food-socca.jpg", romaji: "SO·ka", zh: "鷹嘴豆煎餅", desc: "鷹嘴豆粉薄煎餅，胡椒 + 橄欖油，舊城街邊現烤現切。Chez Pipo、Lou Pilha Leva 是名店。" },
+          { local: "Pissaladière", image: "images/europe/Nice/food-pissaladiere.jpg", romaji: "pee·sa·la·DYAIR", zh: "尼斯洋蔥披薩", desc: "焦糖洋蔥 + 鯷魚 + 黑橄欖鋪在麵團上烘烤，是尼斯日常的鹹點。" },
+          { local: "Pan Bagnat", image: "images/europe/Nice/food-pan-bagnat.jpg", romaji: "pahn ba·NYAH", zh: "尼斯三明治", desc: "圓麵包夾尼斯沙拉的所有食材，常溫攜帶最方便，海邊野餐首選。" },
+          { local: "Daube Niçoise", image: "images/europe/Nice/food-daube-nicoise.jpg", romaji: "DOWB nee·SWAHZ", zh: "尼斯紅酒燉牛肉", desc: "傳統慢燉料理，紅酒、橙皮、香料燉牛肉，常配寬麵或玉米糊。" },
+          { local: "Glace Fenocchio", image: "images/europe/Nice/food-fenocchio.jpg", romaji: "fe·NO·kyo", zh: "Fenocchio 冰淇淋", desc: "舊城百年冰淇淋名店，超過 90 種口味，薰衣草、橄欖、番茄羅勒都有。" }
+        ]
+      },
+      {
+        name: "Villefranche-sur-Mer", zh: "濱海自由城",
+        items: [
+          { local: "Lou Bantry", image: "images/europe/Villefranche/food-lou-bantry.jpg", romaji: "loo BAN·tree", zh: "在地餐廳", desc: "Villefranche 港灣旁的家庭式餐廳，海鮮、Provençal 料理為主。" },
+          { local: "Port-side seafood", image: "images/europe/Villefranche/food-seafood.jpg", romaji: "—", zh: "港邊海鮮", desc: "舊港沿岸幾家經典海鮮餐廳，可現點剛上岸的魚與牡蠣。" }
+        ]
+      },
+      {
+        name: "Èze", zh: "鷲巢村",
+        items: [
+          { local: "La Chèvre d'Or", image: "images/europe/Eze/food-chevre-dor.jpg", romaji: "la SHEHV·ruh dor", zh: "金羊餐廳", desc: "Èze 山頂的米其林二星餐廳，俯瞰地中海。需提早訂位，價位高，但景觀無敵。" },
+          { local: "Provence olive oil & honey", image: "images/europe/Eze/food-olive-honey.jpg", romaji: "—", zh: "橄欖油 & 蜂蜜", desc: "Èze 山頂與山下村莊有不少橄欖油與薰衣草蜂蜜工作室，可試吃並選購當伴手禮。" }
+        ]
+      },
+      {
+        name: "Monaco", zh: "摩納哥",
+        items: [
+          { local: "Barbagiuan", image: "images/europe/Monaco/food-barbagiuan.jpg", romaji: "bar·ba·ZHWAHN", zh: "摩納哥炸餃", desc: "摩納哥國菜之一，鷹嘴豆與瑞士甜菜內餡的小炸餃，街頭與小店常見。" },
+          { local: "Fougasse Monégasque", image: "images/europe/Monaco/food-fougasse-monegasque.jpg", romaji: "foo·GAHSS mo·nay·GASK", zh: "摩納哥橙花麵包", desc: "節慶傳統麵包，加橙花水與大茴香，撒上糖粒與紅白茴香籽。" }
+        ]
+      },
+      {
+        name: "Menton", zh: "蒙頓",
+        items: [
+          { local: "Tarte au citron de Menton", image: "images/europe/Menton/food-tarte-citron.jpg", romaji: "tart o see·TROHN", zh: "蒙頓檸檬塔", desc: "Menton 是法國最知名的檸檬產地（IGP 認證），當地檸檬塔酸度漂亮、果香濃郁。" },
+          { local: "Limoncello", image: "images/europe/Menton/food-limoncello.jpg", romaji: "lee·mon·CHEH·loh", zh: "檸檬酒", desc: "靠近義大利邊境，當地店家有自製 limoncello，可冷藏直飲或調飲。" }
+        ]
+      },
+      {
+        name: "Antibes", zh: "安提布",
+        items: [
+          { local: "Pissalat", image: "images/europe/Antibes/food-pissalat.jpg", romaji: "pee·sa·LAH", zh: "尼斯鯷魚醬", desc: "尼斯—安提布地區傳統的鯷魚醬，可塗麵包、入菜或抹 Pissaladière。Marché Provençal 可買。" },
+          { local: "Marché Provençal", image: "images/europe/Antibes/food-marche-provencal.jpg", romaji: "mar·SHAY pro·vahn·SAHL", zh: "普羅旺斯市集", desc: "Antibes 舊城每日上午（週一公休）的市集，蔬果、橄欖、香料、起司，氣氛濃。" }
+        ]
+      },
+      {
+        name: "Cannes", zh: "坎城",
+        items: [
+          { local: "La Mère Besson", image: "images/europe/Cannes/food-mere-besson.jpg", romaji: "la mehr beh·SOHN", zh: "貝森媽媽餐廳", desc: "坎城百年 Provençal 老店，以慢燉肉、Aioli、Bouillabaisse 等南法經典料理聞名。" },
+          { local: "Coastal seafood", image: "images/europe/Cannes/food-seafood.jpg", romaji: "—", zh: "海濱海鮮", desc: "La Croisette 海濱大道沿線有許多義法地中海餐廳，主打現撈海鮮與義式麵食。" }
+        ]
+      },
+      {
+        name: "Saint-Paul-de-Vence", zh: "聖保羅",
+        items: [
+          { local: "La Colombe d'Or", image: "images/europe/Saint-Paul/food-colombe-dor.jpg", romaji: "la co·LOMB dor", zh: "金鴿餐廳", desc: "村內傳奇藝術家餐廳，收藏 Picasso、Matisse、Chagall 等大師作品（早期以畫抵餐費所得）。需訂位。" },
+          { local: "Daube provençale", image: "images/europe/Saint-Paul/food-daube-provencale.jpg", romaji: "DOWB pro·vahn·SAHL", zh: "普羅旺斯燉牛肉", desc: "Provence 經典慢燉，紅酒、橙皮、月桂、墨橄欖燉牛頰肉，村內小餐館多有提供。" }
+        ]
+      }
+    ],
+    transit: [
+      { title: "Tram T1 / T2 / T3",  body: "T2 從 NCE 機場到市區約 30 分鐘，€1.50 單程。T1 連接市區與北邊。T3 接機場到 Saint-Isidore。" },
+      { title: "TER 火車（沿海岸）", body: "Nice-Ville 站出發，往東 Villefranche / Èze / Monaco / Menton，往西 Antibes / Cannes。班次密集，5–30 分鐘一班，是周邊小鎮最便利的方式。" },
+      { title: "巴士 Lignes d'Azur",  body: "市區與郊區網絡發達，往 Saint-Paul-de-Vence、Grasse 等內陸需搭 LER 巴士。" },
+      { title: "Vélobleu 公共自行車",  body: "尼斯市內公共自行車系統，需註冊。海濱步道騎車很舒服，但圓石灘附近坡度可觀。" },
+      { title: "TGV 高速火車",        body: "若臨時往返巴黎或里昂，TGV 速度最快但價貴。" }
+    ],
+    noteGroups: [
+      {
+        name: "General", zh: "通用",
+        items: [
+          "Tram T2 從 NCE 機場到市區比 taxi 便宜，€1.50 單程",
+          "圓石灘必備：涼鞋 / 海灘鞋（光腳會痛）",
+          "南法陽光強：太陽眼鏡 + 防曬 + 帽子",
+          "午餐 12:00–14:00、晚餐 19:30 後，餐廳中間時段多休息",
+          "Cours Saleya 花市食材市場：週二–週日；Libération market：週二/四/六上午",
+          "Cours Saleya 偏觀光，舊城巷弄裡更道地",
+          "Vendôme 飯店附近停車位有限，租車預留找位時間",
+          "周邊小鎮優先用 TER 火車（往東一線通），內陸只能巴士或開車"
+        ]
+      },
+      {
+        name: "Villefranche-sur-Mer", zh: "濱海自由城",
+        items: [
+          "從尼斯搭 TER 火車 6 分鐘就到，每 30 分鐘一班",
+          "Villefranche 有沙灘可游泳（與尼斯圓石灘不同）",
+          "舊城餐廳午餐建議提前訂位或 12:00 前到",
+          "Rue Obscure（13 世紀拱形地下通道）是特色景點"
+        ]
+      },
+      {
+        name: "Èze", zh: "鷲巢村",
+        items: [
+          "Jardin Exotique d\'Èze 進場時間需事先查（淡旺季不同）",
+          "從 Nice 可搭 100 號公車，或 TER 火車到 Èze-sur-Mer 站後再上山",
+          "山路斜坡多、石階陡，建議好走的鞋",
+          "村內停車位極少，自駕建議停山下"
+        ]
+      },
+      {
+        name: "Monaco", zh: "摩納哥",
+        items: [
+          "進入摩納哥不需另外簽證",
+          "Casino Monte-Carlo 有 dress code，短褲拖鞋不可入內",
+          "停車位貴且難找，建議停 Casino car park 或 Larvotto",
+          "從 Èze 開車約 20 分鐘",
+          "舊城 Le Rocher 位於山岩上，以步行為主"
+        ]
+      },
+      {
+        name: "Menton", zh: "蒙頓",
+        items: [
+          "靠近義大利邊境，從 Monaco 開車約 25 分鐘",
+          "舊城色彩繽紛、緊鄰海岸，適合午餐後散步",
+          "聖米歇爾廣場（Parvis Saint-Michel）視野最好",
+          "可順遊義大利邊境小鎮 Ventimiglia（火車一站到）"
+        ]
+      },
+      {
+        name: "Antibes", zh: "安提布",
+        items: [
+          "畢卡索美術館位於 Château Grimaldi 城堡內",
+          "Marché Provençal 普羅旺斯市集：週二–週日上午，週一公休",
+          "Port Vauban 是地中海最大私人遊艇港之一，散步看遊艇",
+          "從 Nice 開車約 30 分鐘"
+        ]
+      },
+      {
+        name: "Cannes", zh: "坎城",
+        items: [
+          "5 月底剛好是影展期，部分區域可能管制",
+          "La Croisette 海濱大道有星光大道與五星級飯店",
+          "Le Suquet 舊城在山丘上，視野好",
+          "可從 Cannes 港口搭船去 Lérins 群島（Sainte-Marguerite / Saint-Honorat）"
+        ]
+      },
+      {
+        name: "Saint-Paul-de-Vence", zh: "聖保羅",
+        items: [
+          "停車要停在山下停車場，再步行進村",
+          "石板路斜坡多，建議平底鞋",
+          "Chagall 長眠於村外山坡墓地",
+          "La Colombe d\'Or 餐廳需訂位",
+          "從 Nice 搭巴士 400 號（約每 30 分鐘一班）"
+        ]
+      }
+    ],
+    souvenirs: [
+      { local: "Lavande de Provence", romaji: "la·VAHND duh pro·VAHNS", zh: "薰衣草精油 / 香皂 / 香囊", desc: "Grasse 與 Verdon 周邊產，從 essential oil、香皂到香囊都有。市集與 L'Occitane 均能買。", image: "images/europe/Nice/souv-lavender.jpg" },
+      { local: "Huile d'Olive", romaji: "weel doh·LEEV", zh: "普羅旺斯橄欖油", desc: "Provence 區域特產，許多市集有試吃。可挑小罐金屬罐裝（鋁罐避光延長保存）。", image: "images/europe/Nice/souv-olive-oil.jpg" },
+      { local: "Calissons d'Aix", romaji: "ka·lee·SOHN dex", zh: "普羅旺斯杏仁糖糕", desc: "Aix-en-Provence 名物，杏仁糖膏 + 蜜餞甜瓜底層 + 糖霜薄餅。盒裝適合送禮。", image: "images/europe/Nice/souv-calissons.jpg" },
+      { local: "Savon de Marseille", romaji: "sa·VOHN duh mar·SAY", zh: "馬賽香皂", desc: "經典 72% 橄欖油皂，使用百年配方。立方塊狀的綠色 / 米色皂塊都很經典。", image: "images/europe/Nice/souv-marseille-soap.jpg" },
+      { local: "Olives Niçoises", romaji: "oh·LEEV nee·SWAZ", zh: "尼斯橄欖", desc: "小顆紫黑色橄欖，鹽水醃製。可帶罐裝或真空袋，配葡萄酒一流。", image: "images/europe/Nice/souv-olives.jpg" },
+      { local: "Limoncello", romaji: "lee·mon·CHEH·loh", zh: "蒙頓檸檬酒", desc: "Menton 自製檸檬酒，靠近義大利邊境的特產。冷藏後直飲或調飲。", image: "images/europe/Menton/souv-limoncello.jpg" }
+    ]
+  },
+
+  verdon: {
+    en: "Verdon", zh: "威東河峽谷",
+    phase: "verdon",
+    dayIndices: [10, 11],  /* D11, D12 */
+    daysLabel: "Day 11 – Day 12",
+    subtitle: "歐洲大峽谷 · 翡翠湖水 · 陶瓷山村",
+    coverImage: "",
+    coverAlt: "威東河峽谷",
+    hasTransit: false,  /* 不需要交通分頁（租車） */
+    intro: "威東河峽谷（Gorges du Verdon）是歐洲最大的峽谷之一，長約 25 公里、深度可達 700 公尺，由威東河（Verdon River）千萬年切割石灰岩高原而成。河水因冰川岩粉與石灰岩反射呈現獨特的翡翠綠色，是這個地區最具標誌性的景觀。\n\n峽谷北側的 Route des Crêtes 沿懸崖頂環繞，沿線設有多個觀景平台；南側 Corniche Sublime 則是另一條風景線。下游的 Lac de Sainte-Croix 是大型人造湖，夏季可划獨木舟、踩天鵝船進入峽谷口。\n\nMoustiers-Sainte-Marie 是進入峽谷最方便的住宿據點，被選為「法國最美村莊」之一。村莊嵌在兩座懸崖之間，村莊上方有一條 13 世紀十字軍掛上的金星鏈索橫跨兩崖。\n\n這裡的工藝以 17 世紀發展起來的彩繪陶（faïence）聞名，至今仍有許多陶瓷工作室。周邊的 Valensole 高原是著名的薰衣草田，5 月底時若提早盛開可順道一探。",
+    foods: [
+      { local: "Truffes noires", image: "images/europe/Verdon/food-truffes.jpg", romaji: "TROOF nwahr", zh: "黑松露料理", desc: "Provence 內陸知名特產。當地餐廳會推松露歐姆蛋、松露起司義大利麵等季節料理。" },
+      { local: "Miel de lavande", image: "images/europe/Verdon/food-miel-lavande.jpg", romaji: "myel duh la·VAHND", zh: "薰衣草蜂蜜", desc: "Verdon 周邊薰衣草田採收，淡花香、清爽不膩，可帶回當伴手禮。" },
+      { local: "Fromage de chèvre", image: "images/europe/Verdon/food-chevre.jpg", romaji: "fro·MAHJ duh SHEHV", zh: "山羊乳酪", desc: "Provence 山區自製山羊乳酪，搭橄欖油、迷迭香或薰衣草蜂蜜都很經典。" },
+      { local: "Fougasse", image: "images/europe/Verdon/food-fougasse.jpg", romaji: "foo·GAHSS", zh: "普羅旺斯麵包", desc: "葉脈造型的扁麵包，加橄欖、香草或培根，是 Moustiers 烘焙坊常見品項。" }
+    ],
+    transit: [],
+    notes: [
+      "出發前加滿油，山區加油站稀少",
+      "山路彎多，會暈車的人準備藥物",
+      "Moustiers 餐廳營業時間短，晚上 21:00 後幾乎都打烊",
+      "Route des Crêtes 是單行道，順時針才能通行，方向別走錯",
+      "Lac de Sainte-Croix 5 月底水可能還涼，划船前確認",
+      "聖母堂步道（Notre-Dame-de-Beauvoir）可看夕陽，但下山要趁天還亮",
+      "D11 從坎城到 Moustiers 約 2 小時，建議中午前出發避開山路車多",
+      "D12 最晚 14:00 一定要離開，趕傍晚 NCE→VIE 班機"
+    ],
+    souvenirs: [
+      { local: "Faïence de Moustiers", romaji: "fa·YAHNS duh moo·STYAY", zh: "Moustiers 彩繪陶", desc: "17 世紀以來的村莊招牌工藝，藍 / 黃 / 綠 / 棕單色彩繪在白底瓷器上。村內有多家工坊可挑選。", image: "images/europe/Verdon/souv-faience.jpg" },
+      { local: "Miel de Lavande", romaji: "myel duh la·VAHND", zh: "薰衣草蜂蜜", desc: "Verdon 與 Valensole 高原採收，淡花香、清爽不膩。可挑玻璃罐裝小份伴手。", image: "images/europe/Verdon/souv-miel.jpg" },
+      { local: "Truffe Products", romaji: "TROOF", zh: "黑松露製品", desc: "Provence 內陸特產。松露油、松露鹽、松露醬等小罐裝，比新鮮松露好攜帶。", image: "images/europe/Verdon/souv-truffle.jpg" },
+      { local: "Lavender Sachets", romaji: "la·VAHND", zh: "薰衣草香囊", desc: "Provence 經典伴手，曬乾的薰衣草花苞縫進小布袋。放衣櫥裡防蛀又香。", image: "images/europe/Verdon/souv-sachets.jpg" }
+    ]
+  },
+
+  vienna: {
+    en: "Vienna", zh: "維也納",
+    phase: "vienna",
+    dayIndices: [1, 11, 12],  /* D2 上午、D12 晚上抵達、D13 整日候機 */
+    daysLabel: "Day 2 · Day 12 – 13",
+    subtitle: "帝國門戶 · 過境停留",
+    coverImage: "",
+    coverAlt: "維也納",
+    hasTransit: true,
+    intro: "這趟旅程中，維也納（Wien）只是過境角色：D2 上午抵達 → 立即轉 RJ 火車前往布達佩斯；D12 晚上抵達 → 住機場 NH 飯店；D13 整日在機場周邊 → 傍晚 BR62 起飛返程。沒有真正進市區的時間。\n\n但即便是過境，仍值得認識這座城市：哈布斯堡王朝六百年首都、莫札特與貝多芬的居住地、咖啡館文化的發源地之一、現存最完整的中歐古典樂之城。Wien Hauptbahnhof（中央車站）就在市區邊緣，若 D2 火車時間意外延後仍能在站內感受一點維也納氛圍。\n\n若未來有機會專程造訪，霍夫堡皇宮、美泉宮、史蒂芬大教堂、Sacher 飯店與 Cafe Central 是經典路線。本次只能下次再來。",
+    foods: [
+      { local: "Sachertorte", image: "images/europe/Vienna/food-sachertorte.jpg", romaji: "ZAH·her·tor·tuh", zh: "薩赫蛋糕", desc: "維也納經典巧克力杏桃蛋糕，1832 年發明於 Hotel Sacher。VIE 機場有專櫃可買整盒帶走。" },
+      { local: "Wiener Schnitzel", image: "images/europe/Vienna/food-schnitzel.jpg", romaji: "VEE·ner SHNI·tsel", zh: "維也納炸豬排", desc: "蛋液裹麵包屑炸的薄豬排（傳統是小牛肉），擠點檸檬，配 Erdäpfelsalat 馬鈴薯沙拉。" },
+      { local: "Apfelstrudel", image: "images/europe/Vienna/food-apfelstrudel.jpg", romaji: "AHP·fel·shtroo·del", zh: "蘋果卷", desc: "薄如紙的麵皮包蘋果、葡萄乾、肉桂烤製，淋蘭姆酒醬汁或淋奶油。" },
+      { local: "Melange", image: "images/europe/Vienna/food-melange.jpg", romaji: "may·LAHN·jh", zh: "維也納咖啡", desc: "維也納版本的 cappuccino，等量濃縮咖啡加蒸奶與奶泡，咖啡館文化的核心。" }
+    ],
+    transit: [
+      { title: "VIE 機場 → 維也納市區",          body: "三種選擇：①ÖBB RJ 直達 Hauptbahnhof 約 15 分（最順）；②S-Bahn S7 到 Wien Mitte 約 25 分 €4.30；③CAT City Airport Train 到 Wien Mitte 16 分 €16。" },
+      { title: "Hauptbahnhof（中央車站）",       body: "本趟最關鍵的轉乘節點。RJ 1031 從這裡出發到布達佩斯。站內有 ÖBB Lockers 可短暫寄行李，餐飲與便利店齊全。" },
+      { title: "D12–13 機場過夜",                   body: "NH Vienna Airport Conference Center 與航廈有空橋連通，不必出海關。直接從 Arrivals 走天橋過去。" }
+    ],
+    notes: [
+      "D2 火車是 RJ 1031 13:19 出發，請預估 VIE→Hauptbahnhof 至少 30 分鐘",
+      "建議在 VIE 機場買網卡或開漫遊，後續整趟都需要",
+      "RJ 票建議線上事先訂位（指定席），方便行李",
+      "NH 機場飯店建議行前確認 check-in 時間；D12 晚上抵達後 D13 整日候機。",
+      "VIE 機場有大件寄物服務（Arrivals 1F），萬一行李超限可用",
+      "官方語言是德文，但機場與火車站英文通用，DeepL 備用"
+    ],
+    souvenirs: [
+      { local: "Sachertorte", romaji: "ZAH·her·tor·tuh", zh: "Hotel Sacher 薩赫蛋糕", desc: "1832 年 Hotel Sacher 創立的巧克力杏桃蛋糕，盒裝可帶 6 週。VIE 機場有專櫃可直接買。", image: "images/europe/Vienna/souv-sachertorte.jpg" },
+      { local: "Mozartkugel", romaji: "MOH·tsart·koo·gel", zh: "莫札特巧克力球", desc: "杏仁膏 + 開心果 + 牛軋糖外裹黑巧克力。Mirabell 品牌最常見，超市與機場都買得到。", image: "images/europe/Vienna/souv-mozartkugel.jpg" },
+      { local: "Manner Wafers", romaji: "MAH·ner", zh: "Manner 威化餅", desc: "1898 年創立的維也納經典零食。粉紅色包裝的杏仁榛果威化餅是經典款，超市有大盒裝。", image: "images/europe/Vienna/souv-manner.jpg" },
+      { local: "Augarten Porcelain", romaji: "OW·gar·ten", zh: "Augarten 瓷器", desc: "1718 年創立的維也納皇家瓷器，歐洲第二古老的瓷廠。單品高價但是傳承之物。", image: "images/europe/Vienna/souv-augarten.jpg" }
+    ]
+  }
+};
+
+const CITY_ORDER = ["budapest", "nice", "verdon", "vienna"];
+
+/* ============================================================
+   HAND-DRAWN SVG MOTIFS
+   ============================================================ */
+const CITY_MOTIFS = {
+  budapest: `<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <rect width="64" height="48" fill="#fdf2c5"/>
+    <circle cx="52" cy="11" r="4" fill="#e6b855" opacity="0.55"/>
+    <g fill="#c89b2e">
+      <rect x="14" y="26" width="26" height="8"/>
+      <path d="M 22 26 L 22 18 Q 22 12 27 12 L 27 9 L 29 9 L 29 12 Q 32 12 32 18 L 32 26 Z"/>
+      <rect x="16" y="20" width="3" height="6"/>
+      <rect x="35" y="20" width="3" height="6"/>
+      <polygon points="17.5,18 16,20 19,20"/>
+      <polygon points="36.5,18 35,20 38,20"/>
+    </g>
+    <g fill="none" stroke="#2f6f9e" stroke-linecap="round">
+      <path d="M 0 38 Q 8 35.5 16 38 T 32 38 T 48 38 T 64 38" stroke-width="1.4"/>
+      <path d="M 0 42 Q 8 39.5 16 42 T 32 42 T 48 42 T 64 42" stroke-width="1.1" opacity="0.55"/>
+      <path d="M 0 46 Q 8 43.5 16 46 T 32 46 T 48 46 T 64 46" stroke-width="0.8" opacity="0.35"/>
+    </g>
+  </svg>`,
+
+  nice: `<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <rect width="64" height="48" fill="#e6f3f8"/>
+    <circle cx="50" cy="12" r="5" fill="#e58866" opacity="0.7"/>
+    <path d="M 18 36 Q 19 26 22 14" stroke="#8a6a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <g stroke="#2a8fb5" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.9">
+      <path d="M 22 14 Q 14 11 7 13"/>
+      <path d="M 22 14 Q 18 7 14 5"/>
+      <path d="M 22 14 Q 26 6 31 4"/>
+      <path d="M 22 14 Q 30 11 37 13"/>
+      <path d="M 22 14 Q 22 19 18 23"/>
+      <path d="M 22 14 Q 27 19 31 21"/>
+    </g>
+    <g fill="none" stroke="#2a8fb5" stroke-linecap="round">
+      <path d="M 0 39 Q 8 36.5 16 39 T 32 39 T 48 39 T 64 39" stroke-width="1.4"/>
+      <path d="M 0 43 Q 8 40.5 16 43 T 32 43 T 48 43 T 64 43" stroke-width="1.1" opacity="0.55"/>
+      <path d="M 0 47 Q 8 44.5 16 47 T 32 47 T 48 47 T 64 47" stroke-width="0.8" opacity="0.35"/>
+    </g>
+  </svg>`,
+
+  verdon: `<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <rect width="64" height="48" fill="#eef3e7"/>
+    <g fill="#3eb09b" opacity="0.55">
+      <path d="M 0 32 L 12 16 L 24 26 L 38 12 L 52 22 L 64 16 L 64 36 L 0 36 Z"/>
+    </g>
+    <g fill="#2fa089" opacity="0.85">
+      <path d="M 0 38 L 10 26 L 22 34 L 32 24 L 44 32 L 56 26 L 64 30 L 64 40 L 0 40 Z"/>
+    </g>
+    <path d="M 0 44 Q 16 42 32 44 T 64 44" stroke="#3eb09b" stroke-width="1.5" fill="none"/>
+    <g stroke="#b89b6a" stroke-width="1" fill="none" stroke-linecap="round">
+      <line x1="8" y1="44" x2="8" y2="36"/>
+      <line x1="13" y1="44" x2="13" y2="34"/>
+      <line x1="18" y1="44" x2="18" y2="38"/>
+    </g>
+    <g fill="#b89b6a">
+      <ellipse cx="8" cy="34" rx="1.2" ry="2"/>
+      <ellipse cx="13" cy="32" rx="1.2" ry="2"/>
+      <ellipse cx="18" cy="36" rx="1.2" ry="2"/>
+    </g>
+  </svg>`,
+
+  vienna: `<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <rect width="64" height="48" fill="#eef2e0"/>
+    <g fill="#6f9050">
+      <rect x="12" y="28" width="22" height="8"/>
+      <path d="M 19 28 L 19 20 Q 19 14 23 14 L 23 11 L 25 11 L 25 14 Q 27 14 27 20 L 27 28 Z"/>
+      <rect x="14" y="22" width="2.5" height="6"/>
+      <rect x="29.5" y="22" width="2.5" height="6"/>
+      <polygon points="15.25,20 14,22 16.5,22"/>
+      <polygon points="30.75,20 29.5,22 32,22"/>
+    </g>
+    <g fill="#b8923a">
+      <ellipse cx="44" cy="32" rx="3.5" ry="2.5" transform="rotate(-15 44 32)"/>
+      <rect x="46.4" y="19" width="1.3" height="13" rx="0.6"/>
+      <path d="M 47.7 19 Q 52.5 19 54 23.5 Q 52 22 49 22.8 Q 47.7 22 47.7 21 Z"/>
+    </g>
+    <g fill="#6f9050" opacity="0.5">
+      <path d="M 56 13 Q 52 11 50 15 Q 53 17 56 13 Z"/>
+    </g>
+    <line x1="56" y1="13" x2="60" y2="10" stroke="#6f9050" stroke-width="1" opacity="0.5"/>
+  </svg>`
+};
+
+/* ============================================================
+   DECORATIVE ORNAMENTS (lemon branch, bouquet)
+   ============================================================ */
+/* Hero deco — small hand-drawn icons */
+const HERO_PLANE = `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g transform="rotate(-18 28 28)" fill="#b8744c">
+    <path d="M 6 30 L 38 25 L 46 25 Q 50 25 50 28 Q 50 31 46 31 L 38 31 L 6 30 Z"/>
+    <path d="M 22 18 L 25 18 L 20 25 L 17 25 Z"/>
+    <path d="M 22 38 L 25 38 L 20 31 L 17 31 Z"/>
+    <path d="M 38 21 L 41 21 L 38 25 L 36 25 Z"/>
+    <path d="M 38 35 L 41 35 L 38 31 L 36 31 Z"/>
+  </g>
+  <g fill="#b8744c" opacity="0.45">
+    <circle cx="14" cy="44" r="1.1"/>
+    <circle cx="9" cy="47" r="0.9"/>
+    <circle cx="5" cy="49" r="0.7"/>
+  </g>
+</svg>`;
+
+const HERO_CHAMPAGNE = `<svg viewBox="0 0 30 58" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g fill="#e58866" opacity="0.7">
+    <circle cx="10" cy="6" r="1"/>
+    <circle cx="18" cy="3" r="0.8"/>
+    <circle cx="22" cy="9" r="1.2"/>
+    <circle cx="14" cy="1.5" r="0.6"/>
+  </g>
+  <path d="M 11 12 L 19 12 L 19 28 Q 19 35 15 35 Q 11 35 11 28 Z"
+        fill="#fdfaed" stroke="#c89b2e" stroke-width="1.2"/>
+  <path d="M 11.6 17 L 18.4 17 L 18.4 28 Q 18.4 34.5 15 34.5 Q 11.6 34.5 11.6 28 Z"
+        fill="#f4c842" opacity="0.85"/>
+  <g fill="#fdfaed" opacity="0.9">
+    <circle cx="13.5" cy="22" r="0.7"/>
+    <circle cx="16.5" cy="24" r="0.5"/>
+    <circle cx="14" cy="27" r="0.6"/>
+    <circle cx="16" cy="30" r="0.45"/>
+  </g>
+  <line x1="15" y1="35" x2="15" y2="52" stroke="#c89b2e" stroke-width="1.2"/>
+  <ellipse cx="15" cy="54" rx="7" ry="1.5" fill="none" stroke="#c89b2e" stroke-width="1.2"/>
+</svg>`;
+
+const HERO_SEAGULL = `<svg viewBox="0 0 90 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke="#5a4633" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 4 14 Q 10 5 16 14 Q 22 5 28 14" stroke-width="1.6"/>
+    <path d="M 38 18 Q 44 11 50 18 Q 56 11 62 18" stroke-width="1.3" opacity="0.75"/>
+    <path d="M 70 12 Q 74 6 78 12 Q 82 6 86 11" stroke-width="1" opacity="0.6"/>
+  </g>
+</svg>`;
+
+const HERO_CHAIR = `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="28" cy="53" rx="13" ry="1" fill="#a86b50" opacity="0.28"/>
+  <path d="M 14 12 Q 28 6 42 12"
+        fill="none" stroke="#2a8fb5" stroke-width="2.4" stroke-linecap="round"/>
+  <g stroke="#2a8fb5" stroke-width="2" stroke-linecap="round">
+    <line x1="15" y1="12" x2="14" y2="30"/>
+    <line x1="21" y1="10" x2="21" y2="30"/>
+    <line x1="28" y1="7"  x2="28" y2="30"/>
+    <line x1="35" y1="10" x2="35" y2="30"/>
+    <line x1="41" y1="12" x2="42" y2="30"/>
+  </g>
+  <path d="M 10 30 L 46 30 L 49 36 L 7 36 Z"
+        fill="#2a8fb5" stroke="#1d6181" stroke-width="0.5"/>
+  <g stroke="#2a8fb5" stroke-width="2.4" stroke-linecap="round">
+    <line x1="9"  y1="36" x2="6"  y2="50"/>
+    <line x1="47" y1="36" x2="50" y2="50"/>
+  </g>
+  <line x1="7" y1="46" x2="49" y2="46" stroke="#2a8fb5" stroke-width="1.2"/>
+</svg>`;
+
+const HERO_SHELL = `<svg viewBox="0 0 40 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="20" cy="30" rx="12" ry="1" fill="#a86b50" opacity="0.22"/>
+  <path d="M 20 4 C 11 5 5 11 5 18 C 5 25 11 30 20 30 C 29 30 35 25 35 18 C 35 11 29 5 20 4 Z"
+        fill="#f5c8a2" stroke="#a86b50" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M 7 20 Q 13 28 20 28 Q 27 28 33 20"
+        fill="none" stroke="#a86b50" stroke-width="0.55" opacity="0.45"/>
+  <path d="M 14 5.5 Q 20 1 26 5.5 Q 25 7 20 7 Q 15 7 14 5.5 Z"
+        fill="#a86b50" stroke="#a86b50" stroke-width="0.4" stroke-linejoin="round"/>
+  <g stroke="#a86b50" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8">
+    <path d="M 20 6 Q 13 15 7 27"/>
+    <path d="M 20 6 Q 16 15 12 29"/>
+    <path d="M 20 6 Q 19 16 17 30"/>
+    <path d="M 20 6 L 20 30"/>
+    <path d="M 20 6 Q 21 16 23 30"/>
+    <path d="M 20 6 Q 24 15 28 29"/>
+    <path d="M 20 6 Q 27 15 33 27"/>
+  </g>
+  <path d="M 15 7 Q 11 11 9.5 16"
+        fill="none" stroke="#fff" stroke-width="0.7" opacity="0.55" stroke-linecap="round"/>
+</svg>`;
+
+const HERO_UMBRELLA = `<svg viewBox="0 0 42 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="21" cy="53" rx="8" ry="1" fill="#a86b50" opacity="0.3"/>
+  <path d="M 21 22 L 21 46 Q 21 49 24 50"
+        stroke="#5a4633" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M 4 22 Q 4 4 21 4 Q 38 4 38 22 Z"
+        fill="#fdfaed" stroke="#5a4633" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M 21 4 L 4 22 L 7.25 12 Z" fill="#e58866"/>
+  <path d="M 21 4 L 15.75 5.84 L 26.25 5.84 Z" fill="#e58866"/>
+  <path d="M 21 4 L 34.75 12 L 38 22 Z" fill="#e58866"/>
+  <g stroke="#5a4633" stroke-width="0.45" opacity="0.55">
+    <line x1="21" y1="4" x2="4" y2="22"/>
+    <line x1="21" y1="4" x2="7.25" y2="12"/>
+    <line x1="21" y1="4" x2="15.75" y2="5.84"/>
+    <line x1="21" y1="4" x2="26.25" y2="5.84"/>
+    <line x1="21" y1="4" x2="34.75" y2="12"/>
+    <line x1="21" y1="4" x2="38" y2="22"/>
+  </g>
+  <path d="M 4 22 Q 6.5 25 9 22 Q 11.5 25 14 22 Q 16.5 25 19 22 Q 21.5 25 24 22 Q 26.5 25 29 22 Q 31.5 25 34 22 Q 36 25 38 22"
+        fill="none" stroke="#5a4633" stroke-width="0.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="21" cy="4" r="1.6" fill="#5a4633"/>
+</svg>`;
+
+const HERO_PALM = `<svg viewBox="0 0 52 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke="#6f9050" stroke-width="1.2" fill="none" stroke-linecap="round">
+    <path d="M 4 32 Q 18 22 48 8"/>
+  </g>
+  <g fill="#6f9050" opacity="0.55">
+    <path d="M 10 26 Q 4 22 2 16 Q 8 18 14 24 Z"/>
+    <path d="M 18 22 Q 12 16 10 8 Q 18 12 22 20 Z"/>
+    <path d="M 26 18 Q 22 10 22 2 Q 28 8 30 16 Z"/>
+    <path d="M 34 14 Q 32 7 34 0 Q 38 6 38 12 Z"/>
+    <path d="M 42 11 Q 42 5 46 2 Q 46 7 44 10 Z"/>
+  </g>
+  <g stroke="#6f9050" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.85">
+    <path d="M 10 26 Q 4 22 2 16"/>
+    <path d="M 18 22 Q 12 16 10 8"/>
+    <path d="M 26 18 Q 22 10 22 2"/>
+    <path d="M 34 14 Q 32 7 34 0"/>
+    <path d="M 42 11 Q 42 5 46 2"/>
+  </g>
+</svg>`;
+
+const HERO_COCONUT = `<svg viewBox="0 0 36 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="18" cy="53" rx="9" ry="0.8" fill="#a86b50" opacity="0.3"/>
+  <path d="M 20 53 Q 14 38 16 22 Q 17 14 19 10"
+        stroke="#8a6a4a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <g stroke="#6b4a2e" stroke-width="0.5" opacity="0.5">
+    <line x1="16" y1="22" x2="19" y2="22"/>
+    <line x1="15" y1="30" x2="20" y2="30"/>
+    <line x1="14" y1="38" x2="20" y2="38"/>
+    <line x1="14" y1="46" x2="21" y2="46"/>
+  </g>
+  <g fill="#5a3a1e">
+    <circle cx="15" cy="13" r="2.2"/>
+    <circle cx="19" cy="14" r="2.4"/>
+    <circle cx="21" cy="11" r="2"/>
+  </g>
+  <g stroke="#6f9050" stroke-width="1.5" fill="none" stroke-linecap="round">
+    <path d="M 18 10 Q 10 6 2 10"/>
+    <path d="M 18 10 Q 8 14 1 19"/>
+    <path d="M 18 10 Q 26 6 34 10"/>
+    <path d="M 18 10 Q 28 14 35 19"/>
+    <path d="M 18 10 Q 14 4 10 1"/>
+    <path d="M 18 10 Q 22 4 26 1"/>
+  </g>
+  <g stroke="#6f9050" stroke-width="0.7" stroke-linecap="round" opacity="0.9">
+    <line x1="11" y1="7"  x2="10" y2="4"/>
+    <line x1="11" y1="7"  x2="11" y2="11"/>
+    <line x1="6"  y1="9"  x2="5"  y2="6"/>
+    <line x1="6"  y1="9"  x2="6"  y2="13"/>
+    <line x1="25" y1="7"  x2="26" y2="4"/>
+    <line x1="25" y1="7"  x2="25" y2="11"/>
+    <line x1="30" y1="9"  x2="31" y2="6"/>
+    <line x1="30" y1="9"  x2="30" y2="13"/>
+  </g>
+</svg>`;
+
+const ORNAMENT_LEMON = `<svg viewBox="0 0 120 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M 8 32 Q 38 18 60 22 Q 86 26 112 14" stroke="#8a6a4a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <g fill="#8aa166" opacity="0.85">
+    <ellipse cx="34" cy="20" rx="7" ry="2.6" transform="rotate(-22 34 20)"/>
+    <ellipse cx="68" cy="20" rx="7" ry="2.6" transform="rotate(-12 68 20)"/>
+    <ellipse cx="98" cy="14" rx="6" ry="2.4" transform="rotate(-18 98 14)"/>
+  </g>
+  <g>
+    <ellipse cx="24" cy="32" rx="6" ry="5" fill="#f4c842"/>
+    <ellipse cx="24" cy="31" rx="3" ry="1.5" fill="#fce98a" opacity="0.7"/>
+    <path d="M 18 30 Q 17 29 19 28" stroke="#8a6a4a" stroke-width="0.8" fill="none"/>
+  </g>
+  <g>
+    <ellipse cx="56" cy="34" rx="6" ry="5" fill="#f4c842"/>
+    <ellipse cx="56" cy="33" rx="3" ry="1.5" fill="#fce98a" opacity="0.7"/>
+    <path d="M 50 32 Q 49 31 51 30" stroke="#8a6a4a" stroke-width="0.8" fill="none"/>
+  </g>
+  <g>
+    <ellipse cx="90" cy="26" rx="6" ry="5" fill="#f4c842"/>
+    <ellipse cx="90" cy="25" rx="3" ry="1.5" fill="#fce98a" opacity="0.7"/>
+    <path d="M 84 24 Q 83 23 85 22" stroke="#8a6a4a" stroke-width="0.8" fill="none"/>
+  </g>
+</svg>`;
+
+const ORNAMENT_BOUQUET = `<svg viewBox="0 0 120 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke="#7a8e60" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.9">
+    <path d="M 60 52 Q 56 36 48 22"/>
+    <path d="M 60 52 Q 60 32 56 14"/>
+    <path d="M 60 52 Q 64 32 70 16"/>
+    <path d="M 60 52 Q 68 36 80 26"/>
+    <path d="M 60 52 Q 52 38 42 30"/>
+  </g>
+  <path d="M 50 54 L 70 54 L 66 48 L 54 48 Z" fill="#e8d4a5" opacity="0.85"/>
+  <path d="M 50 54 L 70 54" stroke="#b89358" stroke-width="0.8" fill="none"/>
+  <g>
+    <circle cx="48" cy="22" r="6.5" fill="#d8714f" opacity="0.85"/>
+    <circle cx="48" cy="22" r="2.8" fill="#fdfaed"/>
+  </g>
+  <g>
+    <circle cx="56" cy="14" r="6.5" fill="#c98682" opacity="0.85"/>
+    <circle cx="56" cy="14" r="2.8" fill="#fdfaed"/>
+  </g>
+  <g>
+    <circle cx="70" cy="16" r="6.5" fill="#e58866" opacity="0.85"/>
+    <circle cx="70" cy="16" r="2.8" fill="#fdfaed"/>
+  </g>
+  <g>
+    <circle cx="80" cy="26" r="6.5" fill="#c89b2e" opacity="0.85"/>
+    <circle cx="80" cy="26" r="2.8" fill="#fdfaed"/>
+  </g>
+  <g>
+    <circle cx="42" cy="30" r="6" fill="#2a8fb5" opacity="0.75"/>
+    <circle cx="42" cy="30" r="2.5" fill="#fdfaed"/>
+  </g>
+  <g fill="#8aa166" opacity="0.7">
+    <ellipse cx="52" cy="32" rx="5" ry="1.6" transform="rotate(-35 52 32)"/>
+    <ellipse cx="64" cy="34" rx="5" ry="1.6" transform="rotate(40 64 34)"/>
+    <ellipse cx="72" cy="38" rx="4.5" ry="1.6" transform="rotate(35 72 38)"/>
+  </g>
+</svg>`;
+
+/* ============================================================
+   RENDER · HOME (ticket strip)
+   ============================================================ */
+function renderHome() {
+  const strip = document.getElementById("ticketStrip");
+  strip.innerHTML = itineraryData.map((d, i) => {
+    const dateParts = d.date.split("/");
+    return `
+      <button class="ticket-stub" data-phase="${d.phase}" data-day-idx="${i}" type="button">
+        <span class="ticket-stub__d">${d.day.replace("Day ", "D")}<span>${d.dow}</span></span>
+        <span class="ticket-stub__content">
+          <span class="ticket-stub__phase">${PHASE_LABEL[d.phase]}</span>
+          <span class="ticket-stub__title">${escapeHTML(d.title)}</span>
+          <span class="ticket-stub__sub">${escapeHTML(d.subtitle || "")}</span>
+        </span>
+        <span class="ticket-stub__date">
+          <strong>${dateParts[1]}/${dateParts[2]}</strong>
+        </span>
+      </button>
+    `;
+  }).join("");
+
+  strip.querySelectorAll(".ticket-stub").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = Number(btn.dataset.dayIdx);
+      gotoDay(idx);
+    });
+  });
+}
+
+/* ============================================================
+   RENDER · CITY LIST (home page)
+   ============================================================ */
+function renderCityList() {
+  const list = document.getElementById("citiesList");
+  list.innerHTML = CITY_ORDER.map(key => {
+    const c = cityData[key];
+    const thumb = c.coverImage
+      ? `<img src="${escapeHTML(c.coverImage)}" alt="${escapeHTML(c.coverAlt || c.en)}" />`
+      : (CITY_MOTIFS[key] || "");
+    return `
+      <button class="city-item" data-phase="${c.phase}" data-city-key="${key}" type="button">
+        <div class="city-item__thumb">${thumb}</div>
+        <div class="city-item__body">
+          <div class="city-item__head">
+            <span class="city-item__en">${escapeHTML(c.en)}</span>
+            <span class="city-item__zh">${escapeHTML(c.zh)}</span>
+          </div>
+          <div class="city-item__days">${escapeHTML(c.daysLabel)}</div>
+          <div class="city-item__sub">${escapeHTML(c.subtitle)}</div>
+        </div>
+        <span class="city-item__arrow">›</span>
+      </button>
+    `;
+  }).join("");
+
+  list.querySelectorAll(".city-item").forEach(btn => {
+    btn.addEventListener("click", () => gotoCity(btn.dataset.cityKey));
+  });
+}
+
+/* ============================================================
+   CITY VIEW
+   ============================================================ */
+let currentCityKey = null;
+let currentCityTab = "intro";
+
+function gotoCity(key) {
+  if (!cityData[key]) return;
+  currentCityKey = key;
+  currentCityTab = "intro";
+  const c = cityData[key];
+  document.body.setAttribute("data-view", "city");
+  document.body.setAttribute("data-phase", c.phase);
+  document.documentElement.style.setProperty("--phase-label", `"${PHASE_LABEL[c.phase]}"`);
+  document.getElementById("cityBreadcrumb").textContent = `${c.en} · ${c.zh}`;
+  renderCityContent();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderCityContent() {
+  const c = cityData[currentCityKey];
+  const tabs = c.hasTransit
+    ? [["intro", "介紹"], ["food", "美食"], ["souvenirs", "伴手禮"], ["transit", "交通"], ["notes", "須知"]]
+    : [["intro", "介紹"], ["food", "美食"], ["souvenirs", "伴手禮"], ["notes", "須知"]];
+
+  const html = `
+    <div class="city-banner">
+      ${c.coverImage
+        ? `<img class="city-banner__img" src="${escapeHTML(c.coverImage)}" alt="${escapeHTML(c.coverAlt || c.en)}" loading="lazy" />`
+        : `<div class="city-banner__placeholder"></div>`
+      }
+      <p class="city-banner__caption">
+        ${escapeHTML(c.en.toUpperCase())}
+        <span class="city-banner__caption-sep">·</span>
+        ${escapeHTML(c.daysLabel.replace("Day ", "D"))}
+      </p>
+    </div>
+
+    <div class="city-meta">
+      <h2 class="city-meta__name">${escapeHTML(c.en)}</h2>
+      <p class="city-meta__zh">${escapeHTML(c.zh)}</p>
+      <p class="city-meta__days">${escapeHTML(c.daysLabel)}</p>
+      <p class="city-meta__sub">${escapeHTML(c.subtitle)}</p>
+    </div>
+
+    <nav class="city-tabs" role="tablist">
+      ${tabs.map(([k, label], i) => `
+        <button class="city-tab ${k === currentCityTab ? "is-active" : ""}" data-city-tab="${k}" type="button">${label}</button>
+      `).join("")}
+    </nav>
+
+    <div class="city-panel" id="cityPanel">${renderCityPanel(c, currentCityTab)}</div>
+
+    <div class="city-days">
+      <div class="city-days__label">— DAYS IN ${escapeHTML(c.en.toUpperCase())} —</div>
+      <div class="city-days__list">
+        ${c.dayIndices.map(i => {
+          const d = itineraryData[i];
+          const dp = d.date.split("/");
+          const loc = DAY_CHIP_LABELS[i] || "";
+          return `<button class="city-day-chip" data-goto-day-idx="${i}" type="button">
+            <div class="city-day-chip__d">D${i+1}</div>
+            <div class="city-day-chip__date">${parseInt(dp[1],10)}/${parseInt(dp[2],10)}</div>
+            <div class="city-day-chip__loc">${loc}</div>
+          </button>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+
+  document.getElementById("cityContent").innerHTML = html;
+
+  // Tab switching
+  document.querySelectorAll(".city-tab").forEach(t => {
+    t.addEventListener("click", () => {
+      currentCityTab = t.dataset.cityTab;
+      document.querySelectorAll(".city-tab").forEach(x => x.classList.toggle("is-active", x === t));
+      document.getElementById("cityPanel").innerHTML = renderCityPanel(c, currentCityTab);
+    });
+  });
+
+  // Day chips
+  document.querySelectorAll(".city-day-chip").forEach(chip => {
+    chip.addEventListener("click", () => gotoDay(Number(chip.dataset.gotoDayIdx)));
+  });
+}
+
+function renderCityPanel(c, tab) {
+  function header(en, zh) {
+    return `<div class="panel-header">${en}<span class="panel-header__zh">${zh}</span></div>`;
+  }
+
+  if (tab === "intro") {
+    const paragraphs = (c.intro || "").split(/\n\n+/).map(p => `<p>${escapeHTML(p)}</p>`).join("");
+    return header("City Notes", "介紹") + `<div class="city-intro">${paragraphs}</div>`;
+  }
+
+  if (tab === "food") {
+    let groups = null;
+    if (c.foodGroups && c.foodGroups.length) {
+      groups = c.foodGroups;
+    } else if (c.foods && c.foods.length) {
+      groups = [{ name: null, zh: null, items: c.foods }];
+    }
+    if (!groups) return header("Must Eat", "必吃") + `<div class="empty">— 待補 —</div>`;
+    const renderFood = f => `
+      <article class="food-card">
+        ${f.image
+          ? `<img class="food-card__img" src="${escapeHTML(f.image)}" alt="${escapeHTML(f.local)}" loading="lazy" />`
+          : `<div class="food-card__img-ph">FOOD</div>`}
+        <div class="food-card__body">
+          <h4 class="food-card__local">${escapeHTML(f.local)}</h4>
+          ${f.romaji ? `<span class="food-card__local-romaji">${escapeHTML(f.romaji)}</span>` : ""}
+          ${f.zh ? `<div class="food-card__zh">${escapeHTML(f.zh)}</div>` : ""}
+          ${f.desc ? `<p class="food-card__desc">${escapeHTML(f.desc)}</p>` : ""}
+        </div>
+      </article>`;
+    return header("Must Eat", "必吃") + groups.map(g => `
+      <div class="food-group">
+        ${g.name ? `<div class="food-group__header">
+          <span class="food-group__name">${escapeHTML(g.name)}</span>
+          ${g.zh ? `<span class="food-group__zh">${escapeHTML(g.zh)}</span>` : ""}
+        </div>` : ""}
+        <div class="food-grid">${(g.items || []).map(renderFood).join("")}</div>
+      </div>
+    `).join("");
+  }
+
+  if (tab === "souvenirs") {
+    let groups = null;
+    if (c.souvenirGroups && c.souvenirGroups.length) {
+      groups = c.souvenirGroups;
+    } else if (c.souvenirs && c.souvenirs.length) {
+      groups = [{ name: null, zh: null, items: c.souvenirs }];
+    }
+    if (!groups) return header("Souvenirs", "伴手禮") + `<div class="empty">— 待補 —</div>`;
+    const renderSouv = f => `
+      <article class="food-card">
+        ${f.image
+          ? `<img class="food-card__img" src="${escapeHTML(f.image)}" alt="${escapeHTML(f.local)}" loading="lazy" />`
+          : `<div class="food-card__img-ph">GIFT</div>`}
+        <div class="food-card__body">
+          <h4 class="food-card__local">${escapeHTML(f.local)}</h4>
+          ${f.romaji ? `<span class="food-card__local-romaji">${escapeHTML(f.romaji)}</span>` : ""}
+          ${f.zh ? `<div class="food-card__zh">${escapeHTML(f.zh)}</div>` : ""}
+          ${f.desc ? `<p class="food-card__desc">${escapeHTML(f.desc)}</p>` : ""}
+        </div>
+      </article>`;
+    return header("Souvenirs", "伴手禮") + groups.map(g => `
+      <div class="food-group">
+        ${g.name ? `<div class="food-group__header">
+          <span class="food-group__name">${escapeHTML(g.name)}</span>
+          ${g.zh ? `<span class="food-group__zh">${escapeHTML(g.zh)}</span>` : ""}
+        </div>` : ""}
+        <div class="food-grid">${(g.items || []).map(renderSouv).join("")}</div>
+      </div>
+    `).join("");
+  }
+
+  if (tab === "transit") {
+    if (!c.transit || !c.transit.length) return header("Getting Around", "交通") + `<div class="empty">— 不適用 —</div>`;
+    return header("Getting Around", "交通") + c.transit.map(t => `
+      <section class="transit-block">
+        <h4>${escapeHTML(t.title)}</h4>
+        <p>${escapeHTML(t.body)}</p>
+      </section>
+    `).join("");
+  }
+
+  if (tab === "notes") {
+    let groups = null;
+    if (c.noteGroups && c.noteGroups.length) {
+      groups = c.noteGroups;
+    } else if (c.notes && c.notes.length) {
+      groups = [{ name: null, zh: null, items: c.notes }];
+    }
+    if (!groups) return header("Good to Know", "須知") + `<div class="empty">— 待補 —</div>`;
+    return header("Good to Know", "須知") + groups.map(g => `
+      <div class="note-group">
+        ${g.name ? `<div class="note-group__header">
+          <span class="note-group__name">${escapeHTML(g.name)}</span>
+          ${g.zh ? `<span class="note-group__zh">${escapeHTML(g.zh)}</span>` : ""}
+        </div>` : ""}
+        <section class="notes-block">
+          <ul>${(g.items || []).map(n => `<li>${escapeHTML(n)}</li>`).join("")}</ul>
+        </section>
+      </div>
+    `).join("");
+  }
+
+  return "";
+}
+
+/* ============================================================
+   RENDER · DAY VIEW
+   ============================================================ */
+let currentDayIdx = 0;
+
+function gotoDay(idx) {
+  currentDayIdx = idx;
+  const day = itineraryData[idx];
+  document.body.setAttribute("data-view", "day");
+  document.body.setAttribute("data-phase", day.phase);
+  document.documentElement.style.setProperty("--phase-label", `"${PHASE_LABEL[day.phase]}"`);
+  document.getElementById("dayProgress").textContent = `${day.day} / ${itineraryData.length}`;
+  renderDateStrip();
+  renderDayContent();
+  // scroll active date card into view
+  setTimeout(() => {
+    const active = document.querySelector(".date-card.is-active");
+    if (active) active.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, 50);
+  // scroll to top of day content
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function gotoHome() {
+  document.body.setAttribute("data-view", "home");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+const DAY_CITY_LABELS = [
+  "TPE",      // D1
+  "BUD",      // D2
+  "BUD",      // D3
+  "BUD",      // D4
+  "NCE",      // D5
+  "NCE",      // D6
+  "NCE",      // D7
+  "NCE",      // D8
+  "Èze",      // D9
+  "Antibes",  // D10
+  "Verdon",   // D11
+  "VIE",      // D12
+  "VIE",      // D13
+  "TPE"       // D14
+];
+
+/* Specific per-day chip label (shown on city-chapter day chips) */
+const DAY_CHIP_LABELS = [
+  "出發",           // D1
+  "抵達 BUD",       // D2
+  "散策",           // D3
+  "日出 · 遊船",    // D4
+  "→ NCE",          // D5
+  "解放市場",       // D6
+  "自由日",         // D7
+  "Villefranche",   // D8
+  "Menton · Èze",   // D9
+  "Saint-Paul",     // D10
+  "→ Verdon",       // D11
+  "→ Vienna",       // D12
+  "候機",           // D13
+  "返程"            // D14
+];
+
+function renderDateStrip() {
+  const strip = document.getElementById("dateStrip");
+  strip.innerHTML = itineraryData.map((d, i) => {
+    const dateParts = d.date.split("/");
+    const m  = parseInt(dateParts[1], 10);  // strip leading zero
+    const dd = parseInt(dateParts[2], 10);
+    const city = DAY_CITY_LABELS[i] || "";
+    return `
+      <button class="date-card ${i === currentDayIdx ? "is-active" : ""}" data-day-idx="${i}" data-phase="${d.phase}" type="button">
+        <div class="date-card__top"></div>
+        <div class="date-card__inner">
+          <div class="date-card__dow">${d.dow}</div>
+          <div class="date-card__day">D${i+1}</div>
+          <div class="date-card__date"><span class="date-card__mon">${m}</span><span class="date-card__sep">/</span><span class="date-card__num">${dd}</span></div>
+          <div class="date-card__city">${city}</div>
+        </div>
+      </button>
+    `;
+  }).join("");
+  strip.querySelectorAll(".date-card").forEach(btn => {
+    btn.addEventListener("click", () => gotoDay(Number(btn.dataset.dayIdx)));
+  });
+}
+
+function renderDayContent() {
+  const day = itineraryData[currentDayIdx];
+  const dateParts = day.date.split("/");
+  const html = `
+    <div class="postcard">
+      ${day.coverImage
+        ? `<img class="postcard__img" src="${escapeHTML(day.coverImage)}" alt="${escapeHTML(day.coverAlt || day.title)}" loading="lazy" />`
+        : `<div class="postcard__placeholder"></div>`
+      }
+      <div class="postcard__stamp">
+        ${day.dow}<br>
+        <strong>${dateParts[2]}</strong>
+        ${dateParts[1]}月
+      </div>
+      <p class="postcard__caption">${escapeHTML(day.routeCode || day.title)}</p>
+    </div>
+
+    <div class="day-meta">
+      <span class="day-meta__phase">${PHASE_LABEL[day.phase]}</span>
+      <h2 class="day-meta__title">${escapeHTML(day.title)}</h2>
+      <p class="day-meta__subtitle">${escapeHTML(day.subtitle || "")}</p>
+    </div>
+
+    <nav class="day-tabs" role="tablist">
+      <button class="day-tab is-active" data-tab="schedule" type="button">行程</button>
+      <button class="day-tab" data-tab="intro" type="button">介紹</button>
+      <button class="day-tab" data-tab="notes" type="button">備註</button>
+    </nav>
+
+    <div class="day-panel" data-panel="schedule">
+      ${(day.schedule || []).map(renderTripCard).join("")}
+      ${day.hotel && day.hotel.name ? renderHotel(day.hotel) : ""}
+    </div>
+
+    <div class="day-panel" data-panel="intro" hidden>
+      ${(day.introCards || []).length
+        ? (day.introCards || []).map(renderIntroCard).join("")
+        : `<div class="empty">— 尚無介紹 —</div>`}
+    </div>
+
+    <div class="day-panel" data-panel="notes" hidden>
+      ${(day.extraNotes || []).length
+        ? `<ul class="notes-list">${day.extraNotes.map(n => `<li>${escapeHTML(n)}</li>`).join("")}</ul>`
+        : `<div class="empty">— 尚無備註 —</div>`}
+    </div>
+  `;
+  document.getElementById("dayContent").innerHTML = html;
+
+  // tab switching
+  const panels = document.querySelectorAll(".day-panel");
+  const tabs = document.querySelectorAll(".day-tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("is-active"));
+      tab.classList.add("is-active");
+      const target = tab.dataset.tab;
+      panels.forEach(p => {
+        if (p.dataset.panel === target) p.hidden = false;
+        else p.hidden = true;
+      });
+    });
+  });
+}
+
+/* ---------- Trip card render ---------- */
+function renderTripCard(item) {
+  if (item.type === "transit") {
+    return `
+      <div class="trip-card trip-card--transit">
+        <div class="trip-card__time">${escapeHTML(item.time || "")}</div>
+        <div class="trip-card__content">
+          <div class="ticket-row">
+            <div class="ticket-row__route">
+              <span class="ticket-row__from">${escapeHTML(item.from || "")}</span>
+              <span class="ticket-row__arrow">→</span>
+              <span class="ticket-row__to">${escapeHTML(item.to || "")}</span>
+              <div class="ticket-row__num">${escapeHTML(item.flightNo || item.train || "")}</div>
+            </div>
+            <div class="ticket-row__time">
+              <strong>${escapeHTML(item.timeRange || "")}</strong>
+            </div>
+          </div>
+          ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
+  const time = (item.time || "").trim();
+  const hasTime = time.length > 0;
+  const timeHTML = hasTime
+    ? `<div class="trip-card__time">${escapeHTML(time)}</div>`
+    : `<div class="trip-card__time trip-card__time--empty">—</div>`;
+
+  const placeHTML = item.mapLink
+    ? `<a href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(item.place)}</a>`
+    : escapeHTML(item.place);
+
+  const foodsJson = JSON.stringify(item.foods || []);
+  const foodBtn = (item.foods && item.foods.length)
+    ? `<button class="btn-chip" type="button"
+         data-food='${escapeHTML(foodsJson)}'
+         data-food-title="${escapeHTML(item.place)} · 附近吃食">🍜 附近吃食</button>`
+    : "";
+
+  return `
+    <div class="trip-card">
+      ${timeHTML}
+      <div class="trip-card__content">
+        <h3 class="trip-card__name">${placeHTML}</h3>
+        ${item.description ? `<p class="trip-card__desc">${applyInlineLinks(escapeHTML(item.description), item.descriptionLinks)}</p>` : ""}
+        ${item.note ? `<p class="trip-card__note">${applyInlineLinks(escapeHTML(item.note), item.noteLinks)}</p>` : ""}
+        ${foodBtn ? `<div class="trip-card__actions">${foodBtn}</div>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- Intro card render ---------- */
+function renderIntroCard(card) {
+  const imgHTML = card.image
+    ? `<img class="intro-card__img" src="${escapeHTML(card.image)}" alt="${escapeHTML(card.title)}" loading="lazy" />`
+    : `<div class="intro-card__img-placeholder"></div>`;
+  const titleHTML = card.mapLink
+    ? `<a href="${escapeHTML(card.mapLink)}" target="_blank" rel="noopener">${escapeHTML(card.title)}</a>`
+    : escapeHTML(card.title);
+  return `
+    <article class="intro-card">
+      ${imgHTML}
+      <div class="intro-card__body">
+        <h4 class="intro-card__title">${titleHTML}</h4>
+        <p class="intro-card__text">${applyInlineLinks(escapeHTML(card.text || ""), card.links)}</p>
+      </div>
+    </article>
+  `;
+}
+
+/* ---------- Hotel render ---------- */
+function renderHotel(hotel) {
+  return `
+    <div class="day-hotel">
+      <span class="day-hotel__label">HOTEL · 住宿</span>
+      ${hotel.mapLink
+        ? `<a class="day-hotel__name" href="${escapeHTML(hotel.mapLink)}" target="_blank" rel="noopener">${escapeHTML(hotel.name)}</a>`
+        : `<span class="day-hotel__name">${escapeHTML(hotel.name)}</span>`}
+    </div>
+  `;
+}
+
+/* ---------- Inline link helper ---------- */
+function applyInlineLinks(escapedText, links) {
+  if (!Array.isArray(links) || !links.length) return escapedText;
+  const sorted = [...links]
+    .filter(l => l && l.name && l.url)
+    .sort((a, b) => b.name.length - a.name.length);
+  const tokens = [];
+  let out = escapedText;
+  sorted.forEach((link, i) => {
+    const safeName = escapeHTML(link.name);
+    if (out.indexOf(safeName) !== -1) {
+      const token = ` LINK_${i} `;
+      const anchor = `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener">${safeName}</a>`;
+      out = out.split(safeName).join(token);
+      tokens.push({ token, anchor });
+    }
+  });
+  tokens.forEach(({ token, anchor }) => { out = out.split(token).join(anchor); });
+  return out;
+}
+
+/* ---------- Food modal ---------- */
+function bindFoodModal() {
+  const modal = document.getElementById("foodModal");
+  const titleEl = document.getElementById("foodModalTitle");
+  const subEl = document.getElementById("foodModalSubtitle");
+  const listEl = document.getElementById("foodModalList");
+
+  function open(title, foods) {
+    titleEl.textContent = title;
+    subEl.textContent = "NEARBY EATS";
+    listEl.innerHTML = foods.map(f => {
+      const nameHTML = f.mapLink
+        ? `<a class="modal__food-name" href="${escapeHTML(f.mapLink)}" target="_blank" rel="noopener">${escapeHTML(f.name)}</a>`
+        : `<span class="modal__food-name">${escapeHTML(f.name)}</span>`;
+      return `<div class="modal__food-item">
+        ${nameHTML}
+        ${f.info ? `<div class="modal__food-info">${escapeHTML(f.info)}</div>` : ""}
+      </div>`;
+    }).join("");
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-food]");
+    if (btn) {
+      const foods = JSON.parse(btn.dataset.food || "[]");
+      const title = btn.dataset.foodTitle || "附近吃食";
+      open(title, foods);
+    }
+    if (e.target.closest("[data-close]")) close();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") close();
+  });
+}
+
+/* ---------- Utils ---------- */
+function escapeHTML(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+  }[c]));
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener("DOMContentLoaded", () => {
+  renderHome();
+  renderCityList();
+  bindFoodModal();
+  bindQuickNav();
+
+  // Inject hero deco
+  const inject = (id, svg) => { const el = document.getElementById(id); if (el) el.innerHTML = svg; };
+  inject("heroPlane",     HERO_PLANE);
+  inject("heroChampagne", HERO_CHAMPAGNE);
+  inject("heroSeagull",   HERO_SEAGULL);
+  inject("heroChair",     HERO_CHAIR);
+  inject("heroCoconut",   HERO_COCONUT);
+  inject("heroShell",     HERO_SHELL);
+  inject("heroUmbrella",  HERO_UMBRELLA);
+  inject("heroPalm",      HERO_PALM);
+
+  // Inject decorative ornaments (between sections)
+  inject("ornamentBouquet", ORNAMENT_BOUQUET);
+  inject("ornamentLemon",   ORNAMENT_LEMON);
+
+  document.getElementById("btnHome").addEventListener("click", gotoHome);
+  document.getElementById("btnCityHome").addEventListener("click", gotoHome);
+
+  // initial phase color on home view
+  document.body.setAttribute("data-phase", "budapest");
+});
+
+/* ---------- Quick nav handlers ---------- */
+function bindQuickNav() {
+  const pretripModal = document.getElementById("pretripModal");
+
+  function openPretrip() {
+    pretripModal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    const sheet = pretripModal.querySelector(".modal__sheet");
+    if (sheet) sheet.scrollTop = 0;
+  }
+  function closePretrip() {
+    pretripModal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  // Pre-trip button → open pre-trip modal
+  document.getElementById("btnPretrip").addEventListener("click", openPretrip);
+
+  // Close pre-trip modal
+  pretripModal.querySelectorAll("[data-close]").forEach(el => {
+    el.addEventListener("click", closePretrip);
+  });
+}
+</script>
+
+</body>
+</html>
