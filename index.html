@@ -1150,6 +1150,48 @@ body {
   transition: background 0.15s, color 0.15s;
 }
 .btn-chip:hover { background: var(--soft); color: #fff; }
+.btn-chip--tip {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-chip--tip:hover { background: var(--accent); color: #fff; }
+
+/* Tip modal — numbered steps list */
+.tip-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: tip-step;
+}
+.tip-steps li {
+  counter-increment: tip-step;
+  position: relative;
+  padding: 12px 0 12px 40px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  border-bottom: 1px dashed var(--line);
+}
+.tip-steps li:last-child { border-bottom: none; }
+.tip-steps li::before {
+  content: counter(tip-step);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
 
 /* ---------- Ticket-stub style trip card (transit) ---------- */
 .trip-card--transit .trip-card__content { padding: 0; }
@@ -2259,6 +2301,17 @@ body {
   </div>
 </div>
 
+<div class="modal" id="tipModal" role="dialog" aria-modal="true" aria-labelledby="tipModalTitle">
+  <div class="modal__backdrop" data-tip-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-tip-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="tipModalTitle">小提示</h3>
+    <p class="modal__subtitle" id="tipModalSubtitle">TIP</p>
+    <ol class="tip-steps" id="tipModalSteps"></ol>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    PHASE CONFIG
@@ -2344,34 +2397,61 @@ const itineraryData = [
         flightNo: "BR61",
         timeRange: "02:40 – 08:40",
         dualTime: true,
-        note: "BKK→VIE 約 6 小時夜航。機上過夜，VIE 抵達後可在機場吃早餐再轉 RJ 火車。"
-      },
-      {
-        type: "fixed",
-        time: "09:30",
-        place: "維也納機場 → 維也納中央火車站",
-        mapLink: "https://maps.google.com/?q=Wien+Hauptbahnhof",
-        description: "搭 ÖBB Railjet 或 CAT 機場快線進市區，約 15–25 分鐘。",
-        note: "若搭 CAT 直達 Wien Mitte 站；要去 Hauptbahnhof 換 RJ 直接搭 ÖBB S-Bahn 比較順。",
-        foods: []
+        note: "BKK→VIE 約 6 小時夜航。機上過夜，VIE 抵達後可在機場吃早餐、搭 ÖBB S-Bahn / RJ 進 Wien Hauptbahnhof 等下一班 RJ 1031。"
       },
       {
         type: "transit",
-        time: "13:19",
-        train: "Train RJ 1031",
+        time: "10:27",
+        train: "RJ 1031",
         from: "VIE",
         to: "BUD",
-        timeRange: "13:19 – 15:59",
+        timeRange: "10:27 – 13:14",
         dualTime: true,
-        note: "RJ 1031 從 Wien Hauptbahnhof 出發，抵達 Budapest-Keleti。建議提早預訂指定席；抵達時間 15:59 為大約值，請以實際時刻表為準。"
+        note: "RJ 1031 從 Wien Hauptbahnhof 10:27 出發，13:14 抵達 Budapest-Déli（布達佩斯南站）。建議提早預訂指定席。"
       },
       {
         type: "fixed",
-        time: "傍晚",
-        place: "Budapest airbnb 入住",
-        mapLink: "https://maps.google.com/?q=Budapest+airbnb",
-        description: "拿到行李、整理一下後就近吃晚餐。",
-        note: "第一晚先別排太滿，調時差為主。",
+        time: "15:00",
+        place: "Check in Airbnb",
+        mapLink: "https://maps.google.com/?q=Ak%C3%A1cfa+utca+12+Budapest",
+        description: "Budapest, Akácfa u. 12, 1072 匈牙利。位於佩斯側七區（Erzsébetváros）猶太區中心，徒步可達大猶太會堂與廢墟酒吧區。",
+        note: "從 Budapest-Déli 可搭 M2 紅線到 Astoria 或 Deák Ferenc tér，再步行 5–10 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "18:30",
+        place: "晚餐",
+        mapLink: "",
+        description: "",
+        note: "選七區附近的傳統餐廳，飯後散步往多瑙河方向走拍夕陽。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:30",
+        place: "國會大廈 + 鏈橋拍夕陽",
+        mapLink: "https://maps.google.com/?q=Hungarian+Parliament+Building",
+        description: "日落約 20:13，建議 19:30 抵達卡位。",
+        note: "",
+        foods: [],
+        tip: {
+          title: "布達城堡拍照機位",
+          steps: [
+            "導航至 Castle Garden Bazaar（Várkert Bazár）",
+            "有三個門，最左邊的門進去就會看到電梯",
+            "電梯上樓後接電扶梯",
+            "電扶梯後再搭一次電梯，直接就登頂"
+          ]
+        }
+      },
+      {
+        type: "fixed",
+        time: "21:30",
+        place: "Kazinczy 廢墟酒吧",
+        mapLink: "https://maps.google.com/?q=Szimpla+Kert+Kazinczy",
+        description: "Kazinczy utca 一帶是布達佩斯廢墟酒吧（romkocsma）發源地。最知名的 Szimpla Kert（Kazinczy u. 14）由廢棄建築改造，內部老舊家具、塗鴉、霓虹燈交織，氣氛獨特。",
+        note: "Szimpla Kert 旺季週末可能要排隊；附近還有 Instant-Fogas、Mazel Tov 等可備案。",
         foods: []
       }
     ],
@@ -2379,14 +2459,15 @@ const itineraryData = [
       {
         title: "Railjet · 維也納 → 布達佩斯",
         image: "",
-        text: "RJ（Railjet）是奧地利國鐵與匈牙利國鐵共營的高速列車，維也納 Hauptbahnhof 直達 Budapest-Keleti 約 2 小時 40 分。建議出發前 1–2 個月在 ÖBB 官網訂 Sparschiene 早鳥票，價格遠比現場買划算。"
+        text: "RJ（Railjet）是奧地利國鐵與匈牙利國鐵共營的高速列車，Wien Hauptbahnhof 直達 Budapest 約 2 小時 47 分。本趟 RJ 1031（10:27→13:14）終點站是 Budapest-Déli（南站）。建議出發前 1–2 個月在 ÖBB 官網訂 Sparschiene 早鳥票，價格遠比現場買划算。"
       }
     ],
     extraNotes: [
       "VIE 機場入境後，先在機場買 Bratislava/Wien/Budapest 段網路或開漫遊。",
       "ÖBB 票可選指定席（Sitzplatz），對於拿大行李來說很有幫助。",
-      "下車 Budapest-Keleti 站要小心扒手，行李拉好。",
-      "第一晚先補眠、別排晚行程。"
+      "下車 Budapest-Déli 站要小心扒手，行李拉好。",
+      "第一晚先補眠、別排晚行程。",
+      "出發前下載 BudapestGo app；抵達 Déli 後在 app 內買 24h 或 72h 套票再上 Metro / Tram。"
     ]
   },
   {
@@ -3085,7 +3166,8 @@ const cityData = {
       { title: "Budapest Card",  body: "包含 24/48/72/96/120 小時的大眾交通免費搭乘 + 部分博物館折扣或免費。若不打算頻繁進博物館，買單獨交通票可能更划算。" },
       { title: "Metro M1 / M2 / M3 / M4", body: "M1 是歐洲大陸最古老的地下鐵，黃色復古車廂，是觀光景點之一。M2 紅線連接東西側主要景點。M3 藍線縱貫南北。M4 綠線最新。" },
       { title: "電車 Tram 2",     body: "沿多瑙河佩斯側行駛，被列為世界最美電車路線之一，沿線可看國會、鏈橋、布達王宮全景。" },
-      { title: "兩岸接駁",       body: "鏈橋（Széchenyi Lánchíd）是最具代表的步行橋，伊麗莎白橋與自由橋各有風味。布達山可坐 funicular 纜車或巴士 16 號到城堡山。" }
+      { title: "兩岸接駁",       body: "鏈橋（Széchenyi Lánchíd）是最具代表的步行橋，伊麗莎白橋與自由橋各有風味。布達山可坐 funicular 纜車或巴士 16 號到城堡山。" },
+      { title: "BudapestGo app · 電子票券", body: "布達佩斯官方大眾交通 app（iOS / Android）。可直接買單程票、24h / 72h / 7 天套票等，QR 條碼驗票。建議出發前先下載註冊；買完不需上車驗證機，但啟用後才開始計時。比現場買省力，跟 Budapest Card 對照看哪個划算（若不太需要博物館折扣，純套票通常較便宜）。" }
     ],
     notes: [
       "HUF Forint，非歐元區，刷卡接受度高但小店備現金",
@@ -4157,6 +4239,14 @@ function renderTripCard(item) {
          data-food-title="${escapeHTML(item.place)} · 附近吃食">🍜 附近吃食</button>`
     : "";
 
+  const tipBtn = (item.tip && item.tip.title && Array.isArray(item.tip.steps) && item.tip.steps.length)
+    ? `<button class="btn-chip btn-chip--tip" type="button"
+         data-tip-title="${escapeHTML(item.tip.title)}"
+         data-tip-steps='${escapeHTML(JSON.stringify(item.tip.steps))}'>📸 ${escapeHTML(item.tip.title)}</button>`
+    : "";
+
+  const actions = foodBtn + tipBtn;
+
   return `
     <div class="trip-card">
       ${timeHTML}
@@ -4164,7 +4254,7 @@ function renderTripCard(item) {
         <h3 class="trip-card__name">${placeHTML}</h3>
         ${item.description ? `<p class="trip-card__desc">${applyInlineLinks(escapeHTML(item.description), item.descriptionLinks)}</p>` : ""}
         ${item.note ? `<p class="trip-card__note">${applyInlineLinks(escapeHTML(item.note), item.noteLinks)}</p>` : ""}
-        ${foodBtn ? `<div class="trip-card__actions">${foodBtn}</div>` : ""}
+        ${actions ? `<div class="trip-card__actions">${actions}</div>` : ""}
       </div>
     </div>
   `;
@@ -4263,6 +4353,40 @@ function bindFoodModal() {
   });
 }
 
+/* ---------- Tip modal (numbered steps) ---------- */
+function bindTipModal() {
+  const modal = document.getElementById("tipModal");
+  if (!modal) return;
+  const titleEl = document.getElementById("tipModalTitle");
+  const stepsEl = document.getElementById("tipModalSteps");
+
+  function open(title, steps) {
+    titleEl.textContent = title || "小提示";
+    stepsEl.innerHTML = (steps || []).map(s => `<li>${escapeHTML(s)}</li>`).join("");
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    const sheet = modal.querySelector(".modal__sheet");
+    if (sheet) sheet.scrollTop = 0;
+  }
+  function close() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-tip-steps]");
+    if (btn) {
+      let steps = [];
+      try { steps = JSON.parse(btn.dataset.tipSteps || "[]"); } catch (_) { steps = []; }
+      open(btn.dataset.tipTitle || "小提示", steps);
+    }
+    if (e.target.closest("[data-tip-close]")) close();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+  });
+}
+
 /* ---------- Utils ---------- */
 function escapeHTML(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
@@ -4277,6 +4401,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHome();
   renderCityList();
   bindFoodModal();
+  bindTipModal();
   bindQuickNav();
 
   // Inject hero deco
