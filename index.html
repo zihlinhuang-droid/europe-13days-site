@@ -1000,6 +1000,88 @@ body {
   color: var(--text-faint);
   font-size: 12px;
 }
+/* Single-endpoint transit: time displayed as a ticket-stub badge */
+.trip-card__time--stub {
+  padding: 4px 4px;
+  background: var(--paper-warm);
+  border: 1px dashed var(--accent);
+  border-radius: 3px;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  align-self: start;
+  margin-top: 2px;
+  line-height: 1;
+}
+/* Single-endpoint transit content: location + small label */
+.trip-card__leg-loc {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  margin-right: 10px;
+  line-height: 1;
+  vertical-align: middle;
+}
+.trip-card__leg-label {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--text-soft);
+  vertical-align: middle;
+}
+.trip-card__sub {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+/* Dual-time transit: single card spanning two time slots */
+.trip-card.trip-card--dual {
+  display: block;
+  grid-template-columns: unset;
+}
+.trip-card__dual-main {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+.trip-card__time-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px 0;
+  min-height: 56px;
+}
+.trip-card__time--depart {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.trip-card__time--arrive {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+.trip-card__note--dual {
+  margin-top: 10px;
+  margin-left: 54px;
+}
 .trip-card__name {
   font-size: 16px;
   font-weight: 600;
@@ -1111,12 +1193,14 @@ body {
   color: var(--text-soft);
 }
 .ticket-row__num {
+  display: inline-block;
   font-family: var(--font-sans);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.18em;
   color: var(--text-soft);
-  margin-top: 4px;
+  margin-left: 14px;
+  vertical-align: middle;
 }
 .ticket-row__time {
   font-family: var(--font-sans);
@@ -2218,15 +2302,11 @@ const itineraryData = [
         type: "transit",
         time: "22:40",
         from: "TPE",
-        flightNo: "BR61",
-        note: "長榮可線上 check-in 省排隊；建議 20:30 前完成過海關。"
-      },
-      {
-        type: "transit",
-        time: "01:20",
         to: "BKK",
         flightNo: "BR61",
-        note: "抵達 BKK 後等待轉機，可去 lounge 休息或第 4 航廈用餐。"
+        timeRange: "22:40 – 01:20 (+1)",
+        dualTime: true,
+        note: "長榮可線上 check-in 省排隊；建議 20:30 前完成過海關。BKK 抵達後可去 lounge 休息或第 4 航廈用餐等轉機。"
       }
     ],
     introCards: [
@@ -2263,7 +2343,8 @@ const itineraryData = [
         to: "VIE",
         flightNo: "BR61",
         timeRange: "02:40 – 08:40",
-        note: "預計 08:40 抵達維也納國際機場 (VIE)。"
+        dualTime: true,
+        note: "BKK→VIE 約 6 小時夜航。機上過夜，VIE 抵達後可在機場吃早餐再轉 RJ 火車。"
       },
       {
         type: "fixed",
@@ -2280,8 +2361,9 @@ const itineraryData = [
         train: "Train RJ 1031",
         from: "VIE",
         to: "BUD",
-        timeRange: "13:19 出發 · 約 2h40m",
-        note: "RJ 1031 從維也納中央火車站出發，抵達 Budapest-Keleti。建議提早預訂指定席。"
+        timeRange: "13:19 – 15:59",
+        dualTime: true,
+        note: "RJ 1031 從 Wien Hauptbahnhof 出發，抵達 Budapest-Keleti。建議提早預訂指定席；抵達時間 15:59 為大約值，請以實際時刻表為準。"
       },
       {
         type: "fixed",
@@ -2441,6 +2523,7 @@ const itineraryData = [
         to: "NCE",
         flightNo: "直飛",
         timeRange: "13:45 – 15:50",
+        dualTime: true,
         note: "從布達佩斯飛尼斯約 2h05m。建議提早 2.5 小時到機場辦理 check-in。"
       },
       {
@@ -2901,6 +2984,7 @@ const itineraryData = [
         to: "BKK",
         flightNo: "BR62",
         timeRange: "16:00 – 07:10 (+1)",
+        dualTime: true,
         note: "BR62 維也納直飛曼谷，約 10 小時夜航，機上過夜。"
       }
     ],
@@ -2948,7 +3032,8 @@ const itineraryData = [
         to: "TPE",
         flightNo: "BR62",
         timeRange: "12:25 – 17:15",
-        note: "BR62 曼谷直飛桃機，預計 17:15 抵達 TPE。"
+        dualTime: true,
+        note: "BR62 曼谷直飛桃機。下機後記得提領託運行李、過海關後再集合。"
       },
       {
         type: "fixed",
@@ -3987,39 +4072,68 @@ function renderTripCard(item) {
     const hasFrom = !!item.from;
     const hasTo = !!item.to;
     const flightLbl = escapeHTML(item.flightNo || item.train || "");
-    let routeHTML, rightHTML;
-    if (hasFrom && hasTo) {
-      // Both endpoints: 完整路線 + 時段
-      routeHTML = `
-        <span class="ticket-row__from">${escapeHTML(item.from)}</span>
-        <span class="ticket-row__arrow">→</span>
-        <span class="ticket-row__to">${escapeHTML(item.to)}</span>
-        <div class="ticket-row__num">${flightLbl}</div>
-      `;
-      rightHTML = `<strong>${escapeHTML(item.timeRange || "")}</strong>`;
-    } else if (hasFrom) {
-      // Departure only
-      routeHTML = `
-        <span class="ticket-row__from">${escapeHTML(item.from)}</span>
-        <div class="ticket-row__num">${flightLbl}</div>
-      `;
-      rightHTML = `<strong>起飛 ↗</strong>`;
-    } else {
-      // Arrival only (hasTo)
-      routeHTML = `
-        <span class="ticket-row__from">${escapeHTML(item.to || "")}</span>
-        <div class="ticket-row__num">${flightLbl}</div>
-      `;
-      rightHTML = `<strong>↘ 抵達</strong>`;
-    }
-    return `
-      <div class="trip-card trip-card--transit">
-        <div class="trip-card__time">${escapeHTML(item.time || "")}</div>
-        <div class="trip-card__content">
-          <div class="ticket-row">
-            <div class="ticket-row__route">${routeHTML}</div>
-            <div class="ticket-row__time">${rightHTML}</div>
+
+    // Dual-time mode (opt-in): one card, two timestamps on left timeline
+    if (item.dualTime && hasFrom && hasTo) {
+      const m = (item.timeRange || "").match(/(\d{1,2}:\d{2})\s*[–-]\s*(\d{1,2}:\d{2}(?:\s*\(\+?\d+\))?)/);
+      const departT = m ? m[1] : (item.time || "");
+      const arriveT = m ? m[2] : "";
+      return `
+        <div class="trip-card trip-card--dual trip-card--transit">
+          <div class="trip-card__dual-main">
+            <div class="trip-card__time-col">
+              <span class="trip-card__time--depart">${escapeHTML(departT)}</span>
+              <span class="trip-card__time--arrive">${escapeHTML(arriveT)}</span>
+            </div>
+            <div class="ticket-row">
+              <div class="ticket-row__route">
+                <span class="ticket-row__from">${escapeHTML(item.from)}</span>
+                <span class="ticket-row__arrow">→</span>
+                <span class="ticket-row__to">${escapeHTML(item.to)}</span>
+                <div class="ticket-row__num">${flightLbl}</div>
+              </div>
+            </div>
           </div>
+          ${item.note ? `<p class="trip-card__note trip-card__note--dual">${escapeHTML(item.note)}</p>` : ""}
+        </div>
+      `;
+    }
+
+    if (hasFrom && hasTo) {
+      // Double-endpoint: keep original ticket-row design
+      return `
+        <div class="trip-card trip-card--transit">
+          <div class="trip-card__time">${escapeHTML(item.time || "")}</div>
+          <div class="trip-card__content">
+            <div class="ticket-row">
+              <div class="ticket-row__route">
+                <span class="ticket-row__from">${escapeHTML(item.from)}</span>
+                <span class="ticket-row__arrow">→</span>
+                <span class="ticket-row__to">${escapeHTML(item.to)}</span>
+                <div class="ticket-row__num">${flightLbl}</div>
+              </div>
+              <div class="ticket-row__time">
+                <strong>${escapeHTML(item.timeRange || "")}</strong>
+              </div>
+            </div>
+            ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
+          </div>
+        </div>
+      `;
+    }
+
+    // Single-endpoint: time on left rendered as ticket-stub badge,
+    // right side is a clean trip-card body (no ticket-row)
+    const loc = hasFrom ? item.from : item.to;
+    const label = hasFrom ? "起飛 ↗" : "↘ 抵達";
+    return `
+      <div class="trip-card">
+        <div class="trip-card__time trip-card__time--stub">${escapeHTML(item.time || "")}</div>
+        <div class="trip-card__content">
+          <h3 class="trip-card__name">
+            <span class="trip-card__leg-loc">${escapeHTML(loc)}</span><span class="trip-card__leg-label">${label}</span>
+          </h3>
+          ${flightLbl ? `<p class="trip-card__sub">${flightLbl}</p>` : ""}
           ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
         </div>
       </div>
