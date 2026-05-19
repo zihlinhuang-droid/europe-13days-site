@@ -2206,13 +2206,27 @@ const itineraryData = [
     hotel: { name: "機上過夜", mapLink: "" },
     schedule: [
       {
+        type: "fixed",
+        time: "20:00",
+        place: "機場接送出發",
+        mapLink: "https://maps.google.com/?q=桃園機場第二航廈",
+        description: "",
+        note: "上車前再次確認護照、行李件數、艙等與訂位資訊。",
+        foods: []
+      },
+      {
         type: "transit",
         time: "22:40",
         from: "TPE",
+        flightNo: "BR61",
+        note: "長榮可線上 check-in 省排隊；建議 20:30 前完成過海關。"
+      },
+      {
+        type: "transit",
+        time: "01:20",
         to: "BKK",
         flightNo: "BR61",
-        timeRange: "22:40 – 01:20 (+1)",
-        note: "建議提早 2 小時抵達桃機；長榮可線上 check-in 省排隊。"
+        note: "抵達 BKK 後等待轉機，可去 lounge 休息或第 4 航廈用餐。"
       }
     ],
     introCards: [
@@ -3970,20 +3984,41 @@ function renderDayContent() {
 /* ---------- Trip card render ---------- */
 function renderTripCard(item) {
   if (item.type === "transit") {
+    const hasFrom = !!item.from;
+    const hasTo = !!item.to;
+    const flightLbl = escapeHTML(item.flightNo || item.train || "");
+    let routeHTML, rightHTML;
+    if (hasFrom && hasTo) {
+      // Both endpoints: 完整路線 + 時段
+      routeHTML = `
+        <span class="ticket-row__from">${escapeHTML(item.from)}</span>
+        <span class="ticket-row__arrow">→</span>
+        <span class="ticket-row__to">${escapeHTML(item.to)}</span>
+        <div class="ticket-row__num">${flightLbl}</div>
+      `;
+      rightHTML = `<strong>${escapeHTML(item.timeRange || "")}</strong>`;
+    } else if (hasFrom) {
+      // Departure only
+      routeHTML = `
+        <span class="ticket-row__from">${escapeHTML(item.from)}</span>
+        <div class="ticket-row__num">${flightLbl}</div>
+      `;
+      rightHTML = `<strong>起飛 ↗</strong>`;
+    } else {
+      // Arrival only (hasTo)
+      routeHTML = `
+        <span class="ticket-row__from">${escapeHTML(item.to || "")}</span>
+        <div class="ticket-row__num">${flightLbl}</div>
+      `;
+      rightHTML = `<strong>↘ 抵達</strong>`;
+    }
     return `
       <div class="trip-card trip-card--transit">
         <div class="trip-card__time">${escapeHTML(item.time || "")}</div>
         <div class="trip-card__content">
           <div class="ticket-row">
-            <div class="ticket-row__route">
-              <span class="ticket-row__from">${escapeHTML(item.from || "")}</span>
-              <span class="ticket-row__arrow">→</span>
-              <span class="ticket-row__to">${escapeHTML(item.to || "")}</span>
-              <div class="ticket-row__num">${escapeHTML(item.flightNo || item.train || "")}</div>
-            </div>
-            <div class="ticket-row__time">
-              <strong>${escapeHTML(item.timeRange || "")}</strong>
-            </div>
+            <div class="ticket-row__route">${routeHTML}</div>
+            <div class="ticket-row__time">${rightHTML}</div>
           </div>
           ${item.note ? `<p class="trip-card__note">${escapeHTML(item.note)}</p>` : ""}
         </div>
