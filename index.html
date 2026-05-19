@@ -2442,6 +2442,10 @@ const itineraryData = [
             "有三個門，最左邊的門進去就會看到電梯",
             "電梯上樓後接電扶梯",
             "電扶梯後再搭一次電梯，直接就登頂"
+          ],
+          links: [
+            { name: "Castle Garden Bazaar", url: "https://maps.google.com/?q=V%C3%A1rkert+Baz%C3%A1r+Budapest" },
+            { name: "Várkert Bazár",        url: "https://maps.google.com/?q=V%C3%A1rkert+Baz%C3%A1r+Budapest" }
           ]
         }
       },
@@ -4242,7 +4246,8 @@ function renderTripCard(item) {
   const tipBtn = (item.tip && item.tip.title && Array.isArray(item.tip.steps) && item.tip.steps.length)
     ? `<button class="btn-chip btn-chip--tip" type="button"
          data-tip-title="${escapeHTML(item.tip.title)}"
-         data-tip-steps='${escapeHTML(JSON.stringify(item.tip.steps))}'>📸 ${escapeHTML(item.tip.title)}</button>`
+         data-tip-steps='${escapeHTML(JSON.stringify(item.tip.steps))}'
+         data-tip-links='${escapeHTML(JSON.stringify(item.tip.links || []))}'>📸 ${escapeHTML(item.tip.title)}</button>`
     : "";
 
   const actions = foodBtn + tipBtn;
@@ -4360,9 +4365,11 @@ function bindTipModal() {
   const titleEl = document.getElementById("tipModalTitle");
   const stepsEl = document.getElementById("tipModalSteps");
 
-  function open(title, steps) {
+  function open(title, steps, links) {
     titleEl.textContent = title || "小提示";
-    stepsEl.innerHTML = (steps || []).map(s => `<li>${escapeHTML(s)}</li>`).join("");
+    stepsEl.innerHTML = (steps || []).map(s =>
+      `<li>${applyInlineLinks(escapeHTML(s), links)}</li>`
+    ).join("");
     modal.classList.add("is-open");
     document.body.style.overflow = "hidden";
     const sheet = modal.querySelector(".modal__sheet");
@@ -4376,9 +4383,10 @@ function bindTipModal() {
   document.addEventListener("click", e => {
     const btn = e.target.closest("[data-tip-steps]");
     if (btn) {
-      let steps = [];
+      let steps = [], links = [];
       try { steps = JSON.parse(btn.dataset.tipSteps || "[]"); } catch (_) { steps = []; }
-      open(btn.dataset.tipTitle || "小提示", steps);
+      try { links = JSON.parse(btn.dataset.tipLinks || "[]"); } catch (_) { links = []; }
+      open(btn.dataset.tipTitle || "小提示", steps, links);
     }
     if (e.target.closest("[data-tip-close]")) close();
   });
