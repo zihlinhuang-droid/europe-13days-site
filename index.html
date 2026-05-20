@@ -3117,7 +3117,7 @@ const cityData = {
     dayIndices: [4, 5, 6, 7, 8, 9, 10],  /* D5–D11，含蔚藍海岸延伸 */
     daysLabel: "Day 5 – Day 11",
     subtitle: "蔚藍海岸 · 圓石灘 · 舊城 · 周邊小鎮",
-    coverImage: "",
+    coverImage: "images/europe/Nice/nice-cover.jpg",
     coverAlt: "尼斯英國人步行道",
     hasTransit: true,
     intro: "尼斯（Nice）位於法國蔚藍海岸（Côte d'Azur）核心，自 19 世紀起即是歐洲貴族與名流的冬季避寒勝地。Promenade des Anglais（英國人步行道）的名稱即源自當年資助修建的英國僑民。\n\n這座城市的氣質結合義式南法 — 義大利風味的舊城窄巷、彩色外牆、米麵與普羅旺斯香料；同時又是法國優雅的代表，海岸圓石灘、棕櫚樹、藍綠地中海構成最辨識的風景。\n\n尼斯也是探索整段蔚藍海岸的最佳基地：往東 TER 火車可達 Villefranche、Èze、Monaco、Menton；往西到 Antibes、Cannes；內陸往 Saint-Paul-de-Vence 與 Grasse。本趟 D8–D10 沿著這條路線展開。\n\nD11 從這裡出發進入威東河峽谷，這段也是 Nice 章節的延伸範圍。",
@@ -3703,9 +3703,9 @@ function renderCityList() {
   const list = document.getElementById("citiesList");
   list.innerHTML = CITY_ORDER.map(key => {
     const c = cityData[key];
-    const thumb = c.coverImage
-      ? `<img src="${escapeHTML(c.coverImage)}" alt="${escapeHTML(c.coverAlt || c.en)}" />`
-      : (CITY_MOTIFS[key] || "");
+    // Home thumbnail always uses the hand-drawn SVG motif (coverImage is
+    // reserved for the city chapter banner photo).
+    const thumb = CITY_MOTIFS[key] || "";
     return `
       <button class="city-item" data-phase="${c.phase}" data-city-key="${key}" type="button">
         <div class="city-item__thumb">${thumb}</div>
