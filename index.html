@@ -2338,17 +2338,42 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "18:30",
-        place: "晚餐",
+        time: "15:30",
+        place: "Kontakt / MTRM roast",
         mapLink: "",
+        placeLinks: [
+          { name: "Kontakt",    url: "https://maps.google.com/?q=Kontakt+Coffee+Budapest" },
+          { name: "MTRM roast", url: "https://maps.google.com/?q=MTRM+Material+Roastery+Budapest" }
+        ],
         description: "",
-        note: "選七區附近的傳統餐廳，飯後散步往多瑙河方向走拍夕陽。",
+        note: "學姊推薦，兩者擇一。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "17:00",
+        place: "晚餐：Comme Chez Soi（已訂位）",
+        mapLink: "https://maps.google.com/?q=Comme+Chez+Soi+Budapest",
+        description: "",
+        note: "17:00 已訂位，請準時到。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "18:45",
+        place: "自由橋 Szabadság híd",
+        mapLink: "https://maps.google.com/?q=Szabads%C3%A1g+h%C3%ADd+Budapest",
+        description: "布達佩斯最受歡迎的綠色鋼構橋，黃昏時很適合拍照。",
+        note: "拍照機位：Mandulaga（Szent Gellért rkp. 1，自由橋布達端河岸）。",
+        noteLinks: [
+          { name: "Mandulaga", url: "https://maps.google.com/?q=Szent+Gell%C3%A9rt+rkp.+1+Budapest+1114" }
+        ],
         foods: []
       },
       {
         type: "fixed",
         time: "19:30",
-        place: "國會大廈 + 鏈橋拍夕陽",
+        place: "拍傍晚國會大廈 + 橋",
         mapLink: "https://maps.google.com/?q=Hungarian+Parliament+Building",
         description: "日落約 20:13，建議 19:30 抵達卡位。",
         note: "",
@@ -2369,11 +2394,23 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "20:30",
+        place: "拍正對國會大廈",
+        mapLink: "https://maps.google.com/?q=Parliament+Viewpoint+Budapest",
+        description: "正對國會大廈的機位，blue hour 打燈後最美。",
+        note: "機位：Parliament Viewpoint。",
+        noteLinks: [
+          { name: "Parliament Viewpoint", url: "https://maps.google.com/?q=Parliament+Viewpoint+Budapest" }
+        ],
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "21:30",
-        place: "Kazinczy 廢墟酒吧",
+        place: "Kazinczy 廢墟酒吧（optional）",
         mapLink: "https://maps.google.com/?q=Szimpla+Kert+Kazinczy",
         description: "Kazinczy utca 一帶是布達佩斯廢墟酒吧（romkocsma）發源地。最知名的 Szimpla Kert（Kazinczy u. 14）由廢棄建築改造，內部老舊家具、塗鴉、霓虹燈交織，氣氛獨特。",
-        note: "Szimpla Kert 旺季週末可能要排隊；附近還有 Instant-Fogas、Mazel Tov 等可備案。",
+        note: "看當晚體力決定；Szimpla Kert 旺季週末可能要排隊，附近還有 Instant-Fogas、Mazel Tov 等可備案。",
         foods: []
       }
     ],
@@ -4152,7 +4189,7 @@ function renderTripCard(item) {
 
   const placeHTML = item.mapLink
     ? `<a href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(item.place)}</a>`
-    : escapeHTML(item.place);
+    : applyInlineLinks(escapeHTML(item.place), item.placeLinks);
 
   const foodsJson = JSON.stringify(item.foods || []);
   const foodBtn = (item.foods && item.foods.length)
