@@ -1097,6 +1097,37 @@ body {
   padding-bottom: 1px;
 }
 .trip-card__name a:hover { color: var(--soft); }
+/* Business hours appended after the place name: smaller, muted, never accent color */
+.trip-card__hours {
+  margin-left: 7px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text-soft);
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+/* Optional / flexible item badge (top-right corner) */
+.trip-card__opt {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  background: var(--paper-warm);
+  border: 1px dashed var(--accent);
+  border-radius: 999px;
+  padding: 2px 9px;
+  line-height: 1.4;
+  white-space: nowrap;
+  transform: rotate(2deg);
+}
+.trip-card--opt .trip-card__name { padding-right: 50px; }
 
 .trip-card__desc,
 .trip-card__note {
@@ -2457,11 +2488,109 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
+        time: "08:00",
+        place: "Orient Café（optional）",
+        mapLink: "",
+        placeLinks: [
+          { name: "Orient Café", url: "https://maps.google.com/?q=Orient+Caf%C3%A9+Budapest" }
+        ],
+        hours: "08:00–18:30",
+        description: "",
+        note: "學姊推薦的早餐咖啡店，看當天起床狀況決定要不要先來。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "08:30",
+        place: "塞切尼溫泉浴場",
+        mapLink: "https://maps.google.com/?q=Sz%C3%A9chenyi+Thermal+Bath",
+        description: "歐洲最大的醫療溫泉浴場，鵝黃色新巴洛克宮殿，戶外大池最經典。",
+        note: "已購票，11:00 前入場。自備泳衣、泳帽、拖鞋與防水袋（手機）。",
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "",
-        place: "布達區散策（城堡山 / 漁人堡 / 馬提亞斯教堂）",
-        mapLink: "https://maps.google.com/?q=Fisherman%27s+Bastion+Budapest",
-        description: "（placeholder）抵達後彈性安排，挑布達區主要景點先逛一輪。",
-        note: "預計遊船提前一個月訂；今天若有空也可順便看現場有沒有票。",
+        place: "布達佩斯城市公園 Városliget",
+        mapLink: "https://maps.google.com/?q=V%C3%A1rosliget+Budapest",
+        description: "塞切尼溫泉、音樂之家、英雄廣場、Vajdahunyad 城堡都在這片公園裡，可串起來散步。",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "音樂之家（optional）",
+        mapLink: "https://maps.google.com/?q=House+of+Music+Hungary",
+        description: "藤本壯介設計的當代建築，波浪金頂穿樹，就在城市公園內。",
+        note: "想入內參觀建議先上官網確認開放時間 / 是否需預約。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "11:00",
+        place: "TATI",
+        mapLink: "https://maps.google.com/?q=Tati+Budapest",
+        description: "",
+        note: "已預訂 11:00，請準時到。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "回住宿放衣服（optional）",
+        mapLink: "https://maps.google.com/?q=Ak%C3%A1cfa+utca+12+Budapest",
+        description: "",
+        note: "泡完溫泉的濕泳具可先拿回 Airbnb，下午輕裝再出門。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "Espresso Embassy",
+        mapLink: "https://maps.google.com/?q=Espresso+Embassy+Budapest",
+        description: "據說是匈牙利咖啡冠軍的精品咖啡店，位於市中心、近聖伊什特萬聖殿。",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "聖伊什特萬聖殿",
+        mapLink: "https://maps.google.com/?q=St.+Stephen%27s+Basilica+Budapest",
+        description: "布達佩斯最大的教堂，96m 圓頂與國會大廈並列最高；可登展望台俯瞰市區。",
+        note: "圓頂展望台關門較早，想上去看夕陽要早點上去。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚餐",
+        place: "Hungarikum Bisztró / 麥當勞",
+        mapLink: "",
+        placeLinks: [
+          { name: "Hungarikum Bisztró", url: "https://maps.google.com/?q=Hungarikum+Biszt%C3%B3+Budapest" },
+          { name: "麥當勞", url: "https://maps.google.com/?q=McDonald%27s+Ter%C3%A9z+krt.+55+1062+Budapest" }
+        ],
+        description: "",
+        note: "Hungarikum Bisztró 是評價高的匈牙利傳統菜（建議訂位）；不想正式吃就麥當勞快速解決。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "鞋子紀念碑 Cipők a Duna-parton（optional）",
+        mapLink: "https://maps.google.com/?q=Shoes+on+the+Danube+Bank",
+        description: "國會大廈南側河岸的二戰猶太受難者紀念碑，60 雙鐵鞋。",
+        note: "安靜而沉重的歷史現場，造訪請保持莊重。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "Kazinczy 廢墟酒吧（optional）",
+        mapLink: "https://maps.google.com/?q=Szimpla+Kert+Kazinczy",
+        description: "若昨天沒去成或想再泡一次氣氛，第七區的 Szimpla Kert 等廢墟酒吧晚上很熱鬧。",
+        note: "看當晚體力決定。",
         foods: []
       }
     ],
@@ -4219,15 +4348,27 @@ function renderTripCard(item) {
     ? `<div class="trip-card__time">${escapeHTML(time)}</div>`
     : `<div class="trip-card__time trip-card__time--empty">—</div>`;
 
+  // Optional / flexible item: strip the (optional) marker from the name
+  // and surface it as a small badge in the card's top-right corner.
+  const OPT_RE = /[（(]\s*optional\s*[）)]/i;
+  const isOptional = item.optional === true || OPT_RE.test(item.place || "");
+  const displayPlace = (item.place || "").replace(OPT_RE, "").trim();
+  const optBadge = isOptional ? `<span class="trip-card__opt">彈性</span>` : "";
+
   const placeHTML = item.mapLink
-    ? `<a href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(item.place)}</a>`
-    : applyInlineLinks(escapeHTML(item.place), item.placeLinks);
+    ? `<a href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(displayPlace)}</a>`
+    : applyInlineLinks(escapeHTML(displayPlace), item.placeLinks);
+
+  // Business hours: shown inline right after the name, smaller + muted (never the city accent color)
+  const hoursHTML = item.hours
+    ? `<span class="trip-card__hours">${escapeHTML(item.hours)}</span>`
+    : "";
 
   const foodsJson = JSON.stringify(item.foods || []);
   const foodBtn = (item.foods && item.foods.length)
     ? `<button class="btn-chip" type="button"
          data-food='${escapeHTML(foodsJson)}'
-         data-food-title="${escapeHTML(item.place)} · 附近吃食">🍜 附近吃食</button>`
+         data-food-title="${escapeHTML(displayPlace)} · 附近吃食">🍜 附近吃食</button>`
     : "";
 
   const tipBtn = (item.tip && item.tip.title && Array.isArray(item.tip.steps) && item.tip.steps.length)
@@ -4240,10 +4381,11 @@ function renderTripCard(item) {
   const actions = foodBtn + tipBtn;
 
   return `
-    <div class="trip-card">
+    <div class="trip-card${isOptional ? " trip-card--opt" : ""}">
+      ${optBadge}
       ${timeHTML}
       <div class="trip-card__content">
-        <h3 class="trip-card__name">${placeHTML}</h3>
+        <h3 class="trip-card__name">${placeHTML}${hoursHTML}</h3>
         ${item.description ? `<p class="trip-card__desc">${applyInlineLinks(escapeHTML(item.description), item.descriptionLinks)}</p>` : ""}
         ${item.note ? `<p class="trip-card__note">${applyInlineLinks(escapeHTML(item.note), item.noteLinks)}</p>` : ""}
         ${actions ? `<div class="trip-card__actions">${actions}</div>` : ""}
