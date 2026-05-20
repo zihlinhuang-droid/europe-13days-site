@@ -2369,6 +2369,16 @@ const itineraryData = [
       },
       {
         type: "fixed",
+        time: "下午",
+        place: "Metropolitan Ervin Szabó Library 螺旋梯圖書館（optional）",
+        mapLink: "https://maps.google.com/?q=Metropolitan+Ervin+Szab%C3%B3+Library+Budapest",
+        hours: "週五 10:00–20:00",
+        description: "新巴洛克宮殿改建的市立圖書館，四樓閱覽室有華麗的螺旋梯與金色裝飾，是 IG 熱門打卡點。",
+        note: "閱覽室位於四樓，需購門票才能進入；週六、日休館。",
+        foods: []
+      },
+      {
+        type: "fixed",
         time: "15:30",
         place: "Kontakt / MTRM roast",
         mapLink: "",
@@ -2640,8 +2650,8 @@ const itineraryData = [
     dow: "SUN",
     dowZh: "日",
     phase: "budapest",
-    title: "布達日出 · 多瑙河遊船",
-    subtitle: "從漁人堡看日出 → 國會大廈 → 19:30 遊船",
+    title: "布達城堡區 · 多瑙河遊船",
+    subtitle: "紐約咖啡館 → 城堡山 → 19:30 遊船晚餐",
     routeCode: "BUDAPEST",
     coverImage: "images/europe/Day4/day4-cover.webp",
     coverAlt: "布達佩斯日出",
@@ -2649,38 +2659,106 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
-        time: "日出前",
-        place: "漁人堡 看日出",
-        mapLink: "https://maps.google.com/?q=Fisherman%27s+Bastion+Budapest",
-        description: "漁人堡新哥德式白色塔群，可從布達區俯瞰多瑙河與國會大廈，是布達佩斯最經典的日出機位。",
-        note: "5 月底布達佩斯日出約 05:10 前後，請預留 30 分鐘提前抵達卡位。",
+        time: "早上",
+        place: "紐約咖啡館 New York Café",
+        mapLink: "https://maps.google.com/?q=New+York+Caf%C3%A9+Budapest",
+        hours: "07:00–00:00",
+        description: "號稱「全世界最美咖啡館」，新巴洛克金色大廳、水晶吊燈與壁畫，1894 年營業至今。",
+        note: "名氣大、常需排隊；想拍空景可一開門就到。",
         foods: []
       },
       {
         type: "fixed",
         time: "上午",
-        place: "Check out → 移到布達佩斯希爾頓",
-        mapLink: "https://maps.google.com/?q=Hilton+Budapest",
-        description: "希爾頓就位在城堡區、漁人堡旁邊，地點極好；可直接寄行李等下午 check in。",
-        note: "希爾頓建築外殼整合了 13 世紀道明會修道院遺跡，是布達區的特色飯店。",
+        place: "Check out，到希爾頓放行李",
+        placeLinks: [
+          { name: "希爾頓", url: "https://maps.google.com/?q=Hilton+Budapest" }
+        ],
+        description: "",
+        note: "建議直接搭計程車前往；行李先寄放，下午再回來 check in。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "城堡區 / 佩斯區自由活動",
-        mapLink: "https://maps.google.com/?q=Budapest+Castle+District",
-        description: "（placeholder）依精神狀況彈性安排，可選國會大廈、聖伊什特萬、Szimpla Kert 廢墟酒吧等。",
-        note: "晚上有遊船，建議下午保留體力。",
+        time: "",
+        place: "自由橋 Szabadság híd",
+        mapLink: "https://maps.google.com/?q=Szabads%C3%A1g+h%C3%ADd+Budapest",
+        description: "",
+        note: "拍照機位：Mandulaga（自由橋布達端河岸）。",
+        noteLinks: [
+          { name: "Mandulaga", url: "https://maps.google.com/?q=Szent+Gell%C3%A9rt+rkp.+1+Budapest" }
+        ],
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Gellért Hill 蓋勒特山",
+        mapLink: "https://maps.google.com/?q=Gell%C3%A9rt+Hill+Budapest",
+        description: "山頂的自由女神像與城堡（Citadella）可俯瞰整個多瑙河與佩斯市區，是布達佩斯最高的觀景點之一。",
+        note: "從自由橋布達端可步行上山，山路略陡，建議穿好走的鞋。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "布達皇宮 + 纜車",
+        mapLink: "https://maps.google.com/?q=Buda+Castle+Budapest",
+        hours: "08:00–22:00",
+        description: "布達城堡（Budavári Palota）是匈牙利歷代王宮；山下可搭百年纜車 Budavári Sikló 上山。",
+        note: "纜車可選最下層車廂，視野較好。拍照機位：Hunyadi János út 1。",
+        noteLinks: [
+          { name: "Hunyadi János út 1", url: "https://maps.google.com/?q=Hunyadi+J%C3%A1nos+%C3%BAt+1+Budapest" }
+        ],
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Csészényi Café and Coffee Bean Roaster",
+        mapLink: "https://maps.google.com/?q=Cs%C3%A9sz%C3%A9nyi+Caf%C3%A9+and+Coffee+Bean+Roaster+Budapest",
+        hours: "10:00–18:00",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中央市場 Nagycsarnok",
+        mapLink: "https://maps.google.com/?q=Nagycsarnok+Budapest",
+        description: "布達佩斯最大的室內市場，新哥德式紅磚建築；二樓有 lángos、煙囪捲等匈牙利小吃。",
+        note: "注意：中央市場週日（5/31）公休，當天可能進不去，中餐建議先想好備案。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "VIVINA'S Café & Roastery（optional）",
+        mapLink: "https://maps.google.com/?q=VIVINA%27S+Caf%C3%A9+%26+Roastery+Budapest",
+        hours: "週日 09:30–15:00",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "回希爾頓 check in",
+        placeLinks: [
+          { name: "希爾頓", url: "https://maps.google.com/?q=Hilton+Budapest" }
+        ],
+        description: "",
+        note: "",
         foods: []
       },
       {
         type: "fixed",
         time: "19:30",
-        place: "多瑙河遊船（已訂）",
+        place: "多瑙河遊船晚餐",
         mapLink: "https://maps.google.com/?q=Danube+River+Cruise+Budapest",
-        description: "夜遊路線會經過國會大廈、鏈橋、城堡山，是布達佩斯最有名的夜景行程。",
-        note: "船票記得列印或下載電子票券；現場通常 19:00 前開始登船。",
+        description: "夜遊路線經過國會大廈、鏈橋、城堡山，是布達佩斯最經典的夜景行程。",
+        note: "已預訂。船票記得帶；通常 19:00 前開始登船。",
         foods: []
       }
     ],
