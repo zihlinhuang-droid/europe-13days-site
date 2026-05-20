@@ -946,34 +946,34 @@ body {
 /* ---------- Day tabs ---------- */
 .day-tabs {
   display: flex;
-  gap: 0;
-  margin: 22px 0 18px;
-  border-bottom: 1px solid var(--line);
+  gap: 4px;
+  margin: 26px 0 22px;
+  padding: 5px;
+  background: var(--paper-warm);
+  border-radius: 30px;
+  box-shadow: inset 0 1px 3px rgba(80,55,25,0.06);
 }
 .day-tab {
   flex: 1;
-  background: none;
+  background: transparent;
   border: none;
   font: inherit;
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  color: var(--text-faint);
-  padding: 12px 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-soft);
+  padding: 9px 4px;
+  border-radius: 22px;
   cursor: pointer;
-  position: relative;
-  transition: color 0.15s;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 }
-.day-tab.is-active { color: var(--accent); }
-.day-tab.is-active::after {
-  content: "";
-  position: absolute;
-  left: 20%; right: 20%;
-  bottom: -1px;
-  height: 2px;
-  background: var(--accent);
+.day-tab.is-active {
+  background: color-mix(in srgb, var(--soft) 15%, var(--paper-warm));
+  color: color-mix(in srgb, var(--soft) 82%, #3a2a18);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--soft) 34%, transparent);
 }
+.day-tab:hover { color: var(--text); }
 
 /* ---------- Trip card (schedule) ---------- */
 .trip-card {
@@ -1524,7 +1524,6 @@ body {
   margin: 26px 0 22px;
   padding: 5px;
   background: var(--paper-warm);
-  border: 1px solid var(--line-soft);
   border-radius: 30px;
   box-shadow: inset 0 1px 3px rgba(80,55,25,0.06);
 }
@@ -1545,9 +1544,9 @@ body {
 }
 .city-tab:hover { color: var(--text); }
 .city-tab.is-active {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(80,55,30,0.18);
+  background: color-mix(in srgb, var(--soft) 15%, var(--paper-warm));
+  color: color-mix(in srgb, var(--soft) 82%, #3a2a18);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--soft) 34%, transparent);
 }
 
 .city-panel { padding-top: 4px; }
