@@ -48,7 +48,7 @@ body {
 [data-phase="vienna"]   { --accent: #6f9050; --soft: #b8923a; --line: #b29770; --line-soft: #d4bf95; --phase-label: "維也納"; }
 [data-phase="budapest"] { --accent: #c89b2e; --soft: #2f6f9e; --line: #9d8e85; --line-soft: #c2afa0; --phase-label: "布達佩斯"; }
 [data-phase="nice"]     { --accent: #2a8fb5; --soft: #d8714f; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "尼斯"; }
-[data-phase="riviera"]  { --accent: #b86f6a; --soft: #7a934f; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "蔚藍海岸"; }
+[data-phase="riviera"]  { --accent: #e07a52; --soft: #e8b020; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "蔚藍海岸"; }
 [data-phase="verdon"]   { --accent: #2fa089; --soft: #b89b6a; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
 
 /* ---------------- App container & paper ---------------- */
@@ -125,7 +125,7 @@ body {
 }
 .hero__city[data-phase="budapest"] { color: #c89b2e; }
 .hero__city[data-phase="nice"]     { color: #2a8fb5; }
-.hero__city[data-phase="riviera"]  { color: #b86f6a; }
+.hero__city[data-phase="riviera"]  { color: #e07a52; }
 .hero__city[data-phase="verdon"]   { color: #2fa089; }
 .hero__city[data-phase="vienna"]   { color: #6f9050; }
 .hero__dot {
@@ -643,7 +643,7 @@ body {
 .ticket-stub[data-phase="vienna"]   { --phase-accent: #6f9050; }
 .ticket-stub[data-phase="budapest"] { --phase-accent: #c89b2e; }
 .ticket-stub[data-phase="nice"]     { --phase-accent: #2a8fb5; }
-.ticket-stub[data-phase="riviera"]  { --phase-accent: #b86f6a; }
+.ticket-stub[data-phase="riviera"]  { --phase-accent: #e07a52; }
 .ticket-stub[data-phase="verdon"]   { --phase-accent: #2fa089; }
 
 /* watercolor wash by phase (matching cities) */
@@ -655,8 +655,8 @@ body {
 .ticket-stub[data-phase="budapest"]:hover { background: linear-gradient(to right, rgba(200,155,46,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="nice"]     { background: linear-gradient(to right, rgba(42,143,181,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="nice"]:hover     { background: linear-gradient(to right, rgba(42,143,181,0.22), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="riviera"]  { background: linear-gradient(to right, rgba(184,111,106,0.12), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="riviera"]:hover  { background: linear-gradient(to right, rgba(184,111,106,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="riviera"]  { background: linear-gradient(to right, rgba(224,122,82,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="riviera"]:hover  { background: linear-gradient(to right, rgba(224,122,82,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="verdon"]   { background: linear-gradient(to right, rgba(47,160,137,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="verdon"]:hover   { background: linear-gradient(to right, rgba(47,160,137,0.22), var(--paper-warm) 38%); }
 
@@ -819,7 +819,7 @@ body {
 .date-card[data-phase="travel"]   { background: linear-gradient(180deg, rgba(184,116,76,0.07), var(--paper-warm) 60%); --phase-accent: #b8744c; }
 .date-card[data-phase="budapest"] { background: linear-gradient(180deg, rgba(200,155,46,0.08), var(--paper-warm) 60%); --phase-accent: #c89b2e; }
 .date-card[data-phase="nice"]     { background: linear-gradient(180deg, rgba(42,143,181,0.07), var(--paper-warm) 60%); --phase-accent: #2a8fb5; }
-.date-card[data-phase="riviera"]  { background: linear-gradient(180deg, rgba(184,111,106,0.07), var(--paper-warm) 60%); --phase-accent: #b86f6a; }
+.date-card[data-phase="riviera"]  { background: linear-gradient(180deg, rgba(224,122,82,0.07), var(--paper-warm) 60%); --phase-accent: #e07a52; }
 .date-card[data-phase="verdon"]   { background: linear-gradient(180deg, rgba(47,160,137,0.07), var(--paper-warm) 60%); --phase-accent: #2fa089; }
 .date-card[data-phase="vienna"]   { background: linear-gradient(180deg, rgba(111,144,80,0.07), var(--paper-warm) 60%); --phase-accent: #6f9050; }
 
@@ -1981,7 +1981,7 @@ body {
 .pretrip-section:nth-child(1) { --section-color: #b8744c; }
 .pretrip-section:nth-child(2) { --section-color: #c89b2e; }
 .pretrip-section:nth-child(3) { --section-color: #2a8fb5; }
-.pretrip-section:nth-child(4) { --section-color: #b86f6a; }
+.pretrip-section:nth-child(4) { --section-color: #e07a52; }
 .pretrip-section:nth-child(5) { --section-color: #6f9050; }
 
 .pretrip-section__h4 {
@@ -2952,11 +2952,6 @@ const itineraryData = [
     ],
     introCards: [
       {
-        title: "尼斯｜法國蔚藍海岸的首席城市",
-        image: "",
-        text: "尼斯（Nice）是法國蔚藍海岸（Côte d'Azur）的最大城市，自 19 世紀起就是歐洲貴族與名流冬季避寒的勝地。英國人步行道（Promenade des Anglais）的名稱即源自當年英國僑民的捐資。\n\n尼斯既有義大利風的舊城建築與美食（Niçoise 沙拉、Socca 鷹嘴豆煎餅），又有法式優雅。地中海氣候、藍綠海水與圓石灘構成這裡最具辨識度的風景。"
-      },
-      {
         title: "英國人步行道｜天使灣畔的海岸大道",
         image: "images/europe/Day5/promenade-des-anglais.jpg",
         mapLink: "https://maps.google.com/?q=Promenade+des+Anglais+Nice",
@@ -3126,55 +3121,138 @@ const itineraryData = [
     dow: "FRI",
     dowZh: "五",
     phase: "riviera",
-    title: "Menton → Èze → Monaco → Cannes",
-    subtitle: "蔚藍海岸東線一日",
-    routeCode: "EAST RIVIERA",
+    title: "芒通 → 摩納哥 → Antibes",
+    subtitle: "舊城打卡 → 賽道彎道 → 入住安提布",
+    routeCode: "MENTON → ANTIBES",
     coverImage: "",
-    coverAlt: "Èze 鷲巢村",
-    hotel: { name: "坎城（住宿待定）", mapLink: "https://maps.google.com/?q=Cannes" },
+    coverAlt: "芒通舊城",
+    hotel: { name: "Antibes 民宿 · Le Sorrento", mapLink: "https://maps.google.com/?q=43.567833,7.111833" },
     schedule: [
       {
         type: "fixed",
         time: "早上",
-        place: "Menton",
-        mapLink: "https://maps.google.com/?q=Menton",
-        description: "蔚藍海岸最東邊的城市，緊鄰義大利邊界。以檸檬聞名，每年 2 月有檸檬節。整座城以暖色調房屋與棕櫚樹著稱。",
-        note: "Menton 老城區與 Saint-Michel 教堂的廣場視野很棒。",
+        place: "取車 → 出發芒通 Menton",
+        mapLink: "https://maps.google.com/?q=Menton+France",
+        description: "",
+        note: "在尼斯取租車，沿海岸線往東開到芒通（Menton），約 40 分鐘車程。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "Èze · Jardin Exotique d'Èze 植物園",
-        mapLink: "https://maps.google.com/?q=Jardin+Exotique+d%27%C3%88ze",
-        description: "Èze 是蔚藍海岸最知名的「鷲巢村」之一，建在 429 公尺高的懸崖上。山頂的多肉植物園 Jardin Exotique d'Èze 可俯瞰整個地中海。",
-        note: "查植物園進場時間（一般 09:00–18:00，淡旺季不同）。山路有點陡，建議穿好走的鞋。",
+        time: "上午",
+        place: "Rampes Saint-Michel 樓梯",
+        mapLink: "https://maps.google.com/?q=Rampes+Saint-Michel+Menton",
+        description: "",
+        note: "芒通舊城知名的彩色階梯，是熱門打卡點。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Atelier Said Berkane 藝術家小巷",
+        mapLink: "https://maps.google.com/?q=Atelier+Said+Berkane+Menton",
+        description: "",
+        note: "舊城巷弄裡的藝術家工作室，氛圍很好拍。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Rampes Saint-Michel 觀景台",
+        mapLink: "https://maps.google.com/?q=Parvis+Saint-Michel+Menton",
+        description: "",
+        note: "聖米歇爾教堂前廣場（Parvis Saint-Michel），可俯瞰舊城屋頂與地中海。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Les Halles de Menton 市場",
+        mapLink: "https://maps.google.com/?q=March%C3%A9+des+Halles+Menton",
+        description: "",
+        note: "芒通的室內市場，可逛在地食材、檸檬製品與小吃。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Menton Viewpoint 拍照點",
+        mapLink: "https://maps.google.com/?q=Menton+Viewpoint",
+        description: "",
+        note: "經典的芒通明信片視角，舊城暖色屋頂與聖米歇爾教堂一起入鏡。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中餐：海邊找一家",
+        description: "",
+        note: "在芒通海邊挑一家餐廳，悠閒吃個午餐。",
         foods: []
       },
       {
         type: "fixed",
         time: "下午",
-        place: "Monaco · Monte Carlo",
+        place: "出發摩納哥 Monaco",
         mapLink: "https://maps.google.com/?q=Monaco",
-        description: "世界第二小的國家，地中海公國。賭場、王宮、舊城區、Larvotto 海灘等都是亮點。",
-        note: "進入摩納哥不需另外簽證；可從 Èze 搭 100 號公車或開車。",
+        description: "",
+        note: "從芒通開車到摩納哥約 20–30 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "F1 賽道彎道（Fairmont Hairpin）",
+        mapLink: "https://maps.google.com/?q=Fairmont+Hairpin+Monaco",
+        description: "",
+        note: "摩納哥大獎賽最知名的髮夾彎，就在 Fairmont 飯店前。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "吃漢堡（optional）",
+        description: "",
+        note: "（地點待確認）摩納哥找間漢堡店？",
         foods: []
       },
       {
         type: "fixed",
         time: "傍晚",
-        place: "移動到 Cannes 坎城",
-        mapLink: "https://maps.google.com/?q=Cannes",
-        description: "從 Monaco 開車約 1 小時，坎城是影展之城。",
-        note: "確認當晚住宿，停車與飯店位置先查清楚。",
+        place: "Check in Antibes 民宿（Le Sorrento）",
+        mapLink: "https://maps.google.com/?q=43.567833,7.111833",
+        description: "",
+        note: "Le Sorrento 8 號大樓，大樓旁有 L'ESCALE 餐廳。在下方 2 扇門上刷徽章；4 樓、有電梯；走左邊那扇門（門上寫著「Hello!」）。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "20:45",
+        place: "晚餐：La Passagère",
+        mapLink: "https://maps.google.com/?q=La+Passag%C3%A8re+Antibes",
+        description: "",
+        note: "已訂位（免費取消期限 6/2 19:30）。",
         foods: []
       }
     ],
     introCards: [
       {
-        title: "Èze｜懸崖上的鷲巢村",
+        title: "芒通 Menton｜檸檬之城與彩色舊城",
         image: "",
-        text: "Èze 是法國蔚藍海岸最具代表性的「鷲巢村」（village perché）之一，整座中世紀小村建於海拔約 429 公尺的懸崖頂端。窄巷石階、爬藤老牆與工藝品小店構成這裡的氛圍。\n\n山頂的 Jardin Exotique d'Èze 多肉植物園佔據古堡遺跡，可 360 度俯瞰地中海與蔚藍海岸沿線，天氣好時甚至看得到科西嘉島。"
+        mapLink: "https://maps.google.com/?q=Menton+France",
+        text: "芒通（Menton）是蔚藍海岸最東邊的城市，緊鄰義大利邊界，氣候溫暖、以檸檬聞名，每年 2 月有盛大的檸檬節（Fête du Citron）。\n\n暖色調的舊城順著山坡往上堆疊到聖米歇爾教堂（Basilique Saint-Michel）。巴洛克式的 Rampes Saint-Michel 大階梯與卵石鑲嵌的教堂前廣場，是芒通最經典的畫面。"
+      },
+      {
+        title: "摩納哥 Monaco｜地中海公國與 F1 賽道",
+        image: "",
+        mapLink: "https://maps.google.com/?q=Monaco",
+        text: "摩納哥（Monaco）是世界第二小的國家，奢華的地中海公國。蒙地卡羅賭場、王宮、岩石上的舊城（Le Rocher）與 Larvotto 海灘都是亮點，進入不需另外簽證。\n\n每年五月，蒙地卡羅的街道會變成摩納哥大獎賽（F1）的賽道，其中 Fairmont 飯店前的髮夾彎是全場最知名的彎道。"
+      },
+      {
+        title: "Antibes｜城牆環抱的老城與蔚藍海",
+        image: "",
+        mapLink: "https://maps.google.com/?q=Antibes+France",
+        text: "Antibes 位於尼斯與坎城之間，是一座被古城牆環抱的迷人老城。普羅旺斯市集（Marché Provençal）、畢卡索美術館（Château Grimaldi）與沿海的城牆步道都很值得逛。\n\n與它相連的 Juan-les-Pins 則是熱鬧的海灘度假區。接下來兩晚就以這裡為基地。"
       }
     ],
     extraNotes: [
@@ -4367,12 +4445,12 @@ const DAY_CITY_LABELS = [
   "BUD",      // D4
   "NCE",      // D5
   "NCE",      // D6
-  "NCE",      // D7
-  "NCE",      // D8
-  "Èze",      // D9
+  "Èze",      // D7
+  "Villefr.",  // D8
+  "Menton",   // D9
   "Antibes",  // D10
-  "Verdon",   // D11
-  "VIE",      // D12
+  "Cannes",   // D11
+  "Verdon",   // D12
   "VIE",      // D13
   "TPE"       // D14
 ];
@@ -4387,7 +4465,7 @@ const DAY_CHIP_LABELS = [
   "解放市場",       // D6
   "自由日",         // D7
   "Villefranche",   // D8
-  "Menton · Èze",   // D9
+  "Menton",         // D9
   "Saint-Paul",     // D10
   "→ Verdon",       // D11
   "→ Vienna",       // D12
