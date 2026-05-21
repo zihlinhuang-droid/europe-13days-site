@@ -2815,19 +2815,58 @@ const itineraryData = [
     dowZh: "一",
     phase: "nice",
     title: "布達佩斯 → 尼斯",
-    subtitle: "中央市場 → 飛南法蔚藍海岸",
+    subtitle: "漁人堡日出 → 飛尼斯 → 蔚藍海岸",
     routeCode: "BUD → NCE",
     coverImage: "",
     coverAlt: "尼斯英國人步行道",
-    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    hotel: { name: "Boutique Hotel Nice Côte d'Azur", mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur" },
     schedule: [
       {
         type: "fixed",
-        time: "早上",
-        place: "Nagy Vásárcsarnok 中央市場",
-        mapLink: "https://maps.google.com/?q=Nagy+V%C3%A1s%C3%A1rcsarnok",
-        description: "布達佩斯最大的室內市場，新哥德風建築。一樓賣蔬果、紅椒粉、肉品；二樓有 Lángos 等小吃。",
-        note: "建議搭機前最後採買乾貨類紀念品（紅椒粉、tokaji 等）。注意提防扒手與假商品。",
+        time: "日出",
+        place: "漁人堡看日出 · 布達城堡",
+        mapLink: "https://maps.google.com/?q=Fisherman%27s+Bastion+Budapest",
+        description: "漁人堡白色塔群可俯瞰多瑙河與國會大廈，是布達佩斯最經典的日出機位；布達城堡就在旁邊。",
+        note: "六月初日出約 04:50，想拍要早點起床卡位；希爾頓就在城堡區旁邊，走幾步就到。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "早餐",
+        place: "希爾頓吃早餐",
+        placeLinks: [
+          { name: "希爾頓", url: "https://maps.google.com/?q=Hilton+Budapest" }
+        ],
+        description: "",
+        note: "回飯店享用早餐、稍作整理。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "上午",
+        place: "看有沒有要再出去晃晃（optional）",
+        description: "",
+        note: "退房前的彈性時間，視體力與天氣決定要不要再到城堡區走走。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "10:20",
+        place: "Check out 希爾頓",
+        placeLinks: [
+          { name: "希爾頓", url: "https://maps.google.com/?q=Hilton+Budapest" }
+        ],
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "10:40",
+        place: "機場接送 → 布達佩斯機場",
+        mapLink: "https://maps.google.com/?q=Budapest+Ferenc+Liszt+International+Airport",
+        description: "",
+        note: "前往布達佩斯李斯特費倫茨機場（BUD），約 30 分鐘車程。",
         foods: []
       },
       {
@@ -2835,36 +2874,54 @@ const itineraryData = [
         time: "13:45",
         from: "BUD",
         to: "NCE",
-        flightNo: "直飛",
+        flightNo: "W62263",
         timeRange: "13:45 – 15:50",
         dualTime: true,
-        note: "從布達佩斯飛尼斯約 2h05m。建議提早 2.5 小時到機場辦理 check-in。"
+        note: "布達佩斯直飛尼斯約 2h05m；建議提早約 2 小時到機場辦理 check-in 與行李。"
       },
       {
         type: "fixed",
         time: "下午",
-        place: "Hôtel Vendôme Nice 入住",
-        mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice",
-        description: "尼斯市區飯店，位置不錯，步行可達英國人步行道。",
-        note: "從 NCE 機場可搭 Tram T2 直達市區（約 30 分鐘），相對便宜。",
+        place: "Check in Boutique Hotel Nice Côte d'Azur",
+        mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur",
+        description: "尼斯市區飯店，步行可達英國人步行道與舊城。",
+        note: "從 NCE 機場可搭 Tram T2 直達市區（約 30 分鐘），相對便宜方便。",
         foods: []
       },
       {
         type: "fixed",
         time: "傍晚",
         place: "英國人步行道 Promenade des Anglais",
-        mapLink: "https://maps.google.com/?q=Promenade+des+Anglais",
-        description: "尼斯最具代表性的海岸步道，全長約 7 公里，沿著天使灣（Baie des Anges）綿延。",
+        mapLink: "https://maps.google.com/?q=Promenade+des+Anglais+Nice",
+        description: "尼斯最具代表性的海岸步道，沿天使灣（Baie des Anges）綿延約 7 公里。",
         note: "傍晚海風舒服、夕陽美；天使灣的圓石灘是這裡的特色。",
         foods: []
       },
       {
         type: "fixed",
         time: "",
-        place: "盤格魯街 / Old Town 散步",
-        mapLink: "https://maps.google.com/?q=Vieux+Nice",
-        description: "尼斯舊城窄巷、義式建築、彩色房屋，是當地夜生活與餐飲集中區。",
-        note: "Cours Saleya 廣場附近用餐選擇多。",
+        place: "Cours Saleya 花市・古董市集",
+        mapLink: "https://maps.google.com/?q=Cours+Saleya+Nice",
+        description: "舊城邊的露天市集廣場（Marché aux Fleurs）。平日是花市與蔬果市集，週一改為古董跳蚤市集（brocante）。",
+        note: "6/1 是週一，剛好是古董市集；廣場周邊餐廳、咖啡選擇很多。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "城堡山公園（optional）",
+        mapLink: "https://maps.google.com/?q=Colline+du+Ch%C3%A2teau+Nice",
+        description: "尼斯舊城東側的觀景丘（Colline du Château），山頂公園可俯瞰整個舊城、天使灣與港口，還有人工瀑布。",
+        note: "看天氣跟時間再決定要不要上去；可走階梯或搭電梯（Ascenseur du Château）。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "19:00",
+        place: "晚餐：La Vela",
+        mapLink: "https://maps.google.com/?q=La+Vela+Nice",
+        description: "",
+        note: "已預訂，蔚藍海岸的第一晚。",
         foods: []
       }
     ],
@@ -2892,7 +2949,7 @@ const itineraryData = [
     routeCode: "NICE",
     coverImage: "",
     coverAlt: "尼斯解放市場",
-    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    hotel: { name: "Boutique Hotel Nice Côte d'Azur", mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur" },
     schedule: [
       {
         type: "fixed",
@@ -2937,7 +2994,7 @@ const itineraryData = [
     routeCode: "NICE",
     coverImage: "",
     coverAlt: "尼斯",
-    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    hotel: { name: "Château Eza", mapLink: "https://maps.google.com/?q=Ch%C3%A2teau+Eza+%C3%88ze" },
     schedule: [
       {
         type: "fixed",
@@ -2973,7 +3030,7 @@ const itineraryData = [
     routeCode: "NICE",
     coverImage: "",
     coverAlt: "濱海自由城",
-    hotel: { name: "Hôtel Vendôme Nice", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Vend%C3%B4me+Nice" },
+    hotel: { name: "Boutique Hotel Nice Côte d'Azur", mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur" },
     schedule: [
       {
         type: "fixed",
