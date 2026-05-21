@@ -50,6 +50,7 @@ body {
 [data-phase="nice"]     { --accent: #2a8fb5; --soft: #d8714f; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "尼斯"; }
 [data-phase="riviera"]  { --accent: #e07a52; --soft: #e8b020; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "蔚藍海岸"; }
 [data-phase="verdon"]   { --accent: #2fa089; --soft: #b89b6a; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
+[data-phase="eze"]      { --accent: #5f9a5e; --soft: #2a8fb5; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "艾日"; }
 
 /* ---------------- App container & paper ---------------- */
 .app {
@@ -645,6 +646,7 @@ body {
 .ticket-stub[data-phase="nice"]     { --phase-accent: #2a8fb5; }
 .ticket-stub[data-phase="riviera"]  { --phase-accent: #e07a52; }
 .ticket-stub[data-phase="verdon"]   { --phase-accent: #2fa089; }
+.ticket-stub[data-phase="eze"]      { --phase-accent: #5f9a5e; }
 
 /* watercolor wash by phase (matching cities) */
 .ticket-stub[data-phase="travel"]   { background: linear-gradient(to right, rgba(184,116,76,0.12), var(--paper-warm) 38%); }
@@ -659,6 +661,8 @@ body {
 .ticket-stub[data-phase="riviera"]:hover  { background: linear-gradient(to right, rgba(224,122,82,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="verdon"]   { background: linear-gradient(to right, rgba(47,160,137,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="verdon"]:hover   { background: linear-gradient(to right, rgba(47,160,137,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="eze"]      { background: linear-gradient(to right, rgba(95,154,94,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="eze"]:hover      { background: linear-gradient(to right, rgba(95,154,94,0.22), var(--paper-warm) 38%); }
 
 .ticket-stub__content {
   display: flex;
@@ -822,6 +826,7 @@ body {
 .date-card[data-phase="riviera"]  { background: linear-gradient(180deg, rgba(224,122,82,0.07), var(--paper-warm) 60%); --phase-accent: #e07a52; }
 .date-card[data-phase="verdon"]   { background: linear-gradient(180deg, rgba(47,160,137,0.07), var(--paper-warm) 60%); --phase-accent: #2fa089; }
 .date-card[data-phase="vienna"]   { background: linear-gradient(180deg, rgba(111,144,80,0.07), var(--paper-warm) 60%); --phase-accent: #6f9050; }
+.date-card[data-phase="eze"]      { background: linear-gradient(180deg, rgba(95,154,94,0.07), var(--paper-warm) 60%); --phase-accent: #5f9a5e; }
 
 .date-card.is-active {
   background: var(--phase-accent, var(--accent));
@@ -2270,7 +2275,8 @@ const PHASE_LABEL = {
   budapest: "布達佩斯",
   nice:     "尼斯",
   riviera:  "蔚藍海岸",
-  verdon:   "威東河峽谷"
+  verdon:   "威東河峽谷",
+  eze:      "艾日"
 };
 
 /* ============================================================
@@ -3028,7 +3034,7 @@ const itineraryData = [
     date: "2026/06/03",
     dow: "WED",
     dowZh: "三",
-    phase: "nice",
+    phase: "eze",
     title: "尼斯 · 自由日",
     subtitle: "尼斯市區自由安排",
     routeCode: "NICE",
