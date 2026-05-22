@@ -44,7 +44,7 @@ body {
 }
 
 /* 統一底色（採用尼斯淺米色），各 phase 只變字體 / 線條的顏色 */
-[data-phase="travel"]   { --accent: #2f7d3a; --soft: #7e9aa6; --line: #a89484; --line-soft: #c8b59f; --phase-label: "移動日"; }
+[data-phase="travel"]   { --accent: #6cae3e; --soft: #7e9aa6; --line: #a89484; --line-soft: #c8b59f; --phase-label: "移動日"; }
 [data-phase="vienna"]   { --accent: #5b66a6; --soft: #e3a86a; --line: #b29770; --line-soft: #d4bf95; --phase-label: "維也納"; }
 [data-phase="budapest"] { --accent: #c89b2e; --soft: #2f6f9e; --line: #9d8e85; --line-soft: #c2afa0; --phase-label: "布達佩斯"; }
 [data-phase="nice"]     { --accent: #2a8fb5; --soft: #d8714f; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "尼斯"; }
@@ -643,7 +643,7 @@ body {
 .ticket-stub__date strong {
   font-weight: 500;
 }
-.ticket-stub[data-phase="travel"]   { --phase-accent: #2f7d3a; }
+.ticket-stub[data-phase="travel"]   { --phase-accent: #6cae3e; }
 .ticket-stub[data-phase="vienna"]   { --phase-accent: #5b66a6; }
 .ticket-stub[data-phase="budapest"] { --phase-accent: #c89b2e; }
 .ticket-stub[data-phase="nice"]     { --phase-accent: #2a8fb5; }
@@ -655,8 +655,8 @@ body {
 .ticket-stub[data-phase="villefranche"] { --phase-accent: #14a3a8; }
 
 /* watercolor wash by phase (matching cities) */
-.ticket-stub[data-phase="travel"]   { background: linear-gradient(to right, rgba(47,125,58,0.12), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="travel"]:hover   { background: linear-gradient(to right, rgba(47,125,58,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="travel"]   { background: linear-gradient(to right, rgba(108,174,62,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="travel"]:hover   { background: linear-gradient(to right, rgba(108,174,62,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="vienna"]   { background: linear-gradient(to right, rgba(91,102,166,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="vienna"]:hover   { background: linear-gradient(to right, rgba(91,102,166,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="budapest"] { background: linear-gradient(to right, rgba(200,155,46,0.13), var(--paper-warm) 38%); }
@@ -832,7 +832,7 @@ body {
 }
 
 /* Watercolor wash by phase (top → fade) */
-.date-card[data-phase="travel"]   { background: linear-gradient(180deg, rgba(47,125,58,0.07), var(--paper-warm) 60%); --phase-accent: #2f7d3a; }
+.date-card[data-phase="travel"]   { background: linear-gradient(180deg, rgba(108,174,62,0.07), var(--paper-warm) 60%); --phase-accent: #6cae3e; }
 .date-card[data-phase="budapest"] { background: linear-gradient(180deg, rgba(200,155,46,0.08), var(--paper-warm) 60%); --phase-accent: #c89b2e; }
 .date-card[data-phase="nice"]     { background: linear-gradient(180deg, rgba(42,143,181,0.07), var(--paper-warm) 60%); --phase-accent: #2a8fb5; }
 .date-card[data-phase="riviera"]  { background: linear-gradient(180deg, rgba(224,122,82,0.07), var(--paper-warm) 60%); --phase-accent: #e07a52; }
@@ -1998,7 +1998,7 @@ body {
   border-bottom: 1px dashed var(--line);
 }
 .pretrip-section:last-child { border-bottom: none; padding-bottom: 0; }
-.pretrip-section:nth-child(1) { --section-color: #2f7d3a; }
+.pretrip-section:nth-child(1) { --section-color: #6cae3e; }
 .pretrip-section:nth-child(2) { --section-color: #c89b2e; }
 .pretrip-section:nth-child(3) { --section-color: #2a8fb5; }
 .pretrip-section:nth-child(4) { --section-color: #e07a52; }
@@ -4014,14 +4014,14 @@ const CITY_MOTIFS = {
    ============================================================ */
 /* Hero deco — small hand-drawn icons */
 const HERO_PLANE = `<svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g transform="rotate(-18 28 28)" fill="#2f7d3a">
+  <g transform="rotate(-18 28 28)" fill="#6cae3e">
     <path d="M 6 30 L 38 25 L 46 25 Q 50 25 50 28 Q 50 31 46 31 L 38 31 L 6 30 Z"/>
     <path d="M 22 18 L 25 18 L 20 25 L 17 25 Z"/>
     <path d="M 22 38 L 25 38 L 20 31 L 17 31 Z"/>
     <path d="M 38 21 L 41 21 L 38 25 L 36 25 Z"/>
     <path d="M 38 35 L 41 35 L 38 31 L 36 31 Z"/>
   </g>
-  <g fill="#2f7d3a" opacity="0.45">
+  <g fill="#6cae3e" opacity="0.45">
     <circle cx="14" cy="44" r="1.1"/>
     <circle cx="9" cy="47" r="0.9"/>
     <circle cx="5" cy="49" r="0.7"/>
