@@ -52,7 +52,8 @@ body {
 [data-phase="verdon"]   { --accent: #2fa089; --soft: #b89b6a; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
 [data-phase="eze"]      { --accent: #5f9a5e; --soft: #2a8fb5; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "埃茲"; }
 [data-phase="saintpaul"] { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "聖保羅"; }
-[data-phase="cannes"]   { --accent: #b3463f; --soft: #2d5f7c; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
+[data-phase="cannes"]   { --accent: #b3463f; --soft: #2b54c0; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
+[data-phase="villefranche"] { --accent: #14a3a8; --soft: #3f7d57; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "自由城"; }
 
 /* ---------------- App container & paper ---------------- */
 .app {
@@ -651,6 +652,7 @@ body {
 .ticket-stub[data-phase="eze"]      { --phase-accent: #5f9a5e; }
 .ticket-stub[data-phase="saintpaul"] { --phase-accent: #9b8ace; }
 .ticket-stub[data-phase="cannes"]   { --phase-accent: #b3463f; }
+.ticket-stub[data-phase="villefranche"] { --phase-accent: #14a3a8; }
 
 /* watercolor wash by phase (matching cities) */
 .ticket-stub[data-phase="travel"]   { background: linear-gradient(to right, rgba(184,116,76,0.12), var(--paper-warm) 38%); }
@@ -671,6 +673,8 @@ body {
 .ticket-stub[data-phase="saintpaul"]:hover { background: linear-gradient(to right, rgba(155,138,206,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="cannes"]   { background: linear-gradient(to right, rgba(179,70,63,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="cannes"]:hover   { background: linear-gradient(to right, rgba(179,70,63,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="villefranche"] { background: linear-gradient(to right, rgba(20,163,168,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="villefranche"]:hover { background: linear-gradient(to right, rgba(20,163,168,0.22), var(--paper-warm) 38%); }
 
 .ticket-stub__content {
   display: flex;
@@ -837,6 +841,7 @@ body {
 .date-card[data-phase="eze"]      { background: linear-gradient(180deg, rgba(95,154,94,0.07), var(--paper-warm) 60%); --phase-accent: #5f9a5e; }
 .date-card[data-phase="saintpaul"] { background: linear-gradient(180deg, rgba(155,138,206,0.07), var(--paper-warm) 60%); --phase-accent: #9b8ace; }
 .date-card[data-phase="cannes"]   { background: linear-gradient(180deg, rgba(179,70,63,0.07), var(--paper-warm) 60%); --phase-accent: #b3463f; }
+.date-card[data-phase="villefranche"] { background: linear-gradient(180deg, rgba(20,163,168,0.07), var(--paper-warm) 60%); --phase-accent: #14a3a8; }
 
 .date-card.is-active {
   background: var(--phase-accent, var(--accent));
@@ -2288,7 +2293,8 @@ const PHASE_LABEL = {
   verdon:   "威東河峽谷",
   eze:      "埃茲",
   saintpaul:"聖保羅",
-  cannes:   "坎城"
+  cannes:   "坎城",
+  villefranche: "自由城"
 };
 
 /* ============================================================
@@ -3082,7 +3088,7 @@ const itineraryData = [
     date: "2026/06/04",
     dow: "THU",
     dowZh: "四",
-    phase: "nice",
+    phase: "villefranche",
     title: "濱海自由城 Villefranche-sur-Mer",
     subtitle: "Lou Bantry · 騎腳踏車？",
     routeCode: "NICE",
@@ -3464,29 +3470,85 @@ const itineraryData = [
     dow: "TUE",
     dowZh: "二",
     phase: "vienna",
-    title: "Vienna 機場 · 候機日",
-    subtitle: "整日 NH 周邊，傍晚 BR62 起飛",
+    title: "維也納 Before Sunrise · 返程",
+    subtitle: "電影場景朝聖 → 16:00 BR62 飛曼谷",
     routeCode: "VIENNA → BKK",
     coverImage: "",
-    coverAlt: "Vienna 機場候機",
+    coverAlt: "維也納 Before Sunrise",
     hotel: { name: "機上過夜（BR62）", mapLink: "" },
     schedule: [
       {
         type: "fixed",
         time: "早上",
-        place: "起床 · NH Vienna Airport Conference Center",
+        place: "Check out（NH 維也納機場飯店）",
         mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center",
-        description: "與 VIE 航廈空橋連通的飯店；早餐後慢慢整理行李、最後一次清點護照與證件。",
-        note: "可在飯店或航廈內任一處用早餐，不必出海關。",
+        description: "",
+        note: "退房後行李可先寄放在飯店，輕裝進維也納市區朝聖；下午回機場再取。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午前後",
-        place: "VIE 機場 check-in / 過海關",
+        time: "上午",
+        place: "Café Sperl",
+        mapLink: "https://maps.google.com/?q=Caf%C3%A9+Sperl+Vienna",
+        hours: "07:00–22:00",
+        description: "",
+        note: "《愛在黎明破曉時》裡兩人假裝打電話給朋友的咖啡廳，1880 年開業的維也納老咖啡館。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Gota Coffee",
+        mapLink: "https://maps.google.com/?q=Gota+Coffee+Roasters+Vienna",
+        hours: "08:00–18:00",
+        description: "",
+        note: "2025 年歐洲第一、世界第三的咖啡。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Zollamtssteg 綠橋",
+        mapLink: "https://maps.google.com/?q=Zollamtssteg+Vienna",
+        description: "",
+        note: "電影拍攝地——橫跨維也納河的綠色鐵橋。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中餐（市區）",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "13:00",
+        place: "Alt & Neu Records 唱片行",
+        mapLink: "https://maps.google.com/?q=Alt+%26+Neu+Records+Vienna",
+        hours: "13:00–18:00",
+        description: "",
+        note: "電影裡兩人擠進試聽間一起聽歌的唱片行；13:00 才開門，逛完就要趕往機場。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "最晚 14:00",
+        place: "前往 VIE 維也納機場",
         mapLink: "https://maps.google.com/?q=Vienna+International+Airport",
-        description: "建議 14:00 前完成 check-in，給海關與安檢留足夠時間。",
-        note: "VIE 是申根區出境，過了海關才到登機口。可順道在機場買 Sachertorte 帶回家。",
+        description: "",
+        note: "市區到機場約 15–30 分鐘，最晚兩點要抵達。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "NH 機場飯店拿行李",
+        mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center",
+        description: "",
+        note: "回機場飯店取回寄放的行李，再進航廈 check-in、過海關。",
         foods: []
       },
       {
