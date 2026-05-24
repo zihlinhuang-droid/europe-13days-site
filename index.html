@@ -2246,7 +2246,7 @@ body {
           <li>D2 BR61 02:40–08:40 BKK→VIE</li>
           <li>D2 RJ 1031 13:19 VIE→BUD</li>
           <li>D5 13:45–15:50 BUD→NCE</li>
-          <li>D12 NCE→VIE（請補班號）</li>
+          <li>D12 OS380 21:25–23:05 NCE→VIE</li>
           <li>D13 BR62 16:00→07:10 VIE→BKK（夜航）</li>
           <li>D14 BR62 12:25–17:15 BKK→TPE</li>
         </ul>
@@ -3057,7 +3057,7 @@ const itineraryData = [
     title: "埃茲 Èze · 鷲巢山城",
     subtitle: "上午尼斯自由活動 → 下午上山入住 Château Eza",
     routeCode: "NICE → ÈZE",
-    coverImage: "",
+    coverImage: "images/europe/Day7/eze-jardin.png",
     coverAlt: "埃茲鷲巢村",
     hotel: { name: "Château Eza", mapLink: "https://maps.google.com/?q=Ch%C3%A2teau+Eza+%C3%88ze" },
     schedule: [
@@ -3365,8 +3365,8 @@ const itineraryData = [
     title: "Cannes → Verdon Gorges",
     subtitle: "往內陸開車約 2 小時",
     routeCode: "CANNES → VERDON",
-    coverImage: "",
-    coverAlt: "威東河峽谷",
+    coverImage: "images/europe/Day11/cannes-night.jpg",
+    coverAlt: "坎城夜景",
     hotel: { name: "Moustiers-Sainte-Marie 住宿", mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie" },
     schedule: [
       {
@@ -3420,36 +3420,90 @@ const itineraryData = [
     title: "Verdon 峽谷 → 尼斯 → 維也納",
     subtitle: "從威東開到尼斯，再飛維也納過夜",
     routeCode: "VERDON → NCE → VIE",
-    coverImage: "",
+    coverImage: "images/europe/Day12/verdon-gorge.jpg",
     coverAlt: "威東河峽谷",
     hotel: { name: "維也納機場 NH 會議中心酒店", mapLink: "https://maps.google.com/?q=NH+Vienna+Airport+Conference+Center" },
     schedule: [
       {
         type: "fixed",
-        time: "上午",
-        place: "Gorges du Verdon 威東河峽谷",
-        mapLink: "https://maps.google.com/?q=Gorges+du+Verdon",
-        description: "歐洲最大的峽谷之一，被稱為「歐洲的大峽谷」。翡翠綠的湖水與白色石灰岩懸崖是經典畫面。可開車走 Route des Crêtes 山頂路線或從 Lac de Sainte-Croix 看湖。",
-        note: "天氣好的話風景無敵；山路須留時間。",
+        time: "早上",
+        place: "Check out（Moustiers 住宿）",
+        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
+        description: "",
+        note: "退房後行李上車，沿途玩回尼斯。",
         foods: []
       },
       {
         type: "fixed",
-        time: "14:00",
-        place: "最晚 14:00 離開 · 出發尼斯",
-        mapLink: "https://maps.google.com/?q=Nice+Airport",
-        description: "從 Moustiers 開車到尼斯機場約 2.5 小時。",
-        note: "建議至少 15:00 前抵達 NCE 機場辦理 check-in。",
+        time: "",
+        place: "Moustiers-Sainte-Marie 小鎮晃晃",
+        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
+        description: "",
+        note: "依偎在峭壁間的普羅旺斯最美小鎮之一，以陶瓷（faïence）與崖間星星傳說聞名。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "聖十字湖 Lac de Sainte-Croix（optional）",
+        mapLink: "https://maps.google.com/?q=Lac+de+Sainte-Croix",
+        description: "",
+        note: "土耳其藍的人工湖、峽谷出水口；可租船或踏水。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Point Sublime 觀景台",
+        mapLink: "https://maps.google.com/?q=Point+Sublime+Verdon",
+        description: "",
+        note: "在 D952 公路上、回尼斯途中會經過；俯瞰峽谷入口最經典的視角。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "出發格拉斯 Grasse",
+        mapLink: "https://maps.google.com/?q=Grasse+France",
+        description: "",
+        note: "香水之都，位於回尼斯的途中。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中午",
+        place: "中餐：格拉斯找一家",
+        description: "",
+        note: "在格拉斯老城找一家午餐。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "最晚 14:00",
+        place: "出發尼斯",
+        mapLink: "https://maps.google.com/?q=Nice+France",
+        description: "",
+        note: "車程大約 2.5 小時。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "最晚 18:00",
+        place: "尼斯還車",
+        mapLink: "https://maps.google.com/?q=Nice+C%C3%B4te+d%27Azur+Airport",
+        description: "",
+        note: "最晚 18:00 在尼斯（機場）歸還租車，再進航廈搭機。",
         foods: []
       },
       {
         type: "transit",
-        time: "16:00",
+        time: "21:25",
         from: "NCE",
         to: "VIE",
-        flightNo: "（請補班號）",
-        timeRange: "傍晚出發",
-        note: "下班機後直接住維也納機場附近 NH。"
+        flightNo: "OS380",
+        timeRange: "21:25 – 23:05",
+        dualTime: true,
+        note: "OS380 尼斯直飛維也納，約 1h40m；下機後直接入住維也納機場旁的 NH。"
       },
       {
         type: "fixed",
@@ -3597,8 +3651,8 @@ const itineraryData = [
     title: "曼谷 → 台北",
     subtitle: "返程日 · 行程結束",
     routeCode: "BKK → TPE",
-    coverImage: "",
-    coverAlt: "返程",
+    coverImage: "images/europe/Day14/taipei.jpeg",
+    coverAlt: "台北 101 市景",
     hotel: { name: "", mapLink: "" },
     schedule: [
       {
