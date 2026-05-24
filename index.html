@@ -1941,6 +1941,14 @@ body {
   text-align: center;
   margin-bottom: 16px;
 }
+.modal__map-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--line-soft);
+  background: var(--paper-warm);
+}
 .modal__food-item {
   padding: 12px 0;
   border-bottom: 1px dashed var(--line);
@@ -2278,6 +2286,17 @@ body {
     <h3 class="modal__title" id="tipModalTitle">小提示</h3>
     <p class="modal__subtitle" id="tipModalSubtitle">TIP</p>
     <ol class="tip-steps" id="tipModalSteps"></ol>
+  </div>
+</div>
+
+<div class="modal" id="mapModal" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+  <div class="modal__backdrop" data-map-close></div>
+  <div class="modal__sheet">
+    <div class="modal__handle"></div>
+    <button class="modal__close" data-map-close aria-label="關閉">×</button>
+    <h3 class="modal__title" id="mapModalTitle">路線圖</h3>
+    <p class="modal__subtitle" id="mapModalSubtitle">ROUTE MAP</p>
+    <img class="modal__map-img" id="mapModalImg" src="" alt="路線圖" loading="lazy" />
   </div>
 </div>
 
@@ -3408,8 +3427,17 @@ const itineraryData = [
         time: "下午",
         place: "Route des Crêtes（D23）順時針",
         mapLink: "https://maps.google.com/?q=Route+des+Cr%C3%AAtes+Verdon",
+        mapImage: "images/europe/Day11/d23-route-map.webp",
+        mapImageTitle: "Route des Crêtes（D23）路線圖",
         description: "",
-        note: "峽谷北側的山頂環路，建議順時針方向開，沿途多個觀景台。",
+        note: "峽谷北側的山頂環路，建議順時針方向開。可停靠觀景台：Belvédère de la Carelle、Belvédère de Trescaïre、Belvédère de la Dent d'Aire、Belvédère de l'Escalès、Belvédère de la Maline。",
+        noteLinks: [
+          { name: "Belvédère de la Carelle", url: "https://maps.google.com/?q=Belv%C3%A9d%C3%A8re+de+la+Carelle+Verdon" },
+          { name: "Belvédère de Trescaïre", url: "https://maps.google.com/?q=Belv%C3%A9d%C3%A8re+de+Tresca%C3%AFre+Verdon" },
+          { name: "Belvédère de la Dent d'Aire", url: "https://maps.google.com/?q=Belv%C3%A9d%C3%A8re+de+la+Dent+d%27Aire+Verdon" },
+          { name: "Belvédère de l'Escalès", url: "https://maps.google.com/?q=Belv%C3%A9d%C3%A8re+de+l%27Escal%C3%A8s+Verdon" },
+          { name: "Belvédère de la Maline", url: "https://maps.google.com/?q=Belv%C3%A9d%C3%A8re+de+la+Maline+Verdon" }
+        ],
         foods: []
       },
       {
@@ -4887,7 +4915,13 @@ function renderTripCard(item) {
          data-tip-links='${escapeHTML(JSON.stringify(item.tip.links || []))}'>📸 ${escapeHTML(item.tip.title)}</button>`
     : "";
 
-  const actions = foodBtn + tipBtn;
+  const mapBtn = item.mapImage
+    ? `<button class="btn-chip" type="button"
+         data-mapimg="${escapeHTML(item.mapImage)}"
+         data-mapimg-title="${escapeHTML(item.mapImageTitle || displayPlace)}">🗺️ 路線圖</button>`
+    : "";
+
+  const actions = foodBtn + tipBtn + mapBtn;
 
   return `
     <div class="trip-card${isOptional ? " trip-card--opt" : ""}">
@@ -5033,6 +5067,38 @@ function bindTipModal() {
   });
 }
 
+/* ---------- Map image modal (route map lightbox) ---------- */
+function bindMapModal() {
+  const modal = document.getElementById("mapModal");
+  if (!modal) return;
+  const titleEl = document.getElementById("mapModalTitle");
+  const imgEl = document.getElementById("mapModalImg");
+
+  function open(title, src) {
+    titleEl.textContent = title || "路線圖";
+    imgEl.src = src;
+    imgEl.alt = title || "路線圖";
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    const sheet = modal.querySelector(".modal__sheet");
+    if (sheet) sheet.scrollTop = 0;
+  }
+  function close() {
+    modal.classList.remove("is-open");
+    document.body.style.overflow = "";
+    imgEl.src = "";
+  }
+
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-mapimg]");
+    if (btn) open(btn.dataset.mapimgTitle || "路線圖", btn.dataset.mapimg);
+    if (e.target.closest("[data-map-close]")) close();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+  });
+}
+
 /* ---------- Utils ---------- */
 function escapeHTML(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
@@ -5048,6 +5114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCityList();
   bindFoodModal();
   bindTipModal();
+  bindMapModal();
   bindQuickNav();
 
   // Inject hero deco
