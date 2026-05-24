@@ -51,7 +51,7 @@ body {
 [data-phase="riviera"]  { --accent: #e5872e; --soft: #edb52a; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "芒通"; }
 [data-phase="verdon"]   { --accent: #2fa089; --soft: #d4889b; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
 [data-phase="eze"]      { --accent: #5f9a5e; --soft: #2a8fb5; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "埃茲"; }
-[data-phase="saintpaul"] { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "聖保羅"; }
+[data-phase="saintpaul"] { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "Antibes"; }
 [data-phase="cannes"]   { --accent: #b3463f; --soft: #2b54c0; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
 [data-phase="villefranche"] { --accent: #14a3a8; --soft: #3f7d57; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "自由城"; }
 
@@ -2312,7 +2312,7 @@ const PHASE_LABEL = {
   riviera:  "芒通",
   verdon:   "威東河峽谷",
   eze:      "埃茲",
-  saintpaul:"聖保羅",
+  saintpaul:"Antibes",
   cannes:   "坎城",
   villefranche: "自由城"
 };
@@ -3472,57 +3472,140 @@ const itineraryData = [
     dow: "SAT",
     dowZh: "六",
     phase: "saintpaul",
-    title: "Saint-Paul-de-Vence · Antibes",
-    subtitle: "藝術村 + 海邊古城",
+    title: "Antibes → 坎城",
+    subtitle: "Antibes 古城市集 → 坎城影展之城",
     routeCode: "WEST RIVIERA",
     coverImage: "images/europe/Day10/antibes-ramparts.jpg",
     coverAlt: "Antibes 老城城牆",
-    hotel: { name: "坎城（住宿待定）", mapLink: "https://maps.google.com/?q=Cannes" },
+    hotel: { name: "Hotel Abrial by Soniho（坎城）", mapLink: "https://maps.google.com/?q=Hotel+Abrial+by+Soniho+Cannes" },
     schedule: [
       {
         type: "fixed",
         time: "早上",
-        place: "Saint-Paul-de-Vence 聖保羅",
-        mapLink: "https://maps.google.com/?q=Saint-Paul-de-Vence",
-        description: "蔚藍海岸內陸的中世紀城牆小鎮，自 20 世紀起吸引大批藝術家入住，至今仍是畫廊、工作室與精品店聚集地。Chagall（夏卡爾）長眠於此。",
-        note: "石板路斜坡多，建議穿平底鞋。村中有名的餐廳 La Colombe d'Or 收藏多位藝術家作品。",
+        place: "普羅旺斯市集 Marché Provençal",
+        mapLink: "https://maps.google.com/?q=March%C3%A9+Proven%C3%A7al+Antibes",
+        description: "",
+        note: "Antibes 舊城的有頂市集，賣蔬果、香料、起司與普羅旺斯小物（上午營業）。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "Antibes",
-        mapLink: "https://maps.google.com/?q=Antibes",
-        description: "蔚藍海岸保存最好的古城之一，有畢卡索美術館（位於 Château Grimaldi）。海邊步道與 Vauban 城牆是經典。",
-        note: "Antibes 舊港停滿遊艇，午餐選擇豐富；Marché Provençal 普羅旺斯市集（週二–週日上午）也是亮點。",
+        time: "",
+        place: "畢卡索博物館 Musée Picasso",
+        mapLink: "https://maps.google.com/?q=Mus%C3%A9e+Picasso+Antibes",
+        description: "",
+        note: "位於海邊的 Château Grimaldi，畢卡索曾在此創作。",
         foods: []
       },
       {
         type: "fixed",
-        time: "傍晚",
-        place: "回坎城",
-        mapLink: "https://maps.google.com/?q=Cannes",
-        description: "從 Antibes 開車回坎城約 20 分鐘。",
-        note: "坎城晚上可走影展紅毯區域、Croisette 海濱大道。",
+        time: "",
+        place: "拍照點：Point de Vue promenade de la Croé",
+        mapLink: "https://maps.google.com/?q=Point+de+Vue+promenade+de+la+Cro%C3%A9+Antibes",
+        description: "",
+        note: "需徒步；在 Cap d'Antibes 的海岸步道上。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "步道：Sentier du Littoral（Tirepoil）",
+        mapLink: "https://maps.google.com/?q=Sentier+du+Littoral+Cap+d%27Antibes",
+        description: "",
+        note: "Cap d'Antibes 的海岸步道，沿崖看海。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中餐：海邊找一家",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "17:00",
+        place: "出發坎城 Cannes",
+        mapLink: "https://maps.google.com/?q=Cannes+France",
+        description: "",
+        note: "從 Antibes 開車到坎城約 20–30 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Check in Hotel Abrial by Soniho",
+        mapLink: "https://maps.google.com/?q=Hotel+Abrial+by+Soniho+Cannes",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "La Croisette 海濱大道",
+        mapLink: "https://maps.google.com/?q=La+Croisette+Cannes",
+        description: "",
+        note: "先走一小段海濱大道。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚餐",
+        place: "晚餐：Ciro's Cannes / Hyde Beach Cannes",
+        placeLinks: [
+          { name: "Ciro's Cannes", url: "https://maps.google.com/?q=Ciro%27s+Cannes" },
+          { name: "Hyde Beach Cannes", url: "https://maps.google.com/?q=Hyde+Beach+Cannes" }
+        ],
+        description: "",
+        note: "兩家擇一。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Le Suquet 老城",
+        mapLink: "https://maps.google.com/?q=Le+Suquet+Cannes",
+        description: "",
+        note: "坎城舊城區，山丘上的老街與鐘樓。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Vieux Port 舊港",
+        mapLink: "https://maps.google.com/?q=Vieux+Port+Cannes",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Palais des Festivals 外觀",
+        mapLink: "https://maps.google.com/?q=Palais+des+Festivals+Cannes",
+        description: "",
+        note: "影展宮外觀、紅毯樓梯與手印步道（Allée des Stars）。",
         foods: []
       }
     ],
     introCards: [
       {
-        title: "Saint-Paul-de-Vence｜藝術家的山城",
-        image: "",
-        text: "Saint-Paul-de-Vence 是蔚藍海岸內陸最具知名度的中世紀城牆小鎮之一，建於 11 世紀的山丘上。20 世紀起，Matisse（馬諦斯）、Chagall（夏卡爾）、Picasso（畢卡索）等藝術家陸續被這裡的光線與氛圍吸引，紛紛入住或創作。\n\n村中央的 La Colombe d'Or 餐廳收藏這些藝術家親手贈與的作品，是這個小鎮最具傳奇色彩的地方。Chagall 也選擇長眠於此，墓地就在村外山坡。"
-      },
-      {
         title: "Antibes｜畢卡索的海邊古城",
         image: "",
         text: "Antibes 是蔚藍海岸最古老的城市之一，原為古希臘殖民地 Antipolis（意為「對面的城市」，相對於對岸的尼斯）。城牆下方就是地中海，畢卡索曾在 Château Grimaldi 城堡內短暫工作居住，現該城堡為畢卡索美術館，展出他在 Antibes 時期的作品。\n\n舊港 Port Vauban 是地中海最大的私人遊艇港之一，可順道感受蔚藍海岸的奢華氣息。"
+      },
+      {
+        title: "坎城 Cannes｜影展之城與紅毯",
+        image: "",
+        text: "坎城（Cannes）以每年五月的坎城影展（Festival de Cannes）聞名；影展宮（Palais des Festivals）前的紅毯階梯與星光大道（Allée des Stars）手印是必拍點。\n\n海濱的 La Croisette 大道兩旁是棕櫚樹與高級飯店、精品店；山丘上的舊城 Le Suquet 保留中世紀街巷與鐘樓，可俯瞰舊港與整片海灣。"
       }
     ],
     extraNotes: [
-      "Saint-Paul-de-Vence 停車要停在山下停車場，再步行進村。",
-      "Antibes 的 Marché Provençal 上午為主，週一公休。",
-      "下午回坎城路上人多，預留時間。"
+      "Antibes 的 Marché Provençal 以上午為主、週一公休（6/6 是週六有開）。",
+      "Cap d'Antibes 海岸步道（Sentier du Littoral）需徒步，建議好走的鞋與防曬。",
+      "傍晚到坎城先把車停好（Hotel Abrial）再步行逛 La Croisette、Le Suquet。"
     ]
   },
   {
@@ -3656,8 +3739,8 @@ const itineraryData = [
     dow: "MON",
     dowZh: "一",
     phase: "verdon",
-    title: "Verdon 峽谷 → 格拉斯 → 尼斯 → 維也納",
-    subtitle: "峽谷健行 → 格拉斯 → 尼斯還車 → 飛維也納過夜",
+    title: "Verdon 峽谷 → 聖保羅 → 尼斯 → 維也納",
+    subtitle: "峽谷健行 → 聖保羅 → 尼斯還車 → 飛維也納過夜",
     routeCode: "VERDON → NCE → VIE",
     coverImage: "images/europe/Day12/verdon-gorge.jpg",
     coverAlt: "威東河峽谷",
@@ -3666,8 +3749,8 @@ const itineraryData = [
       {
         type: "fixed",
         time: "早上",
-        place: "Check out（Moustiers 住宿）",
-        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
+        place: "Check out（Hôtel Le Colombier）",
+        mapLink: "https://maps.google.com/?q=H%C3%B4tel+Le+Colombier+Moustiers-Sainte-Marie",
         description: "",
         note: "退房後行李上車，沿途玩回尼斯。",
         foods: []
@@ -3684,25 +3767,16 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "聖十字湖 Lac de Sainte-Croix（optional）",
-        mapLink: "https://maps.google.com/?q=Lac+de+Sainte-Croix",
-        description: "",
-        note: "土耳其藍的人工湖、峽谷出水口；可租船或踏水。",
-        foods: []
-      },
-      {
-        type: "fixed",
-        time: "",
-        place: "Point Sublime 觀景台",
+        place: "觀景處：Point Sublime",
         mapLink: "https://maps.google.com/?q=Point+Sublime+Verdon",
         description: "",
-        note: "在 D952 公路上、回尼斯途中會經過；俯瞰峽谷入口最經典的視角。",
+        note: "在 D952 上、回尼斯途中會經過；俯瞰峽谷入口最經典的視角。",
         foods: []
       },
       {
         type: "fixed",
         time: "",
-        place: "觀景處：Grand Canyon Verdon · Couloir Samson",
+        place: "觀景處：Grand Canyon Verdon · Couloir Samson（optional）",
         mapLink: "https://maps.google.com/?q=Couloir+Samson+Verdon",
         mapImage: "images/europe/Day12/couloir-samson-map.png",
         mapImageTitle: "Couloir Samson 步道圖",
@@ -3713,36 +3787,36 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "出發格拉斯 Grasse",
-        mapLink: "https://maps.google.com/?q=Grasse+France",
+        place: "出發聖保羅 Saint-Paul-de-Vence",
+        mapLink: "https://maps.google.com/?q=Saint-Paul-de-Vence",
         description: "",
-        note: "香水之都，位於回尼斯的途中。",
+        note: "車程約 2 小時。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "中餐：格拉斯找一家",
+        time: "中餐",
+        place: "中餐：聖保羅找一家",
         description: "",
-        note: "在格拉斯老城找一家午餐。",
+        note: "在聖保羅藝術山城找一家午餐。",
         foods: []
       },
       {
         type: "fixed",
-        time: "最晚 14:00",
-        place: "出發尼斯",
-        mapLink: "https://maps.google.com/?q=Nice+France",
+        time: "最晚 17:00",
+        place: "出發尼斯機場",
+        mapLink: "https://maps.google.com/?q=Nice+C%C3%B4te+d%27Azur+Airport",
         description: "",
-        note: "車程大約 2.5 小時。",
+        note: "最晚 17:00 離開聖保羅；車程約 20 分鐘到尼斯機場。",
         foods: []
       },
       {
         type: "fixed",
         time: "最晚 18:00",
-        place: "尼斯還車",
+        place: "尼斯機場還車",
         mapLink: "https://maps.google.com/?q=Nice+C%C3%B4te+d%27Azur+Airport",
         description: "",
-        note: "最晚 18:00 在尼斯（機場）歸還租車，再進航廈搭機。",
+        note: "最晚 18:00 在尼斯機場歸還租車，再進航廈搭機。",
         foods: []
       },
       {
@@ -3770,13 +3844,18 @@ const itineraryData = [
         title: "Gorges du Verdon｜歐洲的大峽谷",
         image: "",
         text: "威東河峽谷（Gorges du Verdon）是歐洲規模最大的峽谷之一，長約 25 公里、深度可達 700 公尺，因威東河（Verdon River）的翡翠綠色河水切割石灰岩高原而成。\n\n峽谷景觀路線有兩條：北側 Route des Crêtes（懸崖頂），南側 Corniche Sublime（南岸觀景）。下方 Lac de Sainte-Croix 是大型湖泊，夏天可划獨木舟、踩天鵝船入峽谷。"
+      },
+      {
+        title: "Saint-Paul-de-Vence｜藝術家的山城",
+        image: "",
+        text: "Saint-Paul-de-Vence 是蔚藍海岸內陸最具知名度的中世紀城牆小鎮之一，建於 11 世紀的山丘上。20 世紀起，Matisse（馬諦斯）、Chagall（夏卡爾）、Picasso（畢卡索）等藝術家陸續被這裡的光線與氛圍吸引，紛紛入住或創作。\n\n村中央的 La Colombe d'Or 餐廳收藏這些藝術家親手贈與的作品，是這個小鎮最具傳奇色彩的地方。Chagall 也選擇長眠於此，墓地就在村外山坡。今天回尼斯途中會在此停留午餐。"
       }
     ],
     extraNotes: [
-      "最晚 16:00 前抵達維也納，方便晚餐與休息。",
-      "從 Moustiers 到 NCE 開車約 2.5 小時，路況視天氣。",
-      "D13 才是 BR62 起飛日，今天先到維也納過夜。",
-      "NCE→VIE 段班次與時間請補上（Excel 中未明確）。"
+      "今天從 Moustiers 經聖保羅、尼斯，傍晚搭 OS380（21:25）飛維也納，約 23:05 抵達。",
+      "Moustiers → 尼斯機場一帶開車約 2.5 小時，中途在聖保羅停午餐。",
+      "最晚 18:00 在尼斯機場還車，預留辦 check-in 與安檢的時間。",
+      "今晚住維也納機場旁 NH 過夜；隔天（D13）傍晚才是 BR62 飛曼谷。"
     ]
   },
   {
@@ -4861,7 +4940,7 @@ const DAY_CHIP_LABELS = [
   "自由日",         // D7
   "Villefranche",   // D8
   "Menton",         // D9
-  "Saint-Paul",     // D10
+  "Antibes",        // D10
   "→ Verdon",       // D11
   "→ Vienna",       // D12
   "候機",           // D13
