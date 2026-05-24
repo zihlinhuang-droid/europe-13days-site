@@ -51,8 +51,8 @@ body {
 [data-phase="riviera"]  { --accent: #e5872e; --soft: #edb52a; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "芒通"; }
 [data-phase="verdon"]   { --accent: #2fa089; --soft: #d4889b; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
 [data-phase="eze"]      { --accent: #5f9a5e; --soft: #2a8fb5; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "埃茲"; }
-[data-phase="saintpaul"] { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "Antibes"; }
-[data-phase="cannes"]   { --accent: #b3463f; --soft: #2b54c0; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
+[data-phase="saintpaul"] { --accent: #2585c4; --soft: #cf4d42; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "Antibes"; }
+[data-phase="cannes"]   { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
 [data-phase="villefranche"] { --accent: #14a3a8; --soft: #3f7d57; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "自由城"; }
 
 /* ---------------- App container & paper ---------------- */
@@ -650,8 +650,8 @@ body {
 .ticket-stub[data-phase="riviera"]  { --phase-accent: #e5872e; }
 .ticket-stub[data-phase="verdon"]   { --phase-accent: #2fa089; }
 .ticket-stub[data-phase="eze"]      { --phase-accent: #5f9a5e; }
-.ticket-stub[data-phase="saintpaul"] { --phase-accent: #9b8ace; }
-.ticket-stub[data-phase="cannes"]   { --phase-accent: #b3463f; }
+.ticket-stub[data-phase="saintpaul"] { --phase-accent: #2585c4; }
+.ticket-stub[data-phase="cannes"]   { --phase-accent: #9b8ace; }
 .ticket-stub[data-phase="villefranche"] { --phase-accent: #14a3a8; }
 
 /* watercolor wash by phase (matching cities) */
@@ -669,10 +669,10 @@ body {
 .ticket-stub[data-phase="verdon"]:hover   { background: linear-gradient(to right, rgba(47,160,137,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="eze"]      { background: linear-gradient(to right, rgba(95,154,94,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="eze"]:hover      { background: linear-gradient(to right, rgba(95,154,94,0.22), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="saintpaul"] { background: linear-gradient(to right, rgba(155,138,206,0.12), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="saintpaul"]:hover { background: linear-gradient(to right, rgba(155,138,206,0.22), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="cannes"]   { background: linear-gradient(to right, rgba(179,70,63,0.12), var(--paper-warm) 38%); }
-.ticket-stub[data-phase="cannes"]:hover   { background: linear-gradient(to right, rgba(179,70,63,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="saintpaul"] { background: linear-gradient(to right, rgba(37,133,196,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="saintpaul"]:hover { background: linear-gradient(to right, rgba(37,133,196,0.22), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="cannes"]   { background: linear-gradient(to right, rgba(155,138,206,0.12), var(--paper-warm) 38%); }
+.ticket-stub[data-phase="cannes"]:hover   { background: linear-gradient(to right, rgba(155,138,206,0.22), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="villefranche"] { background: linear-gradient(to right, rgba(20,163,168,0.12), var(--paper-warm) 38%); }
 .ticket-stub[data-phase="villefranche"]:hover { background: linear-gradient(to right, rgba(20,163,168,0.22), var(--paper-warm) 38%); }
 
@@ -839,8 +839,8 @@ body {
 .date-card[data-phase="verdon"]   { background: linear-gradient(180deg, rgba(47,160,137,0.07), var(--paper-warm) 60%); --phase-accent: #2fa089; }
 .date-card[data-phase="vienna"]   { background: linear-gradient(180deg, rgba(91,102,166,0.07), var(--paper-warm) 60%); --phase-accent: #5b66a6; }
 .date-card[data-phase="eze"]      { background: linear-gradient(180deg, rgba(95,154,94,0.07), var(--paper-warm) 60%); --phase-accent: #5f9a5e; }
-.date-card[data-phase="saintpaul"] { background: linear-gradient(180deg, rgba(155,138,206,0.07), var(--paper-warm) 60%); --phase-accent: #9b8ace; }
-.date-card[data-phase="cannes"]   { background: linear-gradient(180deg, rgba(179,70,63,0.07), var(--paper-warm) 60%); --phase-accent: #b3463f; }
+.date-card[data-phase="saintpaul"] { background: linear-gradient(180deg, rgba(37,133,196,0.07), var(--paper-warm) 60%); --phase-accent: #2585c4; }
+.date-card[data-phase="cannes"]   { background: linear-gradient(180deg, rgba(155,138,206,0.07), var(--paper-warm) 60%); --phase-accent: #9b8ace; }
 .date-card[data-phase="villefranche"] { background: linear-gradient(180deg, rgba(20,163,168,0.07), var(--paper-warm) 60%); --phase-accent: #14a3a8; }
 
 .date-card.is-active {
@@ -1149,6 +1149,11 @@ body {
   transform: rotate(2deg);
 }
 .trip-card--opt .trip-card__name { padding-right: 50px; }
+
+/* Meal rows (早餐/午餐/晚餐): soft-colour title as AM/PM/evening dividers */
+.trip-card--meal .trip-card__name,
+.trip-card--meal .trip-card__name a { color: var(--soft); }
+.trip-card--meal .trip-card__name a:hover { color: var(--accent); }
 
 .trip-card__desc,
 .trip-card__note {
@@ -3614,8 +3619,8 @@ const itineraryData = [
     dow: "SUN",
     dowZh: "日",
     phase: "cannes",
-    title: "Cannes → Verdon Gorges",
-    subtitle: "往內陸開車約 2 小時",
+    title: "坎城 → 格拉斯 → Verdon 峽谷",
+    subtitle: "格拉斯早午餐 → 峽谷 D23 → 薰衣草田 → 宿 Moustiers",
     routeCode: "CANNES → VERDON",
     coverImage: "images/europe/Day11/cannes-night.jpg",
     coverAlt: "坎城夜景",
@@ -5141,6 +5146,10 @@ function renderTripCard(item) {
   const displayPlace = (item.place || "").replace(OPT_RE, "").trim();
   const optBadge = isOptional ? `<span class="trip-card__opt">彈性</span>` : "";
 
+  // Meal rows (breakfast/lunch/dinner) get a soft-colour wash so they read as
+  // morning / afternoon / evening dividers.
+  const isMeal = /早餐|午餐|中餐|晚餐/.test((item.time || "") + (item.place || ""));
+
   const placeHTML = item.mapLink
     ? `<a href="${escapeHTML(item.mapLink)}" target="_blank" rel="noopener">${escapeHTML(displayPlace)}</a>`
     : applyInlineLinks(escapeHTML(displayPlace), item.placeLinks);
@@ -5175,7 +5184,7 @@ function renderTripCard(item) {
   const actions = foodBtn + tipBtn + mapBtn;
 
   return `
-    <div class="trip-card${isOptional ? " trip-card--opt" : ""}">
+    <div class="trip-card${isOptional ? " trip-card--opt" : ""}${isMeal ? " trip-card--meal" : ""}">
       ${optBadge}
       ${timeHTML}
       <div class="trip-card__content">
