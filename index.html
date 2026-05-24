@@ -3367,33 +3367,102 @@ const itineraryData = [
     routeCode: "CANNES → VERDON",
     coverImage: "images/europe/Day11/cannes-night.jpg",
     coverAlt: "坎城夜景",
-    hotel: { name: "Moustiers-Sainte-Marie 住宿", mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie" },
+    hotel: { name: "Hôtel Le Colombier", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Le+Colombier+Moustiers-Sainte-Marie" },
     schedule: [
       {
         type: "fixed",
-        time: "早上",
-        place: "Cannes / Antibes 收尾",
-        mapLink: "https://maps.google.com/?q=Cannes",
-        description: "（placeholder）收行李、補咖啡，依昨天還沒走完的地方做收尾。",
-        note: "中午前出發比較順，避免下午峽谷山路車多。",
+        time: "07:00",
+        place: "Marché Forville 市場",
+        mapLink: "https://maps.google.com/?q=March%C3%A9+Forville+Cannes",
+        description: "",
+        note: "坎城的普羅旺斯市集，07:00 開始營業；可買野餐食材帶上路。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Check out",
+        description: "",
+        note: "退房、行李上車後出發。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "出發 Verdon 峽谷",
+        mapLink: "https://maps.google.com/?q=Gorges+du+Verdon",
+        description: "",
+        note: "車程約 2 小時；出發前建議加滿油，峽谷區加油站少。",
         foods: []
       },
       {
         type: "fixed",
         time: "中午",
-        place: "Cannes → Moustiers-Sainte-Marie（車程約 2 小時）",
-        mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
-        description: "從坎城開車約 2 小時抵達威東河峽谷入口小鎮 Moustiers-Sainte-Marie。沿途會經過普羅旺斯山區，景色漂亮但山路彎多。",
-        note: "建議在出發前加滿油；峽谷區內加油站少。",
+        place: "中餐：市場野餐",
+        description: "",
+        note: "用早上 Marché Forville 買的食材沿途野餐。",
         foods: []
       },
       {
         type: "fixed",
-        time: "傍晚",
-        place: "Moustiers-Sainte-Marie 入住與散策",
+        time: "下午",
+        place: "Route des Crêtes（D23）順時針",
+        mapLink: "https://maps.google.com/?q=Route+des+Cr%C3%AAtes+Verdon",
+        description: "",
+        note: "峽谷北側的山頂環路，建議順時針方向開，沿途多個觀景台。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "觀景台：Couloir Samson",
+        mapLink: "https://maps.google.com/?q=Couloir+Samson+Verdon",
+        description: "",
+        note: "峽谷東端的入口峽口，氣勢磅礡。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "Pont du Galetas 橋",
+        mapLink: "https://maps.google.com/?q=Pont+du+Galetas",
+        description: "",
+        note: "拍峽谷出水口與聖十字湖的經典點；下午為順光，最好拍。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Moustiers-Sainte-Marie 小鎮",
         mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
-        description: "Moustiers-Sainte-Marie 被列為「法國最美村莊」之一，懸掛於兩座山崖之間，村內以陶瓷（faïence）工藝聞名。",
-        note: "聖母堂步道（Notre-Dame-de-Beauvoir）可登山看夕陽，來回約 1 小時。",
+        description: "",
+        note: "看時間決定要不要先進小鎮晃晃——太晚去店家可能都關了。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Valensole 薰衣草花田",
+        mapLink: "https://maps.google.com/?q=Plateau+de+Valensole+lavender",
+        description: "",
+        note: "瓦倫索高原（Plateau de Valensole）的薰衣草田；盛開期約 6 月中–7 月中，6/7 可能還沒全開，先有心理準備。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "晚餐：Moustiers 小鎮找一家",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "入住 Hôtel Le Colombier",
+        mapLink: "https://maps.google.com/?q=H%C3%B4tel+Le+Colombier+Moustiers-Sainte-Marie",
+        description: "",
+        note: "",
         foods: []
       }
     ],
@@ -3538,7 +3607,7 @@ const itineraryData = [
     title: "維也納 Before Sunrise · 返程",
     subtitle: "電影場景朝聖 → 16:00 BR62 飛曼谷",
     routeCode: "VIENNA → BKK",
-    coverImage: "",
+    coverImage: "images/europe/Day13/vienna-sunrise.jpg",
     coverAlt: "維也納 Before Sunrise",
     hotel: { name: "機上過夜（BR62）", mapLink: "" },
     schedule: [
@@ -3921,7 +3990,7 @@ const cityData = {
     dayIndices: [10, 11],  /* D11, D12 */
     daysLabel: "Day 11 – Day 12",
     subtitle: "歐洲大峽谷 · 翡翠湖水 · 陶瓷山村",
-    coverImage: "",
+    coverImage: "images/europe/Verdon/verdon-cover.webp",
     coverAlt: "威東河峽谷",
     hasTransit: false,  /* 不需要交通分頁（租車） */
     intro: "威東河峽谷（Gorges du Verdon）是歐洲最大的峽谷之一，長約 25 公里、深度可達 700 公尺，由威東河（Verdon River）千萬年切割石灰岩高原而成。河水因冰川岩粉與石灰岩反射呈現獨特的翡翠綠色，是這個地區最具標誌性的景觀。\n\n峽谷北側的 Route des Crêtes 沿懸崖頂環繞，沿線設有多個觀景平台；南側 Corniche Sublime 則是另一條風景線。下游的 Lac de Sainte-Croix 是大型人造湖，夏季可划獨木舟、踩天鵝船進入峽谷口。\n\nMoustiers-Sainte-Marie 是進入峽谷最方便的住宿據點，被選為「法國最美村莊」之一。村莊嵌在兩座懸崖之間，村莊上方有一條 13 世紀十字軍掛上的金星鏈索橫跨兩崖。\n\n這裡的工藝以 17 世紀發展起來的彩繪陶（faïence）聞名，至今仍有許多陶瓷工作室。周邊的 Valensole 高原是著名的薰衣草田，5 月底時若提早盛開可順道一探。",
@@ -3956,7 +4025,7 @@ const cityData = {
     dayIndices: [1, 11, 12],  /* D2 上午、D12 晚上抵達、D13 整日候機 */
     daysLabel: "Day 2 · Day 12 – 13",
     subtitle: "帝國門戶 · 過境停留",
-    coverImage: "",
+    coverImage: "images/europe/Vienna/vienna-cover.jpg",
     coverAlt: "維也納",
     hasTransit: true,
     intro: "這趟旅程中，維也納（Wien）只是過境角色：D2 上午抵達 → 立即轉 RJ 火車前往布達佩斯；D12 晚上抵達 → 住機場 NH 飯店；D13 整日在機場周邊 → 傍晚 BR62 起飛返程。沒有真正進市區的時間。\n\n但即便是過境，仍值得認識這座城市：哈布斯堡王朝六百年首都、莫札特與貝多芬的居住地、咖啡館文化的發源地之一、現存最完整的中歐古典樂之城。Wien Hauptbahnhof（中央車站）就在市區邊緣，若 D2 火車時間意外延後仍能在站內感受一點維也納氛圍。\n\n若未來有機會專程造訪，霍夫堡皇宮、美泉宮、史蒂芬大教堂、Sacher 飯店與 Cafe Central 是經典路線。本次只能下次再來。",
