@@ -49,7 +49,7 @@ body {
 [data-phase="budapest"] { --accent: #c89b2e; --soft: #2f6f9e; --line: #9d8e85; --line-soft: #c2afa0; --phase-label: "布達佩斯"; }
 [data-phase="nice"]     { --accent: #2a8fb5; --soft: #d8714f; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "尼斯"; }
 [data-phase="riviera"]  { --accent: #e5872e; --soft: #edb52a; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "芒通"; }
-[data-phase="verdon"]   { --accent: #2fa089; --soft: #b89b6a; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
+[data-phase="verdon"]   { --accent: #2fa089; --soft: #d4889b; --line: #b8a085; --line-soft: #d8c5a8; --phase-label: "威東河峽谷"; }
 [data-phase="eze"]      { --accent: #5f9a5e; --soft: #2a8fb5; --line: #b89878; --line-soft: #d2bd9a; --phase-label: "埃茲"; }
 [data-phase="saintpaul"] { --accent: #9b8ace; --soft: #dca7b4; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "聖保羅"; }
 [data-phase="cannes"]   { --accent: #b3463f; --soft: #2b54c0; --line: #a89786; --line-soft: #c8b8a8; --phase-label: "坎城"; }
@@ -3112,7 +3112,7 @@ const itineraryData = [
     title: "濱海自由城 Villefranche-sur-Mer",
     subtitle: "Lou Bantry · 騎腳踏車？",
     routeCode: "NICE",
-    coverImage: "images/europe/Day8/villefranche-bay.png",
+    coverImage: "images/europe/Day8/villefranche-cover.jpg",
     coverAlt: "濱海自由城",
     hotel: { name: "Boutique Hotel Nice Côte d'Azur", mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur" },
     schedule: [
@@ -3487,7 +3487,7 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "入住 Hôtel Le Colombier",
+        place: "Check in Hôtel Le Colombier",
         mapLink: "https://maps.google.com/?q=H%C3%B4tel+Le+Colombier+Moustiers-Sainte-Marie",
         description: "",
         note: "",
@@ -3514,8 +3514,8 @@ const itineraryData = [
     dow: "MON",
     dowZh: "一",
     phase: "verdon",
-    title: "Verdon 峽谷 → 尼斯 → 維也納",
-    subtitle: "從威東開到尼斯，再飛維也納過夜",
+    title: "Verdon 峽谷 → 格拉斯 → 尼斯 → 維也納",
+    subtitle: "峽谷健行 → 格拉斯 → 尼斯還車 → 飛維也納過夜",
     routeCode: "VERDON → NCE → VIE",
     coverImage: "images/europe/Day12/verdon-gorge.jpg",
     coverAlt: "威東河峽谷",
@@ -3555,6 +3555,17 @@ const itineraryData = [
         mapLink: "https://maps.google.com/?q=Point+Sublime+Verdon",
         description: "",
         note: "在 D952 公路上、回尼斯途中會經過；俯瞰峽谷入口最經典的視角。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "觀景處：Grand Canyon Verdon · Couloir Samson",
+        mapLink: "https://maps.google.com/?q=Couloir+Samson+Verdon",
+        mapImage: "images/europe/Day12/couloir-samson-map.png",
+        mapImageTitle: "Couloir Samson 步道圖",
+        description: "",
+        note: "在 D952 上、走 D23A 進入；需要徒步，沿步道穿過隧道走到 Point Sublime。",
         foods: []
       },
       {
