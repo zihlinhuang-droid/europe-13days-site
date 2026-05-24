@@ -3082,11 +3082,73 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
-        time: "",
+        time: "早上",
         place: "尼斯市區自由活動",
-        mapLink: "https://maps.google.com/?q=Nice+France",
-        description: "（placeholder）依精神與天氣彈性安排。可考慮：馬蒂斯美術館、Castle Hill、舊城甜點、海灘日。",
-        note: "這天可當作休息與補拍尚未去到的點。",
+        mapLink: "https://maps.google.com/?q=Vieux+Nice",
+        description: "",
+        note: "上午在尼斯市區／舊城自由晃晃。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中餐：Comptoir du Marché",
+        mapLink: "https://maps.google.com/?q=Comptoir+du+March%C3%A9+Nice",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "下午",
+        place: "出發埃茲 Èze",
+        mapLink: "https://maps.google.com/?q=%C3%88ze+Village",
+        description: "",
+        note: "搭大眾運輸需轉乘約 1 小時；視情況叫 Uber 約 30 分鐘車程。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "16:00",
+        place: "Check in Château Eza",
+        mapLink: "https://maps.google.com/?q=Ch%C3%A2teau+Eza+%C3%88ze",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "埃茲小鎮晃晃",
+        mapLink: "https://maps.google.com/?q=%C3%88ze+Village",
+        description: "",
+        note: "中世紀鷲巢山城的窄巷、工藝小店與石階。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Jardin Exotique d'Èze 植物園（optional）",
+        mapLink: "https://maps.google.com/?q=Jardin+Exotique+d%27%C3%88ze",
+        hours: "09:00–18:30",
+        description: "",
+        note: "看日照與時間決定要不要買票進場；下午光線好再上去俯瞰地中海。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚餐",
+        place: "晚餐：小鎮找一家",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "傍晚",
+        place: "看日落",
+        description: "",
+        note: "在山城高處等夕陽。",
         foods: []
       }
     ],
@@ -3119,30 +3181,118 @@ const itineraryData = [
       {
         type: "fixed",
         time: "早上",
-        place: "尼斯市區",
-        mapLink: "https://maps.google.com/?q=Nice+France",
-        description: "出發前在尼斯吃早餐、補咖啡。",
-        note: "Villefranche 沒有大型超市，咖啡早餐建議尼斯解決。",
+        place: "早餐：Château Eza",
+        mapLink: "https://maps.google.com/?q=Ch%C3%A2teau+Eza+%C3%88ze",
+        description: "",
+        note: "在飯店享用早餐。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "濱海自由城 Villefranche-sur-Mer",
-        mapLink: "https://maps.google.com/?q=Villefranche-sur-Mer",
-        description: "尼斯東邊一個經典的港灣小鎮，建在懸崖上，從 Nice 搭火車約 10 分鐘即達。是 Côte d'Azur 最上相的小鎮之一。",
-        note: "海灣形狀完整、水深、夏季可游泳；舊城窄巷與 Rue Obscure 隧道是特色。",
-        foods: [
-          { name: "Lou Bantry", mapLink: "https://maps.google.com/?q=Lou+Bantry+Villefranche-sur-Mer", info: "Villefranche 在地餐廳。" }
-        ]
+        time: "",
+        place: "Jardin Exotique d'Èze 植物園",
+        mapLink: "https://maps.google.com/?q=Jardin+Exotique+d%27%C3%88ze",
+        hours: "09:00–18:30",
+        description: "",
+        note: "山頂的多肉植物園，可 360 度俯瞰地中海。",
+        foods: []
       },
       {
-        type: "optional",
-        time: "下午",
-        place: "騎腳踏車（待確認）",
-        mapLink: "",
-        description: "（placeholder）若想沿海邊騎車，可在 Nice 或 Villefranche 租車。Nice 有 Vélobleu 公共自行車系統。",
-        note: "蔚藍海岸沿線部分路段車多、坡陡，請評估體力。",
+        type: "fixed",
+        time: "10:30",
+        place: "下山離開埃茲",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "出發尼斯",
+        mapLink: "https://maps.google.com/?q=Nice+France",
+        description: "",
+        note: "搭車需轉乘約 1 小時；視情況叫 Uber 約 30 分鐘車程。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Boutique Hotel Nice 寄放行李",
+        mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur",
+        description: "",
+        note: "先到尼斯住宿放行李；尼斯到 Villefranche-sur-Mer 約 10 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "中餐",
+        place: "中餐：Lou Bantry",
+        mapLink: "https://maps.google.com/?q=Lou+Bantry+Villefranche-sur-Mer",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "濱海自由城 Villefranche-sur-Mer",
+        mapLink: "https://maps.google.com/?q=Villefranche-sur-Mer",
+        description: "",
+        note: "建在懸崖上的港灣小鎮，蔚藍海岸最上相的小鎮之一。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Rue Obscure（暗街）",
+        mapLink: "https://maps.google.com/?q=Rue+Obscure+Villefranche-sur-Mer",
+        description: "",
+        note: "13 世紀的有頂石砌暗街，舊城特色。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Citadelle Saint-Elme",
+        mapLink: "https://maps.google.com/?q=Citadelle+Saint-Elme+Villefranche-sur-Mer",
+        description: "",
+        note: "16 世紀的星形要塞，可看港灣全景。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Chapelle Saint-Pierre（optional）",
+        mapLink: "https://maps.google.com/?q=Chapelle+Saint-Pierre+Villefranche-sur-Mer",
+        description: "",
+        note: "Jean Cocteau 親手彩繪的漁民禮拜堂。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Paloma Beach",
+        mapLink: "https://maps.google.com/?q=Plage+de+la+Paloma+Saint-Jean-Cap-Ferrat",
+        description: "",
+        note: "Cap Ferrat 上清澈的海灣，《Paloma》海灘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚餐",
+        place: "晚餐：Diva Restaurant",
+        mapLink: "https://maps.google.com/?q=Diva+Restaurant+Villefranche-sur-Mer",
+        description: "",
+        note: "",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "晚上",
+        place: "回尼斯 · Boutique Hotel Nice Côte d'Azur",
+        mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur",
+        description: "",
+        note: "",
         foods: []
       }
     ],
@@ -3394,7 +3544,7 @@ const itineraryData = [
         place: "Marché Forville 市場",
         mapLink: "https://maps.google.com/?q=March%C3%A9+Forville+Cannes",
         description: "",
-        note: "坎城的普羅旺斯市集，07:00 開始營業；可買野餐食材帶上路。",
+        note: "坎城的普羅旺斯市集，07:00 開始營業。",
         foods: []
       },
       {
@@ -3408,18 +3558,19 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "出發 Verdon 峽谷",
-        mapLink: "https://maps.google.com/?q=Gorges+du+Verdon",
+        place: "出發格拉斯 Grasse · 早午餐",
+        mapLink: "https://maps.google.com/?q=Grasse+France",
         description: "",
-        note: "車程約 2 小時；出發前建議加滿油，峽谷區加油站少。",
+        note: "車程約 30 分鐘；在格拉斯吃早午餐。",
         foods: []
       },
       {
         type: "fixed",
-        time: "中午",
-        place: "中餐：市場野餐",
+        time: "",
+        place: "出發 Verdon 峽谷",
+        mapLink: "https://maps.google.com/?q=Gorges+du+Verdon",
         description: "",
-        note: "用早上 Marché Forville 買的食材沿途野餐。",
+        note: "坎城出發約 2 小時／格拉斯出發約 1 小時 40 分；出發前建議加滿油，峽谷區加油站少。",
         foods: []
       },
       {
@@ -3442,15 +3593,6 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "",
-        place: "觀景台：Couloir Samson",
-        mapLink: "https://maps.google.com/?q=Couloir+Samson+Verdon",
-        description: "",
-        note: "峽谷東端的入口峽口，氣勢磅礡。",
-        foods: []
-      },
-      {
-        type: "fixed",
         time: "下午",
         place: "Pont du Galetas 橋",
         mapLink: "https://maps.google.com/?q=Pont+du+Galetas",
@@ -3461,7 +3603,7 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "Moustiers-Sainte-Marie 小鎮",
+        place: "Moustiers-Sainte-Marie 小鎮（optional）",
         mapLink: "https://maps.google.com/?q=Moustiers-Sainte-Marie",
         description: "",
         note: "看時間決定要不要先進小鎮晃晃——太晚去店家可能都關了。",
