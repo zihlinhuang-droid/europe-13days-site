@@ -2323,7 +2323,7 @@ const PHASE_LABEL = {
 };
 
 /* ============================================================
-   ITINERARY DATA (13 days, filled from your Excel)
+   ITINERARY DATA (14 days, filled from your Excel)
    ============================================================ */
 const itineraryData = [
   {
@@ -2333,7 +2333,7 @@ const itineraryData = [
     dowZh: "四",
     phase: "travel",
     title: "台北 → 曼谷",
-    subtitle: "夜班機出發 · 開啟 13 天旅程",
+    subtitle: "夜班機出發 · 開啟 14 天旅程",
     routeCode: "TPE → BKK",
     coverImage: "images/europe/Day1/day1-cover.webp",
     coverAlt: "曼谷蘇凡納布機場",
@@ -2364,7 +2364,7 @@ const itineraryData = [
       "護照效期記得 6 個月以上。",
       "兩段長榮班機行李規定可一起 check 到底，到 VIE 才提領。",
       "BKK 轉機時間夠，可在曼谷機場休息。",
-      "下載並下載離線版 Google Map 巴黎/布達/尼斯區。"
+      "下載離線版 Google Map（布達佩斯／尼斯／蔚藍海岸／Verdon 區）。"
     ]
   },
   {
@@ -3160,7 +3160,7 @@ const itineraryData = [
         place: "Le Plongeoir 海中餐廳",
         mapLink: "https://maps.google.com/?q=Le+Plongeoir+Nice",
         description: "",
-        note: "蓋在海中礁石上的景觀餐廳，視野極佳、建議事先訂位。",
+        note: "蓋在海中礁石上的景觀餐廳，這站主要是去拍照取景（不一定用餐）；視野極佳，是尼斯有名的打卡點。",
         foods: []
       },
       {
@@ -3205,11 +3205,50 @@ const itineraryData = [
     schedule: [
       {
         type: "fixed",
-        time: "早上",
-        place: "尼斯市區自由活動",
-        mapLink: "https://maps.google.com/?q=Vieux+Nice",
+        time: "清晨",
+        place: "看日出 @ 英國人步行道 Promenade des Anglais（optional）",
+        mapLink: "https://maps.google.com/?q=Promenade+des+Anglais+Nice",
         description: "",
-        note: "上午在尼斯市區／舊城自由晃晃。",
+        note: "想早起的話可到海邊看日出（六月初約 06:00 前後）；不勉強。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "早午餐",
+        place: "早午餐：Marinette",
+        mapLink: "https://maps.google.com/?q=Marinette+Nice",
+        hours: "08:30–18:00（週一、二休）",
+        description: "",
+        note: "尼斯人氣早午餐店。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "FlashBack Second Hand",
+        mapLink: "https://maps.google.com/?q=FlashBack+Second+Hand+Nice",
+        hours: "11:00–19:00（週二休）",
+        description: "",
+        note: "尼斯的二手古著選物店。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Girofle Et Cannelle 香料店",
+        mapLink: "https://maps.google.com/?q=Girofle+et+Cannelle+Nice",
+        description: "",
+        note: "《離線找真愛》中香奈花與洵亮去過的香料店。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Patisserie Julien Dugourd",
+        mapLink: "https://maps.google.com/?q=Patisserie+Julien+Dugourd+Nice",
+        hours: "09:00–18:30（週一、二休）",
+        description: "",
+        note: "米其林等級甜點主廚 Julien Dugourd 的甜點店（尼斯）；Google 4.5 分。",
         foods: []
       },
       {
@@ -3217,8 +3256,9 @@ const itineraryData = [
         time: "中餐",
         place: "中餐：Comptoir du Marché",
         mapLink: "https://maps.google.com/?q=Comptoir+du+March%C3%A9+Nice",
+        hours: "12:00–14:00、17:00–22:00（週日、一休）",
         description: "",
-        note: "",
+        note: "米其林推薦，很多菜色都很讚；Google 4.6 分。",
         foods: []
       },
       {
@@ -3307,8 +3347,8 @@ const itineraryData = [
     dowZh: "四",
     phase: "villefranche",
     title: "濱海自由城 Villefranche-sur-Mer",
-    subtitle: "Lou Bantry · 騎腳踏車？",
-    routeCode: "NICE",
+    subtitle: "埃茲下山 → 自由城散策 → ONICE 晚餐",
+    routeCode: "ÈZE → NICE",
     coverImage: "images/europe/Day8/day8-cover.jpg",
     coverAlt: "濱海自由城",
     hotel: { name: "Boutique Hotel Nice Côte d'Azur", mapLink: "https://maps.google.com/?q=Boutique+Hotel+Nice+C%C3%B4te+d%27Azur" },
@@ -3415,10 +3455,10 @@ const itineraryData = [
       {
         type: "fixed",
         time: "晚餐",
-        place: "晚餐：Diva Restaurant",
-        mapLink: "https://maps.google.com/?q=Diva+Restaurant+Villefranche-sur-Mer",
+        place: "晚餐：已預訂 19:00 ONICE",
+        mapLink: "https://maps.google.com/?q=ONICE+restaurant+Nice",
         description: "",
-        note: "",
+        note: "米其林餐廳；Netflix《離線找真愛》（Offline Love）中香奈花與生一起吃飯的餐廳。",
         foods: []
       },
       {
@@ -3590,10 +3630,9 @@ const itineraryData = [
       }
     ],
     extraNotes: [
-      "查 Jardin Exotique d'Èze 進場時間，避免白跑。",
       "蔚藍海岸東線開車比火車彈性大，但停車位是挑戰。",
       "Monaco 進出免簽，但開車進去要注意路標。",
-      "今晚住坎城，行李集中前一晚整理好。"
+      "今晚住安提布（Le Sorrento），行李前一晚先整理好。"
     ]
   },
   {
@@ -4278,9 +4317,9 @@ const cityData = {
       "避開街上「私人換匯」騙局",
       "D2 ÖBB Railjet RJ 1031 建議 1–2 個月前訂 Sparschiene 早鳥票",
       "多瑙河遊船 — 至少一個月前訂（Legenda / Mahart / Silverline）",
-      "D4 漁人堡日出約 05:10，建議 04:30 前出門卡位",
+      "D5 漁人堡日出約 04:50，建議 04:30 前出門卡位",
       "D4 19:30 遊船已訂，記得列印或下載電子票券",
-      "D2–D4 住 airbnb（佩斯側）；D4–D5 換到布達區希爾頓（城堡山內）"
+      "D2–D3 住 airbnb（佩斯側）；D4 換到布達區希爾頓（城堡山內）"
     ],
     souvenirs: [
       { local: "Paprika", romaji: "PA·pri·ka", zh: "匈牙利紅椒粉", desc: "匈牙利國菜古拉什的靈魂；甜味（édes）與辣味（csípős）兩種。中央市場二樓有大量品牌可選，建議買鐵罐裝避光。", image: "images/europe/Budapest/souv-paprika.jpg" },
@@ -4320,9 +4359,9 @@ const cityData = {
         ]
       },
       {
-        name: "Menton", zh: "蒙頓",
+        name: "Menton", zh: "芒通",
         items: [
-          { local: "Tarte au citron de Menton", image: "images/europe/Menton/food-tarte-citron.jpg", romaji: "tart o see·TROHN", zh: "蒙頓檸檬塔", desc: "Menton 是法國最知名的檸檬產地（IGP 認證），當地檸檬塔酸度漂亮、果香濃郁。" },
+          { local: "Tarte au citron de Menton", image: "images/europe/Menton/food-tarte-citron.jpg", romaji: "tart o see·TROHN", zh: "芒通檸檬塔", desc: "Menton 是法國最知名的檸檬產地（IGP 認證），當地檸檬塔酸度漂亮、果香濃郁。" },
           { local: "Limoncello", image: "images/europe/Menton/food-limoncello.jpg", romaji: "lee·mon·CHEH·loh", zh: "檸檬酒", desc: "靠近義大利邊境，當地店家有自製 limoncello，可冷藏直飲或調飲。" }
         ]
       },
@@ -4349,8 +4388,7 @@ const cityData = {
       { title: "Tram T1 / T2 / T3",  body: "T2 從 NCE 機場到市區約 30 分鐘，€1.50 單程。T1 連接市區與北邊。T3 接機場到 Saint-Isidore。" },
       { title: "TER 火車（沿海岸）", body: "Nice-Ville 站出發，往東 Villefranche / Èze / Monaco / Menton，往西 Antibes / Cannes。班次密集，5–30 分鐘一班，是周邊小鎮最便利的方式。" },
       { title: "巴士 Lignes d'Azur",  body: "市區與郊區網絡發達，往 Saint-Paul-de-Vence、Grasse 等內陸需搭 LER 巴士。" },
-      { title: "Vélobleu 公共自行車",  body: "尼斯市內公共自行車系統，需註冊。海濱步道騎車很舒服，但圓石灘附近坡度可觀。" },
-      { title: "TGV 高速火車",        body: "若臨時往返巴黎或里昂，TGV 速度最快但價貴。" }
+      { title: "Vélobleu 公共自行車",  body: "尼斯市內公共自行車系統，需註冊。海濱步道騎車很舒服，但圓石灘附近坡度可觀。" }
     ],
     noteGroups: [
       {
@@ -4395,7 +4433,7 @@ const cityData = {
         ]
       },
       {
-        name: "Menton", zh: "蒙頓",
+        name: "Menton", zh: "芒通",
         items: [
           "靠近義大利邊境，從 Monaco 開車約 25 分鐘",
           "舊城色彩繽紛、緊鄰海岸，適合午餐後散步",
@@ -4433,12 +4471,11 @@ const cityData = {
       }
     ],
     souvenirs: [
-      { local: "Lavande de Provence", romaji: "la·VAHND duh pro·VAHNS", zh: "薰衣草精油 / 香皂 / 香囊", desc: "Grasse 與 Verdon 周邊產，從 essential oil、香皂到香囊都有。市集與 L'Occitane 均能買。", image: "images/europe/Nice/souv-lavender.jpg" },
-      { local: "Huile d'Olive", romaji: "weel doh·LEEV", zh: "普羅旺斯橄欖油", desc: "Provence 區域特產，許多市集有試吃。可挑小罐金屬罐裝（鋁罐避光延長保存）。", image: "images/europe/Nice/souv-olive-oil.jpg" },
-      { local: "Calissons d'Aix", romaji: "ka·lee·SOHN dex", zh: "普羅旺斯杏仁糖糕", desc: "Aix-en-Provence 名物，杏仁糖膏 + 蜜餞甜瓜底層 + 糖霜薄餅。盒裝適合送禮。", image: "images/europe/Nice/souv-calissons.jpg" },
-      { local: "Savon de Marseille", romaji: "sa·VOHN duh mar·SAY", zh: "馬賽香皂", desc: "經典 72% 橄欖油皂，使用百年配方。立方塊狀的綠色 / 米色皂塊都很經典。", image: "images/europe/Nice/souv-marseille-soap.jpg" },
-      { local: "Olives Niçoises", romaji: "oh·LEEV nee·SWAZ", zh: "尼斯橄欖", desc: "小顆紫黑色橄欖，鹽水醃製。可帶罐裝或真空袋，配葡萄酒一流。", image: "images/europe/Nice/souv-olives.jpg" },
-      { local: "Limoncello", romaji: "lee·mon·CHEH·loh", zh: "蒙頓檸檬酒", desc: "Menton 自製檸檬酒，靠近義大利邊境的特產。冷藏後直飲或調飲。", image: "images/europe/Menton/souv-limoncello.jpg" }
+      { local: "Lavande de Provence", romaji: "la·VAHND duh pro·VAHNS", zh: "薰衣草精油 / 香皂 / 香囊", desc: "Grasse 與 Verdon 周邊產，從 essential oil、香皂到香囊都有。推薦店家：L'Occitane en Provence（尼斯市區多家分店，如 rue Masséna 一帶）、Fragonard 專賣店；Cours Saleya 與解放市場也有乾燥薰衣草束與薰衣草皂攤。", image: "images/europe/Nice/souv-lavender.jpg", links: [ { name: "L'Occitane en Provence", url: "https://maps.google.com/?q=L%27Occitane+Nice" }, { name: "Fragonard", url: "https://maps.google.com/?q=Fragonard+boutique+Nice" } ] },
+      { local: "Huile d'Olive", romaji: "weel doh·LEEV", zh: "普羅旺斯橄欖油", desc: "Provence 區域特產，許多市集有試吃。可挑小罐金屬罐裝（鋁罐避光延長保存）。推薦店家：Alziari（14 rue Saint-François-de-Paule，1936 年起的尼斯橄欖油老店，現場有大油桶分裝）；Cours Saleya 市集也常有試吃。", image: "images/europe/Nice/souv-olive-oil.avif", links: [ { name: "Alziari", url: "https://maps.google.com/?q=Alziari+14+rue+Saint-Fran%C3%A7ois-de-Paule+Nice" } ] },
+      { local: "Calissons d'Aix", romaji: "ka·lee·SOHN dex", zh: "普羅旺斯杏仁糖糕", desc: "Aix-en-Provence 名物，杏仁糖膏 + 蜜餞甜瓜底層 + 糖霜薄餅。盒裝適合送禮。認明 Le Roy René（1920 年創立的卡利頌名牌，旗艦在 Aix-en-Provence）；尼斯舊城的糖果鋪（如百年蜜餞老店 Maison Auer）與 gourmet 食品店也買得到盒裝。", image: "images/europe/Nice/souv-calissons.jpg", links: [ { name: "Le Roy René", url: "https://maps.google.com/?q=Le+Roy+Ren%C3%A9+Aix-en-Provence" }, { name: "Maison Auer", url: "https://maps.google.com/?q=Maison+Auer+Nice" } ] },
+      { local: "Savon de Marseille", romaji: "sa·VOHN duh mar·SAY", zh: "馬賽香皂", desc: "經典 72% 橄欖油皂，使用百年配方。立方塊狀的綠色 / 米色皂塊都很經典。推薦店家：Le Chaudron à Savon（70 rue de France，尼斯）、Alziari；Cours Saleya 市集也有手工皂攤。", image: "images/europe/Nice/souv-marseille-soap.jpg", links: [ { name: "Le Chaudron à Savon", url: "https://maps.google.com/?q=Le+Chaudron+%C3%A0+Savon+70+rue+de+France+Nice" }, { name: "Alziari", url: "https://maps.google.com/?q=Alziari+14+rue+Saint-Fran%C3%A7ois-de-Paule+Nice" } ] },
+      { local: "Olives Niçoises", romaji: "oh·LEEV nee·SWAZ", zh: "尼斯橄欖", desc: "小顆紫黑色橄欖，鹽水醃製。可帶罐裝或真空袋，配葡萄酒一流。推薦店家：Alziari（14 rue Saint-François-de-Paule）；Cours Saleya 與解放市場的橄欖攤也能挑。", image: "images/europe/Nice/souv-olives.jpg", links: [ { name: "Alziari", url: "https://maps.google.com/?q=Alziari+14+rue+Saint-Fran%C3%A7ois-de-Paule+Nice" } ] }
     ]
   },
 
@@ -4454,7 +4491,6 @@ const cityData = {
     intro: "威東河峽谷（Gorges du Verdon）是歐洲最大的峽谷之一，長約 25 公里、深度可達 700 公尺，由威東河（Verdon River）千萬年切割石灰岩高原而成。河水因冰川岩粉與石灰岩反射呈現獨特的翡翠綠色，是這個地區最具標誌性的景觀。\n\n峽谷北側的 Route des Crêtes 沿懸崖頂環繞，沿線設有多個觀景平台；南側 Corniche Sublime 則是另一條風景線。下游的 Lac de Sainte-Croix 是大型人造湖，夏季可划獨木舟、踩天鵝船進入峽谷口。\n\nMoustiers-Sainte-Marie 是進入峽谷最方便的住宿據點，被選為「法國最美村莊」之一。村莊嵌在兩座懸崖之間，村莊上方有一條 13 世紀十字軍掛上的金星鏈索橫跨兩崖。\n\n這裡的工藝以 17 世紀發展起來的彩繪陶（faïence）聞名，至今仍有許多陶瓷工作室。周邊的 Valensole 高原是著名的薰衣草田，5 月底時若提早盛開可順道一探。",
     foods: [
       { local: "Truffes noires", image: "images/europe/Verdon/food-truffes.jpg", romaji: "TROOF nwahr", zh: "黑松露料理", desc: "Provence 內陸知名特產。當地餐廳會推松露歐姆蛋、松露起司義大利麵等季節料理。" },
-      { local: "Miel de lavande", image: "images/europe/Verdon/food-miel-lavande.jpg", romaji: "myel duh la·VAHND", zh: "薰衣草蜂蜜", desc: "Verdon 周邊薰衣草田採收，淡花香、清爽不膩，可帶回當伴手禮。" },
       { local: "Fromage de chèvre", image: "images/europe/Verdon/food-chevre.jpg", romaji: "fro·MAHJ duh SHEHV", zh: "山羊乳酪", desc: "Provence 山區自製山羊乳酪，搭橄欖油、迷迭香或薰衣草蜂蜜都很經典。" },
       { local: "Fougasse", image: "images/europe/Verdon/food-fougasse.jpg", romaji: "foo·GAHSS", zh: "普羅旺斯麵包", desc: "葉脈造型的扁麵包，加橄欖、香草或培根，是 Moustiers 烘焙坊常見品項。" }
     ],
@@ -4470,10 +4506,10 @@ const cityData = {
       "D12 最晚 14:00 一定要離開，趕傍晚 NCE→VIE 班機"
     ],
     souvenirs: [
-      { local: "Faïence de Moustiers", romaji: "fa·YAHNS duh moo·STYAY", zh: "Moustiers 彩繪陶", desc: "17 世紀以來的村莊招牌工藝，藍 / 黃 / 綠 / 棕單色彩繪在白底瓷器上。村內有多家工坊可挑選。", image: "images/europe/Verdon/souv-faience.jpg" },
-      { local: "Miel de Lavande", romaji: "myel duh la·VAHND", zh: "薰衣草蜂蜜", desc: "Verdon 與 Valensole 高原採收，淡花香、清爽不膩。可挑玻璃罐裝小份伴手。", image: "images/europe/Verdon/souv-miel.jpg" },
-      { local: "Truffe Products", romaji: "TROOF", zh: "黑松露製品", desc: "Provence 內陸特產。松露油、松露鹽、松露醬等小罐裝，比新鮮松露好攜帶。", image: "images/europe/Verdon/souv-truffle.jpg" },
-      { local: "Lavender Sachets", romaji: "la·VAHND", zh: "薰衣草香囊", desc: "Provence 經典伴手，曬乾的薰衣草花苞縫進小布袋。放衣櫥裡防蛀又香。", image: "images/europe/Verdon/souv-sachets.jpg" }
+      { local: "Faïence de Moustiers", romaji: "fa·YAHNS duh moo·STYAY", zh: "Moustiers 彩繪陶", desc: "17 世紀以來的村莊招牌工藝，藍 / 黃 / 綠 / 棕單色彩繪在白底瓷器上。村內有多家工坊可挑選。推薦工坊：Atelier Soleil、Faïence Bondil（兩家都是「活的遺產 EPV」認證；Bondil 每天 11:00、16:00 有手繪示範）。", image: "images/europe/Verdon/souv-faience.jpg", links: [ { name: "Atelier Soleil", url: "https://maps.google.com/?q=Atelier+Soleil+Moustiers-Sainte-Marie" }, { name: "Faïence Bondil", url: "https://maps.google.com/?q=Fa%C3%AFence+Bondil+Moustiers-Sainte-Marie" } ] },
+      { local: "Miel de Lavande", romaji: "myel duh la·VAHND", zh: "薰衣草蜂蜜", desc: "Verdon 與 Valensole 高原採收，淡花香、清爽不膩。可挑玻璃罐裝小份伴手。推薦：Valensole 高原的 La Maison Angelvin（四代家族農場，售薰衣草蜂蜜、精油、肥皂等；約 6/7–7/25 開放免費參觀蒸餾）。", image: "images/europe/Verdon/souv-miel.jpg", links: [ { name: "La Maison Angelvin", url: "https://maps.google.com/?q=La+Maison+Angelvin+Valensole" } ] },
+      { local: "Truffe Products", romaji: "TROOF", zh: "黑松露製品", desc: "Provence 內陸特產。松露油、松露鹽、松露醬等小罐裝，比新鮮松露好攜帶。可在 Moustiers 的食品店，或松露之鄉 Aups（上瓦爾省，冬季有松露市集）的專賣店選購。", image: "images/europe/Verdon/souv-truffle.webp", links: [ { name: "Aups", url: "https://maps.google.com/?q=Aups+France" } ] },
+      { local: "Lavender Sachets", romaji: "la·VAHND", zh: "薰衣草香囊", desc: "Provence 經典伴手，曬乾的薰衣草花苞縫進小布袋。放衣櫥裡防蛀又香。推薦：Valensole 的 La Maison Angelvin，以及 Moustiers、Valensole 村內店家與沿線市集都有售。", image: "images/europe/Verdon/souv-sachets.jpg", links: [ { name: "La Maison Angelvin", url: "https://maps.google.com/?q=La+Maison+Angelvin+Valensole" } ] }
     ]
   },
 
@@ -4489,9 +4525,9 @@ const cityData = {
     intro: "維也納（Vienna）位於多瑙河畔，是奧地利首都，也是歐洲歷史上最重要的帝國城市之一。長達數百年間，這裡作為哈布斯堡王朝的核心，累積了大量宮殿、歌劇院與博物館，也形塑出今日帶有濃厚古典氣質的城市樣貌。\n\n走在維也納市中心，很容易感受到這座城市與「音樂」之間的關係。莫札特、貝多芬、舒伯特、馬勒等音樂家都曾在此生活或創作，因此維也納也被稱為「世界音樂之都」。從國家歌劇院、金色大廳到街頭演奏，古典音樂至今仍深深融入城市日常，而不只是觀光符號。\n\n除了音樂，維也納另一項重要文化則是「咖啡館」。19 世紀開始，咖啡館逐漸成為文人、藝術家與知識分子的聚集地，人們在此閱讀報紙、討論政治與文學，也讓維也納發展出獨特的咖啡館文化。直到今日，許多老咖啡館仍保留大理石桌面、吊燈與木質裝潢，時間彷彿停留在帝國年代。\n\n城市景觀方面，環城大道（Ringstraße）串聯起大量代表性建築，包括霍夫堡皇宮、市政廳、國會大廈與自然史博物館。這些建築多興建於 19 世紀奧匈帝國鼎盛時期，規模宏大，也展現出當時帝國對權力與藝術的追求。\n\n相較於節奏快速的現代都市，維也納更像是一座仍保有「慢」的城市。無論是在宮殿花園散步、坐進咖啡館喝一杯 Melange，或只是沿著石板路行走，都能感受到這座城市將歷史、藝術與生活自然融合的氣質。",
     foods: [
       { local: "Sachertorte", image: "images/europe/Vienna/food-sachertorte.jpg", romaji: "ZAH·her·tor·tuh", zh: "薩赫蛋糕", desc: "維也納經典巧克力杏桃蛋糕，1832 年發明於 Hotel Sacher。VIE 機場有專櫃可買整盒帶走。" },
-      { local: "Wiener Schnitzel", image: "images/europe/Vienna/food-schnitzel.jpg", romaji: "VEE·ner SHNI·tsel", zh: "維也納炸豬排", desc: "蛋液裹麵包屑炸的薄豬排（傳統是小牛肉），擠點檸檬，配 Erdäpfelsalat 馬鈴薯沙拉。" },
-      { local: "Apfelstrudel", image: "images/europe/Vienna/food-apfelstrudel.jpg", romaji: "AHP·fel·shtroo·del", zh: "蘋果卷", desc: "薄如紙的麵皮包蘋果、葡萄乾、肉桂烤製，淋蘭姆酒醬汁或淋奶油。" },
-      { local: "Melange", image: "images/europe/Vienna/food-melange.jpg", romaji: "may·LAHN·jh", zh: "維也納咖啡", desc: "維也納版本的 cappuccino，等量濃縮咖啡加蒸奶與奶泡，咖啡館文化的核心。" }
+      { local: "Wiener Schnitzel", image: "images/europe/Vienna/food-schnitzel.webp", romaji: "VEE·ner SHNI·tsel", zh: "維也納炸豬排", desc: "蛋液裹麵包屑炸的薄豬排（傳統是小牛肉），擠點檸檬，配 Erdäpfelsalat 馬鈴薯沙拉。" },
+      { local: "Apfelstrudel", image: "images/europe/Vienna/food-apfelstrudel.webp", romaji: "AHP·fel·shtroo·del", zh: "蘋果卷", desc: "薄如紙的麵皮包蘋果、葡萄乾、肉桂烤製，淋蘭姆酒醬汁或淋奶油。" },
+      { local: "Melange", image: "images/europe/Vienna/food-melange.avif", romaji: "may·LAHN·jh", zh: "維也納咖啡", desc: "維也納版本的 cappuccino，等量濃縮咖啡加蒸奶與奶泡，咖啡館文化的核心。" }
     ],
     transit: [
       { title: "VIE 機場 → 維也納市區",          body: "三種選擇：①ÖBB RJ 直達 Hauptbahnhof 約 15 分（最順）；②S-Bahn S7 到 Wien Mitte 約 25 分 €4.30；③CAT City Airport Train 到 Wien Mitte 16 分 €16。" },
@@ -4507,10 +4543,8 @@ const cityData = {
       "官方語言是德文，但機場與火車站英文通用，DeepL 備用"
     ],
     souvenirs: [
-      { local: "Sachertorte", romaji: "ZAH·her·tor·tuh", zh: "Hotel Sacher 薩赫蛋糕", desc: "1832 年 Hotel Sacher 創立的巧克力杏桃蛋糕，盒裝可帶 6 週。VIE 機場有專櫃可直接買。", image: "images/europe/Vienna/souv-sachertorte.jpg" },
-      { local: "Mozartkugel", romaji: "MOH·tsart·koo·gel", zh: "莫札特巧克力球", desc: "杏仁膏 + 開心果 + 牛軋糖外裹黑巧克力。Mirabell 品牌最常見，超市與機場都買得到。", image: "images/europe/Vienna/souv-mozartkugel.jpg" },
       { local: "Manner Wafers", romaji: "MAH·ner", zh: "Manner 威化餅", desc: "1898 年創立的維也納經典零食。粉紅色包裝的杏仁榛果威化餅是經典款，超市有大盒裝。", image: "images/europe/Vienna/souv-manner.jpg" },
-      { local: "Augarten Porcelain", romaji: "OW·gar·ten", zh: "Augarten 瓷器", desc: "1718 年創立的維也納皇家瓷器，歐洲第二古老的瓷廠。單品高價但是傳承之物。", image: "images/europe/Vienna/souv-augarten.jpg" }
+      { local: "Augarten Porcelain", romaji: "OW·gar·ten", zh: "Augarten 瓷器", desc: "1718 年創立的維也納皇家瓷器，歐洲第二古老的瓷廠。單品高價但是傳承之物。", image: "images/europe/Vienna/souv-augarten.webp" }
     ]
   }
 };
@@ -5003,7 +5037,7 @@ function renderCityPanel(c, tab) {
           <h4 class="food-card__local">${escapeHTML(f.local)}</h4>
           ${f.romaji ? `<span class="food-card__local-romaji">${escapeHTML(f.romaji)}</span>` : ""}
           ${f.zh ? `<div class="food-card__zh">${escapeHTML(f.zh)}</div>` : ""}
-          ${f.desc ? `<p class="food-card__desc">${escapeHTML(f.desc)}</p>` : ""}
+          ${f.desc ? `<p class="food-card__desc">${applyInlineLinks(escapeHTML(f.desc), f.links)}</p>` : ""}
         </div>
       </article>`;
     return header("Must Eat", "必吃") + groups.map(g => `
@@ -5034,7 +5068,7 @@ function renderCityPanel(c, tab) {
           <h4 class="food-card__local">${escapeHTML(f.local)}</h4>
           ${f.romaji ? `<span class="food-card__local-romaji">${escapeHTML(f.romaji)}</span>` : ""}
           ${f.zh ? `<div class="food-card__zh">${escapeHTML(f.zh)}</div>` : ""}
-          ${f.desc ? `<p class="food-card__desc">${escapeHTML(f.desc)}</p>` : ""}
+          ${f.desc ? `<p class="food-card__desc">${applyInlineLinks(escapeHTML(f.desc), f.links)}</p>` : ""}
         </div>
       </article>`;
     return header("Souvenirs", "伴手禮") + groups.map(g => `
@@ -5132,8 +5166,8 @@ const DAY_CHIP_LABELS = [
   "出發",           // D1
   "抵達 BUD",       // D2
   "散策",           // D3
-  "日出 · 遊船",    // D4
-  "→ NCE",          // D5
+  "城堡山 · 遊船",  // D4
+  "日出 → NCE",     // D5
   "解放市場",       // D6
   "自由日",         // D7
   "Villefranche",   // D8
