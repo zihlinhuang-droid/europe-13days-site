@@ -3819,11 +3819,20 @@ const itineraryData = [
       },
       {
         type: "fixed",
-        time: "早午餐",
+        time: "",
         place: "出發格拉斯 Grasse",
         mapLink: "https://maps.google.com/?q=Grasse+France",
         description: "",
-        note: "車程約 30 分鐘；在格拉斯吃早午餐。",
+        note: "坎城到格拉斯車程約 30 分鐘。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "早午餐",
+        place: "早午餐：L'Imprévu Brunch & Cocktails",
+        mapLink: "https://maps.google.com/?q=L%27Impr%C3%A9vu+Brunch+Cocktails+Grasse",
+        description: "",
+        note: "格拉斯的早午餐＆調酒店（5 Boulevard du Jeu de Ballon）。",
         foods: []
       },
       {
@@ -3904,7 +3913,18 @@ const itineraryData = [
         place: "晚餐：Moustiers 小鎮找一家",
         description: "",
         note: "",
-        foods: []
+        foodsLabel: "Moustiers 餐廳選擇",
+        foods: [
+          { name: "Café Gourmandises", info: "★4.9 · 11:00–17:00（週一、二休）· 松露燉飯與甜點都超強", mapLink: "https://maps.google.com/?q=Caf%C3%A9+Gourmandises+Moustiers-Sainte-Marie" },
+          { name: "La Table du Chevalier", info: "★4.9 · 10:30–21:00 · 拼盤、沙拉、croque monsieur、精選葡萄酒", mapLink: "https://maps.google.com/?q=La+Table+du+Chevalier+Moustiers-Sainte-Marie" },
+          { name: "Les Tables du Cloître", info: "★4.8 · 12:00–14:30、19:00–21:30（週三休）· 前身是修道院、家常菜", mapLink: "https://maps.google.com/?q=Les+Tables+du+Clo%C3%AEtre+Moustiers-Sainte-Marie" },
+          { name: "Le Four", info: "★4.7 · 19:00–22:00（僅五、六、日）· pizza", mapLink: "https://maps.google.com/?q=Le+Four+Moustiers-Sainte-Marie" },
+          { name: "La Part des Anges", info: "★4.4 · 12:00–13:30、19:00–20:30（週四休）· 露台風景漂亮", mapLink: "https://maps.google.com/?q=La+Part+des+Anges+Moustiers-Sainte-Marie" },
+          { name: "Restaurant Les Comtes", info: "★4.6 · 12:00–14:30、19:00–21:30 · 道地普羅旺斯料理", mapLink: "https://maps.google.com/?q=Restaurant+Les+Comtes+Moustiers-Sainte-Marie" },
+          { name: "Hôtel-Restaurant Le Relais", info: "★4.3 · 金星正上方、近瀑布，風景優美", mapLink: "https://maps.google.com/?q=H%C3%B4tel+Restaurant+Le+Relais+Moustiers-Sainte-Marie" },
+          { name: "L'Étoile Givrée", info: "★4.9 · 12:30–18:30 · 手工冰淇淋，推薦印度茶（chai）口味", mapLink: "https://maps.google.com/?q=L%27%C3%89toile+Givr%C3%A9e+Moustiers-Sainte-Marie" },
+          { name: "Autour de la Truffe", info: "★4.6 · 12:00–21:00 · 整間都是松露料理", mapLink: "https://maps.google.com/?q=Autour+de+la+Truffe+Moustiers-Sainte-Marie" }
+        ]
       },
       {
         type: "fixed",
@@ -4049,8 +4069,55 @@ const itineraryData = [
         type: "fixed",
         time: "中餐",
         place: "中餐：聖保羅找一家",
+        mapLink: "https://maps.google.com/?q=Saint-Paul-de-Vence+restaurant",
         description: "",
-        note: "在聖保羅藝術山城找一家午餐。",
+        note: "選一家：La Colombe d'Or（傳奇藝術餐廳，需訂位）或 Les Remparts。",
+        noteLinks: [
+          { name: "La Colombe d'Or", url: "https://maps.google.com/?q=La+Colombe+d%27Or+Saint-Paul-de-Vence" },
+          { name: "Les Remparts", url: "https://maps.google.com/?q=Les+Remparts+Saint-Paul-de-Vence" }
+        ],
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "拍照點：Porte de Nice",
+        mapLink: "https://maps.google.com/?q=Porte+de+Nice+Saint-Paul-de-Vence",
+        description: "",
+        note: "村子的「尼斯門」入口，石拱門與砲彈裝飾，是經典拍照點。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Place du Jeu de Boules 村口球場",
+        mapLink: "https://maps.google.com/?q=Place+du+Jeu+de+Boules+Saint-Paul-de-Vence",
+        description: "",
+        note: "村口的滾球（pétanque）廣場，常見當地人對戰；旁邊就是 La Colombe d'Or。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "Rue Grande 主街",
+        mapLink: "https://maps.google.com/?q=Rue+Grande+Saint-Paul-de-Vence",
+        description: "",
+        note: "貫穿村莊的中世紀石板主街，兩旁是藝廊與工藝小店。",
+        foodsLabel: "附近吃食與賣店",
+        foods: [
+          { name: "L'Herbier en Provence", info: "雜貨伴手禮店 · 10:00–19:00", mapLink: "https://maps.google.com/?q=L%27Herbier+en+Provence+Saint-Paul-de-Vence" },
+          { name: "Mona Lisa", info: "冰淇淋店", mapLink: "https://maps.google.com/?q=Mona+Lisa+glacier+Saint-Paul-de-Vence" },
+          { name: "Délicious", info: "冰淇淋、三明治、抹茶、咖啡、Pinsa；也有佛卡夏等麵包", mapLink: "https://maps.google.com/?q=D%C3%A9licious+Saint-Paul-de-Vence" },
+          { name: "La Maison Godet Parfum", info: "厲害的香水店", mapLink: "https://maps.google.com/?q=La+Maison+Godet+Parfum+Saint-Paul-de-Vence" }
+        ]
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "城牆外緣散步",
+        mapLink: "https://maps.google.com/?q=Remparts+Saint-Paul-de-Vence",
+        description: "",
+        note: "沿 16 世紀城牆外圍走一圈，俯瞰橄欖樹丘陵與遠方地中海。",
         foods: []
       },
       {
@@ -5378,10 +5445,11 @@ function renderTripCard(item) {
     : "";
 
   const foodsJson = JSON.stringify(item.foods || []);
+  const foodsLabel = item.foodsLabel || "附近吃食";
   const foodBtn = (item.foods && item.foods.length)
     ? `<button class="btn-chip" type="button"
          data-food='${escapeHTML(foodsJson)}'
-         data-food-title="${escapeHTML(displayPlace)} · 附近吃食">🍜 附近吃食</button>`
+         data-food-title="${escapeHTML(displayPlace)} · ${escapeHTML(foodsLabel)}">🍜 ${escapeHTML(foodsLabel)}</button>`
     : "";
 
   const tipBtn = (item.tip && item.tip.title && Array.isArray(item.tip.steps) && item.tip.steps.length)
