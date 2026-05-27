@@ -1401,6 +1401,89 @@ body {
   color: var(--soft);
   font-size: 12px;
 }
+.notes-panel {
+  margin-top: 16px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--soft) 8%, transparent);
+}
+.notes-panel__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+.notes-panel__text {
+  font-size: 13.5px;
+  line-height: 1.85;
+  white-space: pre-line;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+.notes-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- Travel French phrasebook ---------- */
+.phrasebook { margin: 30px 0 8px; }
+.phrasebook__head { text-align: center; margin-bottom: 14px; }
+.phrasebook__eyebrow {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  letter-spacing: 0.15em;
+  color: var(--soft);
+  font-size: 13px;
+  margin: 0;
+}
+.phrasebook__title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 2px 0 0;
+}
+.phrasebook__sub { font-size: 12px; color: var(--text-soft); margin: 4px 0 0; }
+.phrasebook__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.phrase {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--paper-warm);
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.phrase__say {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--soft) 14%, transparent);
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phrase__say:hover { background: color-mix(in srgb, var(--soft) 24%, transparent); }
+.phrase__say:active { transform: scale(0.92); }
+.phrase__say.is-speaking { background: var(--accent); }
+.phrase__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.phrase__fr { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.45; }
+.phrase__zh { font-size: 12.5px; color: var(--soft); }
+.phrasebook__note { font-size: 11px; color: var(--text-faint); margin: 10px 2px 0; line-height: 1.6; }
 
 /* ---------- Hotel block ---------- */
 .day-hotel {
@@ -3568,7 +3651,10 @@ const itineraryData = [
         place: "取車 → 出發芒通 Menton",
         mapLink: "https://maps.google.com/?q=Menton+France",
         description: "",
-        note: "在尼斯取租車，沿海岸線往東開到芒通（Menton），約 40 分鐘車程。",
+        note: "在尼斯取租車，沿海岸線往東開到芒通（Menton），約 40 分鐘車程。收費站的繳費流程與車道圖示詳見「備註」欄。停車：Parking Vieille Ville – Sablettes（停舊城外圍停車場）。",
+        noteLinks: [
+          { name: "Parking Vieille Ville – Sablettes", url: "https://maps.google.com/?q=Parking+Vieille+Ville+Sablettes+Menton" }
+        ],
         foods: []
       },
       {
@@ -3630,7 +3716,12 @@ const itineraryData = [
         place: "F1 賽道彎道（Fairmont Hairpin）",
         mapLink: "https://maps.google.com/?q=Fairmont+Hairpin+Monaco",
         description: "",
-        note: "從芒通開車到摩納哥約 20–30 分鐘。摩納哥大獎賽最知名的髮夾彎，就在 Fairmont 飯店前。",
+        note: "從芒通開車到摩納哥約 20–30 分鐘。摩納哥大獎賽最知名的髮夾彎，就在 Fairmont 飯店前。停車：王宮老城 → Parking des Pêcheurs／Chemin des Pêcheurs；賭場區 → Parking Casino。",
+        noteLinks: [
+          { name: "Parking des Pêcheurs", url: "https://maps.google.com/?q=Parking+des+P%C3%AAcheurs+Monaco" },
+          { name: "Chemin des Pêcheurs", url: "https://maps.google.com/?q=Chemin+des+P%C3%AAcheurs+Monaco" },
+          { name: "Parking Casino", url: "https://maps.google.com/?q=Parking+du+Casino+Monaco" }
+        ],
         foods: []
       },
       {
@@ -3697,6 +3788,16 @@ const itineraryData = [
       "蔚藍海岸東線開車比火車彈性大，但停車位是挑戰。",
       "Monaco 進出免簽，但開車進去要注意路標。",
       "今晚住安提布（Le Sorrento），行李前一晚先整理好。"
+    ],
+    notesPanels: [
+      {
+        title: "高速公路收費站流程",
+        text: "進高速（有些路段先抽票）\n1. 選綠色箭頭的開放車道\n2. 不要選只有 t 的車道（t 是 etag 電子收費，租車沒有）\n3. 到機器前按鈕或直接取票\n4. 把票收好，出口付款會用到\n\n出高速\n1. 提前看上方車道圖示\n2. 選有 卡片／CB／€ 圖示的車道\n3. 插入剛剛抽的票\n4. 再插卡／感應付款，或投入現金\n5. 收回卡、收據，閘門開了再走\n\n提醒：別誤上只有 t 的 etag 專用道；visa wave 感應實測可用，車上再備些零錢與可感應信用卡，停車、加油也用得到。",
+        mapImages: [
+          { image: "images/europe/Day9/toll-enter.jpg", title: "進高速（抽票）車道圖示", label: "進高速圖示" },
+          { image: "images/europe/Day9/toll-exit.jpg", title: "出高速（繳費）車道圖示", label: "出高速圖示" }
+        ]
+      }
     ]
   },
   {
@@ -3718,7 +3819,11 @@ const itineraryData = [
         place: "普羅旺斯市集 Marché Provençal",
         mapLink: "https://maps.google.com/?q=March%C3%A9+Proven%C3%A7al+Antibes",
         description: "",
-        note: "Antibes 舊城的有頂市集，賣蔬果、香料、起司與普羅旺斯小物（上午營業）。",
+        note: "Antibes 舊城的有頂市集，賣蔬果、香料、起司與普羅旺斯小物（上午營業）。停車：停老城外圍停車場，再步行進老城、城牆、Port Vauban；別開進老城巷子。",
+        noteLinks: [
+          { name: "老城外圍停車場", url: "https://maps.google.com/?q=Antibes+vieille+ville+parking" },
+          { name: "Port Vauban", url: "https://maps.google.com/?q=Port+Vauban+Antibes" }
+        ],
         foods: []
       },
       {
@@ -3733,10 +3838,19 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "拍照點：Point de Vue promenade de la Croé",
-        mapLink: "https://maps.google.com/?q=Point+de+Vue+promenade+de+la+Cro%C3%A9+Antibes",
+        place: "拍照點：Point de vue pointe de l'Îlette",
+        mapLink: "https://maps.google.com/?q=Pointe+de+l%27Ilette+Antibes",
         description: "",
-        note: "需徒步；在 Cap d'Antibes 的海岸步道上。",
+        note: "Antibes 半島尖端的觀景點。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "拍照點：Plage du Ponteil",
+        mapLink: "https://maps.google.com/?q=Plage+du+Ponteil+Antibes",
+        description: "",
+        note: "Antibes 老城旁的沙灘。",
         foods: []
       },
       {
@@ -3752,10 +3866,28 @@ const itineraryData = [
       {
         type: "fixed",
         time: "",
-        place: "步道：Sentier du Littoral（Tirepoil）",
+        place: "步道：Sentier du Littoral / Tirepoil footpath",
         mapLink: "https://maps.google.com/?q=Sentier+du+Littoral+Cap+d%27Antibes",
         description: "",
         note: "Cap d'Antibes 的海岸步道，沿崖看海。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "↳ 拍照點1：Cap Gros",
+        mapLink: "https://maps.google.com/?q=Cap+Gros+Cap+d%27Antibes",
+        description: "",
+        note: "需徒步；在 Cap d'Antibes 的海岸步道上。",
+        foods: []
+      },
+      {
+        type: "fixed",
+        time: "",
+        place: "↳ 拍照點2：Point de Vue promenade de la Croé",
+        mapLink: "https://maps.google.com/?q=Point+de+Vue+promenade+de+la+Cro%C3%A9+Antibes",
+        description: "",
+        note: "需徒步；在 Cap d'Antibes 的海岸步道上。",
         foods: []
       },
       {
@@ -3781,7 +3913,10 @@ const itineraryData = [
         place: "Check in Hotel Abrial by Soniho",
         mapLink: "https://maps.google.com/?q=Hotel+Abrial+by+Soniho+Cannes",
         description: "",
-        note: "",
+        note: "停車：有飯店停車最好，否則找大型停車場；Marché Forville、Le Suquet、舊港這些點步行就能串起來。",
+        noteLinks: [
+          { name: "大型停車場", url: "https://maps.google.com/?q=Cannes+parking" }
+        ],
         foods: []
       },
       {
@@ -3889,7 +4024,10 @@ const itineraryData = [
         place: "出發格拉斯 Grasse",
         mapLink: "https://maps.google.com/?q=Grasse+France",
         description: "",
-        note: "坎城到格拉斯車程約 30 分鐘。",
+        note: "坎城到格拉斯車程約 30 分鐘。停車：停市中心外圍或 Cours Honoré Cresp 一帶，再走到 Place aux Aires；老城有坡和窄巷，別開進去找路邊停車。",
+        noteLinks: [
+          { name: "Cours Honoré Cresp", url: "https://maps.google.com/?q=Cours+Honor%C3%A9+Cresp+Grasse" }
+        ],
         foods: []
       },
       {
@@ -3943,7 +4081,10 @@ const itineraryData = [
         place: "Check in Hôtel Le Colombier",
         mapLink: "https://maps.google.com/?q=H%C3%B4tel+Le+Colombier+Moustiers-Sainte-Marie",
         description: "",
-        note: "",
+        note: "停車：Moustiers 通常要停村外停車場或飯店指定停車。",
+        noteLinks: [
+          { name: "村外停車場", url: "https://maps.google.com/?q=Moustiers-Sainte-Marie+parking" }
+        ],
         foods: []
       },
       {
@@ -4128,7 +4269,10 @@ const itineraryData = [
         place: "出發聖保羅 Saint-Paul-de-Vence",
         mapLink: "https://maps.google.com/?q=Saint-Paul-de-Vence",
         description: "",
-        note: "車程約 2 小時。",
+        note: "車程約 2 小時。停車：車不能開進城牆村內，停村外公共停車場再走進去；別把導航直接設到村內小巷。",
+        noteLinks: [
+          { name: "村外公共停車場", url: "https://maps.google.com/?q=Saint-Paul-de-Vence+parking" }
+        ],
         foods: []
       },
       {
@@ -4549,6 +4693,16 @@ const cityData = {
       { title: "TER 火車（沿海岸）", body: "Nice-Ville 站出發，往東 Villefranche / Èze / Monaco / Menton，往西 Antibes / Cannes。班次密集，5–30 分鐘一班，是周邊小鎮最便利的方式。" },
       { title: "巴士 Lignes d'Azur",  body: "市區與郊區網絡發達，往 Saint-Paul-de-Vence、Grasse 等內陸需搭 LER 巴士。" },
       { title: "Vélobleu 公共自行車",  body: "尼斯市內公共自行車系統，需註冊。海濱步道騎車很舒服，但圓石灘附近坡度可觀。" }
+    ],
+    phrasebook: [
+      { fr: "Bonjour", zh: "白天你好" },
+      { fr: "Bonsoir", zh: "晚上你好" },
+      { fr: "Merci", zh: "謝謝" },
+      { fr: "S'il vous plaît", zh: "請" },
+      { fr: "Au revoir", zh: "再見" },
+      { fr: "Où sont les toilettes, s'il vous plaît ?", zh: "請問廁所在哪裡？" },
+      { fr: "Bonjour, excusez-moi, do you speak English?", zh: "你好，不好意思，請問你會說英文嗎？" },
+      { fr: "Bonjour, une table pour deux, s'il vous plaît.", zh: "你好，兩位的位子，麻煩了。" }
     ],
     noteGroups: [
       {
@@ -5177,7 +5331,7 @@ function renderCityPanel(c, tab) {
 
   if (tab === "intro") {
     const paragraphs = (c.intro || "").split(/\n\n+/).map(p => `<p>${escapeHTML(p)}</p>`).join("");
-    return header("City Notes", "介紹") + `<div class="city-intro">${paragraphs}</div>`;
+    return header("City Notes", "介紹") + `<div class="city-intro">${paragraphs}</div>` + renderPhrasebook(c.phrasebook);
   }
 
   if (tab === "food") {
@@ -5406,7 +5560,16 @@ function renderDayContent() {
     <div class="day-panel" data-panel="notes" hidden>
       ${(day.extraNotes || []).length
         ? `<ul class="notes-list">${day.extraNotes.map(n => `<li>${escapeHTML(n)}</li>`).join("")}</ul>`
-        : `<div class="empty">— 尚無備註 —</div>`}
+        : ((day.notesPanels || []).length ? "" : `<div class="empty">— 尚無備註 —</div>`)}
+      ${(day.notesPanels || []).map(p => `
+        <div class="notes-panel">
+          ${p.title ? `<h4 class="notes-panel__title">${escapeHTML(p.title)}</h4>` : ""}
+          ${p.text ? `<p class="notes-panel__text">${applyInlineLinks(escapeHTML(p.text), p.links)}</p>` : ""}
+          ${(p.mapImages || []).length
+            ? `<div class="notes-panel__actions">${p.mapImages.map(m => `<button class="btn-chip" type="button" data-mapimg="${escapeHTML(m.image)}" data-mapimg-title="${escapeHTML(m.title || p.title || "圖示")}">🗺️ ${escapeHTML(m.label || "圖示")}</button>`).join("")}</div>`
+            : ""}
+        </div>
+      `).join("")}
     </div>
   `;
   document.getElementById("dayContent").innerHTML = html;
@@ -5544,11 +5707,14 @@ function renderTripCard(item) {
          data-tip-links='${escapeHTML(JSON.stringify(item.tip.links || []))}'>📸 ${escapeHTML(item.tip.title)}</button>`
     : "";
 
-  const mapBtn = item.mapImage
-    ? `<button class="btn-chip" type="button"
-         data-mapimg="${escapeHTML(item.mapImage)}"
-         data-mapimg-title="${escapeHTML(item.mapImageTitle || displayPlace)}">🗺️ 路線圖</button>`
-    : "";
+  const mapImgList = Array.isArray(item.mapImages)
+    ? item.mapImages
+    : (item.mapImage ? [{ image: item.mapImage, title: item.mapImageTitle, label: item.mapImageLabel }] : []);
+  const mapBtn = mapImgList.map(m =>
+    `<button class="btn-chip" type="button"
+       data-mapimg="${escapeHTML(m.image)}"
+       data-mapimg-title="${escapeHTML(m.title || displayPlace)}">🗺️ ${escapeHTML(m.label || "路線圖")}</button>`
+  ).join("");
 
   const actions = foodBtn + tipBtn + mapBtn;
 
@@ -5728,6 +5894,51 @@ function bindMapModal() {
   });
 }
 
+/* ---------- Travel French phrasebook (TTS) ---------- */
+function bindPhrasebook() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.getVoices();
+  document.addEventListener("click", e => {
+    const btn = e.target.closest(".phrase__say[data-say]");
+    if (!btn) return;
+    const text = btn.getAttribute("data-say");
+    if (!text) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = "fr-FR";
+      u.rate = 0.9;
+      const voices = window.speechSynthesis.getVoices();
+      const fr = voices.find(v => v.lang && v.lang.toLowerCase().indexOf("fr") === 0);
+      if (fr) u.voice = fr;
+      btn.classList.add("is-speaking");
+      u.onend = u.onerror = () => btn.classList.remove("is-speaking");
+      window.speechSynthesis.speak(u);
+    } catch (err) { /* no-op */ }
+  });
+}
+
+function renderPhrasebook(list) {
+  if (!Array.isArray(list) || !list.length) return "";
+  return `
+    <section class="phrasebook">
+      <header class="phrasebook__head">
+        <p class="phrasebook__eyebrow">— Travel French —</p>
+        <h2 class="phrasebook__title">旅行法語小抄</h2>
+        <p class="phrasebook__sub">點 🔊 聽發音</p>
+      </header>
+      <ul class="phrasebook__list">
+        ${list.map(p => `
+          <li class="phrase">
+            <button class="phrase__say" type="button" data-say="${escapeHTML(p.fr)}" aria-label="播放發音">🔊</button>
+            <div class="phrase__text"><span class="phrase__fr">${escapeHTML(p.fr)}</span>${p.zh ? `<span class="phrase__zh">${escapeHTML(p.zh)}</span>` : ""}</div>
+          </li>
+        `).join("")}
+      </ul>
+      <p class="phrasebook__note">發音由裝置內建語音合成播放，需開聲音；少數舊瀏覽器可能不支援。</p>
+    </section>`;
+}
+
 /* ---------- Utils ---------- */
 function escapeHTML(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({
@@ -5745,6 +5956,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTipModal();
   bindMapModal();
   bindQuickNav();
+  bindPhrasebook();
 
   // Inject hero deco
   const inject = (id, svg) => { const el = document.getElementById(id); if (el) el.innerHTML = svg; };
